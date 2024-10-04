@@ -1,4 +1,7 @@
+import 'package:espace_famille/profile/page_profile.dart';
 import 'package:flutter/material.dart';
+
+import 'espace_famille/accueil_espace_famille.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,36 +19,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Espace Famille'),
-    );
-  }
-}
+      home: const PageProfile(),
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+      routes: {
+        '/accfam': (context) => const AccueilEspaceFammille(),
+        '/pageprofile': (context) => const PageProfile()
+      },
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
