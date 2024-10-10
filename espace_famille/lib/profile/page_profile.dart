@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,16 +13,16 @@ class PageProfile extends StatefulWidget {
 
 BasicService _basicService = BasicService();
 List<tache> taches = [
-  tache('Organiser le bureau et trier les documents important'),
-  tache('Préparer un repas équilibré pour le déjeuner'),
-  tache('Faire une promenade de 30 minutes dans un parc local.'),
-  tache('Apprendre 10 mots dans une nouvelle langue.'),
-  tache('Appeler un ami pour prendre des nouvelles.'),
-  tache('Nettoyer et organiser le réfrigérateur.'),
-  tache('Planifier un budget pour la semaine à venir.'),
-  tache('Lire un chapitre d\'un livre en cours.'),
-  tache('Réparer un objet ou un appareil ménager défectueux.'),
-  tache('Créer une playlist de musique motivante pour la journée.')
+  tache('Organiser le bureau et trier les documents important',getImage()),
+  tache('Préparer un repas équilibré pour le déjeuner',getImage()),
+  tache('Faire une promenade de 30 minutes dans un parc local.',getImage()),
+  tache('Apprendre 10 mots dans une nouvelle langue.',getImage()),
+  tache('Appeler un ami pour prendre des nouvelles.',getImage()),
+  tache('Nettoyer et organiser le réfrigérateur.',getImage()),
+  tache('Planifier un budget pour la semaine à venir.',getImage()),
+  tache('Lire un chapitre d\'un livre en cours.',getImage()),
+  tache('Réparer un objet ou un appareil ménager défectueux.',getImage()),
+  tache('Créer une playlist de musique motivante pour la journée.',getImage())
 ];
 
 class _PageProfileState extends State<PageProfile> {
@@ -105,8 +107,8 @@ class _PageProfileState extends State<PageProfile> {
                 ]),
                 padding: const EdgeInsets.all(8),
                 child: ListTile(
-                  leading: Icon(Icons.abc),
-                  title: Text(taches[index].descr),
+                  leading: Image.asset(taches[index].img),
+                  title: Text(taches[index].descr, style: TextStyle(color: Colors.black,),),
                 ),
               );
 
@@ -125,13 +127,31 @@ class _PageProfileState extends State<PageProfile> {
       ),
     );
   }
+
+
+}
+
+String getImage(){
+  int rnd = Random().nextInt(3);
+  switch(rnd){
+    case 0:
+      return 'assets/images/bird.png';
+    case 1:
+      return 'assets/images/face_male.png';
+    case 2:
+      return 'assets/images/smiley_laughing.png';
+    default:
+      return 'assets/images/bird.png';
+  }
 }
 
 class tache {
 
   String descr = '';
+  String img = '';
 
-  tache(String _descr){
+  tache(String _descr, String _img){
     descr = _descr;
+    img = _img;
   }
 }

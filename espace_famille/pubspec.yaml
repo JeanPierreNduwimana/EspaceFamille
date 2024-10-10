@@ -21,3 +21,6 @@ flutter:
   assets:
     - assets/images/cat_profile_img.jpg
     - assets/images/naruto.jpg
+    - assets/images/bird.png
+    - assets/images/face_male.png
+    - assets/images/smiley_laughing.png

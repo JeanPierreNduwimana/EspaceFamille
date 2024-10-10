@@ -53,7 +53,16 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                   //padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(color: Colors.cyan[50],borderRadius: BorderRadius.circular(10),/* border: Border.all(color: Colors.grey, width: 1) */),
+                  decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
+                          spreadRadius: 2, // Rayonnement de l'ombre
+                          blurRadius: 3, // Rayon du flou de l'ombre
+                          offset: Offset(2, 2), // Décalage horizontal et vertical de l'ombre
+                        ),
+                      ],
+                     border: Border.all(color: Colors.grey.shade300, width: 1)),
                   child: ListTile(
                       title: Row(
                         children: [
@@ -126,9 +135,9 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                       ),
                       subtitle: Column(
                         children: [
-                          const Divider(
+                          Divider(
                             thickness: 1,
-                            color: Colors.black38,
+                            color: Colors.cyan[200],
                             height: 20,
                           ),
                           Row(
