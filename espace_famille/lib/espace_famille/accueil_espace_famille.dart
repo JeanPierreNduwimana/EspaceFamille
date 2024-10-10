@@ -1,7 +1,9 @@
+import 'package:espace_famille/services/basic_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const String image = 'assets/images/naruto.jpg';
+BasicService _basicService = BasicService();
 
 class AccueilEspaceFammille extends StatefulWidget {
   const AccueilEspaceFammille({super.key});
@@ -27,10 +29,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: Text('EspaceFamille'),
-      ),
+      appBar: _basicService.appBar(),
       body: buildBody(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
