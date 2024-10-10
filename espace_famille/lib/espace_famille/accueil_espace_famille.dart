@@ -71,16 +71,22 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                             children: [
                               Row(
                                 children: [
-                                  Container(
-                                    height: 40,
-                                    width: 40,
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        'assets/images/cat_profile_img.jpg',
-                                        semanticLabel: 'Image du profil',
-                                        fit: BoxFit.cover,),
+                                  GestureDetector(
+                                    child:Container(
+                                      height: 40,
+                                      width: 40,
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          'assets/images/cat_profile_img.jpg',
+                                          semanticLabel: 'Image du profil',
+                                          fit: BoxFit.cover,),
+                                      ),
                                     ),
+                                    onTap: (){
+                                      Navigator.pushNamed(context, '/pageprofile');
+                                    },
                                   ),
+
                                   const SizedBox(width: 12,),
                                   Text(listannonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold),)
                                 ],
