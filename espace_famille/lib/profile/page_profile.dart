@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
 import '../services/basic_service.dart';
 
@@ -26,10 +27,13 @@ List<tache> taches = [
 ];
 
 class _PageProfileState extends State<PageProfile> {
+
+  double value = 3.5;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _basicService.appBar(),
+      appBar: _basicService.appBar('Mon profil'),
 
       body: Column(
         children: [
@@ -69,7 +73,7 @@ class _PageProfileState extends State<PageProfile> {
                   children: [
                     Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),),
                     SizedBox(width: 8,),
-                    Text('|', style: TextStyle(fontSize: 24)),
+                    Text('|', style: TextStyle(fontSize: 24, color: Colors.grey)),
                     SizedBox(width: 8,),
                     Text('16-03-1999', style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic))
                   ],
@@ -79,7 +83,34 @@ class _PageProfileState extends State<PageProfile> {
                   children: [
                     Text('Salut c\'est jean Pierre, Bonne journée', style: TextStyle(color: Colors.grey),),
                   ],
-                )
+                ),
+                const SizedBox(height: 8,),
+                RatingStars(
+                  value: value,
+                  starBuilder: (index, color) => Icon(
+                    Icons.star,
+                    color: color,
+                  ),
+                  starCount: 5,
+                  starSize: 20,
+                  valueLabelColor: const Color(0xff9b9b9b),
+                  valueLabelTextStyle: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 12.0),
+                  valueLabelRadius: 10,
+                  maxValue: 5,
+                  starSpacing: 2,
+                  maxValueVisibility: true,
+                  valueLabelVisibility: true,
+                  animationDuration: const Duration(milliseconds: 1000),
+                  valueLabelPadding:
+                  const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
+                  valueLabelMargin: const EdgeInsets.only(right: 8),
+                  starOffColor: const Color(0xffe7e8ea),
+                  starColor: Colors.yellow,
+                ),
               ],
             ),
           ),
@@ -122,7 +153,7 @@ class _PageProfileState extends State<PageProfile> {
         tooltip: 'justunbouton',
         child: Icon(Icons.add),
         onPressed: (){
-          Navigator.pushNamed(context, '/accfam');
+          Navigator.pushNamed(context, '/listetaches');
         },
       ),
     );

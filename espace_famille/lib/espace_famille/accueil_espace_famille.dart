@@ -29,7 +29,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _basicService.appBar(),
+      appBar: _basicService.appBar('Espace Famille'),
       body: buildBody(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
