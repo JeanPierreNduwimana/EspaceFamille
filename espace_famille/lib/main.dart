@@ -1,4 +1,5 @@
 import 'package:espace_famille/profile/page_profile.dart';
+import 'package:espace_famille/taches/liste_evaluation.dart';
 import 'package:espace_famille/taches/liste_taches.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/accfam': (context) => const AccueilEspaceFammille(),
         '/pageprofile': (context) => const PageProfile(),
         '/listetaches' : (context) => const ListeTaches(),
+        '/listevaluation' : (context) => const ListeEvaluation(),
       },
 
     );

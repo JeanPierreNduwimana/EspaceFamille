@@ -3,19 +3,20 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../services/basic_service.dart';
+import 'model_tache.dart';
 
 BasicService _basicService = BasicService();
-List<tache> taches = [
-  tache('Organiser le bureau et trier les documents important',getImage(),true),
-  tache('Préparer un repas équilibré pour le déjeuner',getImage(),false),
-  tache('Faire une promenade de 30 minutes dans un parc local.',getImage(),true),
-  tache('Apprendre 10 mots dans une nouvelle langue.',getImage(),false),
-  tache('Appeler un ami pour prendre des nouvelles.',getImage(),true),
-  tache('Nettoyer et organiser le réfrigérateur.',getImage(),false),
-  tache('Planifier un budget pour la semaine à venir.',getImage(),true),
-  tache('Lire un chapitre d\'un livre en cours.',getImage(),false),
-  tache('Réparer un objet ou un appareil ménager défectueux.',getImage(),true),
-  tache('Créer une playlist de musique motivante pour la journée.',getImage(),false)
+List<Tache> taches = [
+  Tache('Organiser le bureau et trier les documents important',getImage(),true),
+  Tache('Préparer un repas équilibré pour le déjeuner',getImage(),false),
+  Tache('Faire une promenade de 30 minutes dans un parc local.',getImage(),true),
+  Tache('Apprendre 10 mots dans une nouvelle langue.',getImage(),false),
+  Tache('Appeler un ami pour prendre des nouvelles.',getImage(),true),
+  Tache('Nettoyer et organiser le réfrigérateur.',getImage(),false),
+  Tache('Planifier un budget pour la semaine à venir.',getImage(),true),
+  Tache('Lire un chapitre d\'un livre en cours.',getImage(),false),
+  Tache('Réparer un objet ou un appareil ménager défectueux.',getImage(),true),
+  Tache('Créer une playlist de musique motivante pour la journée.',getImage(),false)
 ];
 
 class ListeTaches extends StatefulWidget {
@@ -100,7 +101,7 @@ class _ListeTachesState extends State<ListeTaches> {
                       }),
                       const SizedBox(height: 8),
                       ElevatedButton(
-                        child: const Text('Close BottomSheet'),
+                        child: const Text('Je m\'en occupe 😌'),
                         onPressed: () => Navigator.pop(context),
                       ),],),),);},);},
 
@@ -125,19 +126,4 @@ class _ListeTachesState extends State<ListeTaches> {
       default:
         return 'assets/images/bird.png';
     }
-  }
-
-  class tache {
-
-  String descr = '';
-  String img = '';
-  List<String> sous_taches = [];
-
-  tache(String _descr, String _img, bool _sous_taches){
-  descr = _descr;
-  img = _img;
-  if(_sous_taches){
-    sous_taches = ['sous taches 1','sous taches 2','sous taches 3'];
-  }
-  }
   }
