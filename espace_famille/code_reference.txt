@@ -1,3 +1,7 @@
+##Code qui genere le fichier transfert.g.dart
+
+dart run build_runner build --delete-conflicting-outputs
+
 ##Pour installer Star Ratings
 
 code pour installer:
@@ -36,3 +40,5 @@ Exemple Horizontal:
                 starColor: Colors.yellow,
               ),
 
+##Accès à l'environnement d'apple
+https://www.macincloud.com/
