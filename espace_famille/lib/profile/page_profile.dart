@@ -36,7 +36,7 @@ class _PageProfileState extends State<PageProfile> {
 
     return Scaffold(
       appBar: _basicService.appBar('Mon profil'),
-
+      resizeToAvoidBottomInset: true, // Permet d'éviter que le clavier cache le contenu
       body: Column(
         children: [
           Container( //Bloc complet d'information utilisateur
@@ -131,7 +131,7 @@ class _PageProfileState extends State<PageProfile> {
                 ]),
                 padding: const EdgeInsets.all(8),
                 child: ListTile(
-                  onTap: () => _basicService.ratingStarDialog(true, context, taches[index], value),
+                  onTap: () => _basicService.ratingStarDialog(false, context, taches[index], value),
                   leading: Image.asset(taches[index].img),
                   title: Text(taches[index].descr, style: TextStyle(color: Colors.black,),),
                 ),
