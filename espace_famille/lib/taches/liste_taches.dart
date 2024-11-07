@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../services/basic_service.dart';
+import '../services/design_service.dart';
 import 'model_tache.dart';
 
-BasicService _basicService = BasicService();
+DesignService _designService = DesignService();
 List<Tache> taches = [
   Tache('Organiser le bureau et trier les documents important',getImage(),true),
   Tache('Préparer un repas équilibré pour le déjeuner',getImage(),false),
@@ -30,12 +30,12 @@ class _ListeTachesState extends State<ListeTaches> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _basicService.appBar('Tâches disponible'),
+      appBar: _designService.appBar('Tâches disponibles'),
       body: buildBody(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
         onPressed: (){
-          Navigator.pushNamed(context, '/accfam');
+          Navigator.pushNamed(context, '/classement');
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -47,7 +47,8 @@ class _ListeTachesState extends State<ListeTaches> {
     return ListView.builder(
         itemCount: taches.length,
         itemBuilder: (BuildContext context, int index) {
-          if(index == 0){
+
+          if(index == 0){ // À l'index 0, on affiche les infos du profil
             return Container(
               margin: const EdgeInsets.all(8),
               padding: const EdgeInsets.all(8),

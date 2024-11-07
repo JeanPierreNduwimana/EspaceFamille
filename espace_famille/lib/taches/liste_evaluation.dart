@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
-import '../services/basic_service.dart';
+import '../services/design_service.dart';
 
-BasicService _basicService = BasicService();
-
+DesignService _designService = DesignService();
+bool test = false;
 class ListeEvaluation extends StatefulWidget {
   const ListeEvaluation({super.key});
 
@@ -16,7 +16,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _basicService.appBar('Evaluations de Jean Pierre'),
+      appBar: _designService.appBar('Evaluations de Jean Pierre'),
       body: buildBody(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
@@ -33,7 +33,8 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
     return ListView.builder(
         itemCount: 6,
         itemBuilder: (BuildContext context, int index) {
-          if(index == 0){
+
+          if(index == 0){ //au premier index on affiche les info du profil
             return Container(
               margin: const EdgeInsets.all(8),
               padding: const EdgeInsets.all(8),
@@ -53,13 +54,13 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                   ),
                   const SizedBox(height: 32),
                   Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),),
-                  _basicService.getRatingStars(value),
+                  _designService.getRatingStars(value, true),
                   const SizedBox(height: 24),
                 ],
               ),
             );
           }
-          return Container(
+          return Container( // Contient les element de chaque listtile
             margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -76,18 +77,40 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                   ),
                 ]),
             padding: const EdgeInsets.all(8),
-            child: ListTile(
-              leading: ClipOval(
-                  child: Image.asset(
-                    'assets/images/cat_profile_img.jpg',
-                    semanticLabel: 'Image du profil',
-                    fit: BoxFit.cover,),
-                ),
-              title: Column(
-                children: [
 
-                  Text(' ce que je pense de ca', style: const TextStyle(color: Colors.black,),),
-                ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/images/cat_profile_img.jpg',
+                        semanticLabel: 'Image du profil',
+                        fit: BoxFit.cover,),
+                    ),
+                  ),
+                  const Expanded(flex: 1, child: SizedBox(),),
+                  Expanded(
+                    flex: 12,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Nom de la personne', style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),),
+                      const SizedBox(height: 2,),
+                      _designService.getRatingStars(3, false),
+                      const Column(
+                        children: [
+                          SizedBox(height: 10,),
+                          Text('ce que je pense de ca ce que je pense de ca ce que je pense de ca ce que je pense de ca ce que je pense de ca ce que je pense de ca' ,
+                            textAlign: TextAlign.left, style: TextStyle(color: Colors.black,),),
+                        ],
+                      ),
+                    ],
+                              ),
+                  )]
               ),
             ),
           );

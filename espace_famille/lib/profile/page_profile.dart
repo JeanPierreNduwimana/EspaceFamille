@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
-import '../services/basic_service.dart';
+import '../services/design_service.dart';
 import '../taches/model_tache.dart';
 
 class PageProfile extends StatefulWidget {
@@ -13,7 +13,7 @@ class PageProfile extends StatefulWidget {
   State<PageProfile> createState() => _PageProfileState();
 }
 
-BasicService _basicService = BasicService();
+DesignService _designService = DesignService();
 List<Tache> taches = [
   Tache('Organiser le bureau et trier les documents important',getImage(),true),
   Tache('Préparer un repas équilibré pour le déjeuner',getImage(),false),
@@ -35,7 +35,7 @@ class _PageProfileState extends State<PageProfile> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _basicService.appBar('Mon profil'),
+      appBar: _designService.appBar('Mon profil'),
       resizeToAvoidBottomInset: true, // Permet d'éviter que le clavier cache le contenu
       body: Column(
         children: [
@@ -103,7 +103,7 @@ class _PageProfileState extends State<PageProfile> {
                   ],
                 ),
                 const SizedBox(height: 8,),
-                _basicService.getRatingStars(value)
+                _designService.getRatingStars(value, true)
               ],
             ),
           ),
@@ -131,7 +131,7 @@ class _PageProfileState extends State<PageProfile> {
                 ]),
                 padding: const EdgeInsets.all(8),
                 child: ListTile(
-                  onTap: () => _basicService.ratingStarDialog(false, context, taches[index], value),
+                  onTap: () => _designService.ratingStarDialog(false, context, taches[index], value),
                   leading: Image.asset(taches[index].img),
                   title: Text(taches[index].descr, style: TextStyle(color: Colors.black,),),
                 ),

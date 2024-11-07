@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import '../taches/model_tache.dart';
 
-class BasicService {
+class DesignService {
 
-  BasicService();
+  DesignService();
 
   final TextEditingController comment_controller = TextEditingController();
 
@@ -167,7 +167,7 @@ class BasicService {
             );},);},);
   }
 
-  RatingStars getRatingStars(double value){
+  RatingStars getRatingStars(double value, bool afficheValeur){
     return RatingStars(
       value: value,
       starBuilder: (index, color) => Icon(
@@ -186,7 +186,7 @@ class BasicService {
       maxValue: 5,
       starSpacing: 2,
       maxValueVisibility: true,
-      valueLabelVisibility: true,
+      valueLabelVisibility: afficheValeur,
       animationDuration: const Duration(milliseconds: 1000),
       valueLabelPadding:
       const EdgeInsets.symmetric(vertical: 1, horizontal: 8),

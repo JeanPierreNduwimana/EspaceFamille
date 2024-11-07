@@ -1,9 +1,9 @@
-import 'package:espace_famille/services/basic_service.dart';
+import 'package:espace_famille/services/design_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const String image = 'assets/images/naruto.jpg';
-BasicService _basicService = BasicService();
+DesignService _designService = DesignService();
 
 class AccueilEspaceFammille extends StatefulWidget {
   const AccueilEspaceFammille({super.key});
@@ -29,7 +29,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _basicService.appBar('Espace Famille'),
+      appBar: _designService.appBar('Espace Famille'),
       body: buildBody(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
