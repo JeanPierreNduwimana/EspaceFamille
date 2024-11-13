@@ -7,7 +7,7 @@ class DesignService {
   DesignService();
 
   final TextEditingController comment_controller = TextEditingController();
-
+/*
   PreferredSize appBar(String title){
     return PreferredSize(
       preferredSize: const Size.fromHeight(100.0), // Hauteur de l'AppBar
@@ -26,6 +26,20 @@ class DesignService {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+*/
+  AppBar appBar(String title){
+    return AppBar(
+      backgroundColor: Colors.cyan,
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
