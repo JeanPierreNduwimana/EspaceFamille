@@ -1,3 +1,4 @@
+import 'package:espace_famille/espace_famille/commentaires_annonce.dart';
 import 'package:espace_famille/profile/classement_profile.dart';
 import 'package:espace_famille/profile/page_profile.dart';
 import 'package:espace_famille/taches/liste_evaluation.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/listetaches' : (context) => const ListeTaches(),
         '/listevaluation' : (context) => const ListeEvaluation(),
         '/classement' : (context) => const ClassementProfiles(),
+        '/commentaireAnnonce' : (context) => const CommentairesAnnonce(),
       },
 
     );

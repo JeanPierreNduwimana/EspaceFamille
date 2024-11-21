@@ -107,7 +107,7 @@ class _PageProfileState extends State<PageProfile> {
               ],
             ),
           ),
-            const Row(
+            const Row( // Titre Taches attribuées
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Taches attribuées', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.cyan),),
@@ -131,7 +131,7 @@ class _PageProfileState extends State<PageProfile> {
                 ]),
                 padding: const EdgeInsets.all(8),
                 child: ListTile(
-                  onTap: () => _designService.ratingStarDialog(false, context, taches[index], value),
+                  onTap: () => _designService.dialogEvaluerTacheDetailsProfile(false, context, taches[index], value),
                   leading: Image.asset(taches[index].img),
                   title: Text(taches[index].descr, style: TextStyle(color: Colors.black,),),
                 ),

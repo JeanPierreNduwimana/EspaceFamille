@@ -45,7 +45,7 @@ class DesignService {
     );
   }
 
-  void ratingStarDialog(bool visitor, BuildContext context, Tache t, double value){
+  void dialogEvaluerTacheDetailsProfile(bool visitor, BuildContext context, Tache t, double value){
 
     showModalBottomSheet(
       context: context,
@@ -74,7 +74,7 @@ class DesignService {
                       Image.asset(t.img),
                       const SizedBox(height: 12,),
                       Text(t.descr),
-                      Container(
+                      Container( //Sous Taches
                         margin: t.sous_taches.isNotEmpty? const EdgeInsets.only(top: 12, bottom: 12) : const EdgeInsets.only(bottom: 24),
                         child: ListView.builder(shrinkWrap: true,itemCount: t.sous_taches.length, itemBuilder: (BuildContext context, int i){
                           return Text('\n• ${t.sous_taches[i]}');
