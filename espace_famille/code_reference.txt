@@ -42,3 +42,20 @@ Exemple Horizontal:
 
 ##Accès à l'environnement d'apple
 https://www.macincloud.com/
+
+installation fontawesome
+etape 1:
+dependencies:
+  flutter:
+    sdk: flutter
+  font_awesome_flutter: ^10.0.0  
+etape 2: fluuter oub get
+etape 3:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+etape 4: 
+exemple:
+Icon(
+  FontAwesomeIcons.twitter,  // Icône Twitter
+  size: 40.0,
+  color: Colors.blue,
+)
