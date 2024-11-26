@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
         '/listetaches' : (context) => const ListeTaches(),
         '/listevaluation' : (context) => const ListeEvaluation(),
         '/classement' : (context) => const ClassementProfiles(),
-        '/commentaireAnnonce' : (context) => const CommentairesAnnonce(),
       },
 
     );

@@ -1,6 +1,10 @@
+import 'package:espace_famille/espace_famille/commentaires_annonce.dart';
+import 'package:espace_famille/espace_famille/model_commentaire.dart';
 import 'package:espace_famille/services/design_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'model_annonce.dart';
 
 const String image = 'assets/images/naruto.jpg';
 DesignService _designService = DesignService();
@@ -13,17 +17,44 @@ class AccueilEspaceFammille extends StatefulWidget {
 }
 
 class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
-  final List<annonce> listannonces = [
-    annonce('jeanpierre', 'Quel belle journée aujourd\'hui', ''),
-    annonce('Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo', image),
-    annonce('Henry','Qui veut regarder les magas avec moi ce soir????', ''),
-    annonce('jeanpierre', 'Quel belle journée aujourd\'hui', ''),
-    annonce('Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo', image),
-    annonce('Henry','Qui veut regarder les magas avec moi ce soir????', ''),
-    annonce('jeanpierre', 'Quel belle journée aujourd\'hui', ''),
-    annonce('Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo', image),
-    annonce('Henry','Qui veut regarder les magas avec moi ce soir????', '')
+
+  final List<Annonce> annonces = [
+    Annonce(1,'jeanpierre', 'Quel belle journée aujourd\'hui','10 mins',6,2, image),
+    Annonce(2,'Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo', '2024-10-11',4,0, ''),
+    Annonce(3,'Henry','Qui veut regarder les magas avec moi ce soir????', '2 jours',9,8, ''),
+    Annonce(4,'jeanpierre', 'Quel belle journée aujourd\'hui', '30 mins',4,3, image),
+    Annonce(5,'Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo', '1 heure',2,1, ''),
+    Annonce(6,'Henry','Qui veut regarder les magas avec moi ce soir????', '10 heure',10,12, image),
+    Annonce(7,'jeanpierre', 'Quel belle journée aujourd\'hui', '10 mins',8,1,''),
+    Annonce(8,'Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo', '45 mins',4,2,''),
+    Annonce(9,'Henry','Qui veut regarder les magas avec moi ce soir????', '7 mins',3,0,image)
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    annonces.forEach((a) {
+      if(a.Comments > 0){
+        //Jajoute les commentaires
+        for(int i = 0; i < a.Comments; i++){
+          a.commentaires.add(Commentaire(i, a.id, 'fan name',
+              'blabla blab alabla hdhtr trthh htythtnytyhtn y h yyh yyht hnyn tnnbl',
+              a.date, a.Favs, a.Comments));
+        }
+        //Je parcours les commentaires ajoutés pour y ajouter des sous commentaires
+        a.commentaires.forEach((c) {
+          for(int ii = 0; ii < c.nbCommentaire; ii++){
+            c.commentaires.add(Commentaire(ii, a.id, 'fan name',
+                'blabla blab alabla hdhtr trthh htythtnytyhtn y h yyh yyht hnyn tnnbl',
+                a.date, a.Favs, a.Comments));
+          }
+
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +76,10 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   Widget buildBody(){
     return ListView.builder(
         itemBuilder: (BuildContext context, int index){
-          if(index < listannonces.length){
+          if(index < annonces.length){
             return GestureDetector(
               onTap: () => {
-                Navigator.pushNamed(context, '/commentaireAnnonce')
+                Navigator.push(context,MaterialPageRoute(builder: (context) => CommentairesAnnonce(annonce: annonces[index])))
               },
               child: Column(
                 children: [
@@ -91,11 +122,11 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                     ),
 
                                     const SizedBox(width: 12,),
-                                    Text(listannonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold),)
+                                    Text(annonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold),)
                                   ],
                                 ),
                                 SizedBox(height: 8),
-                                Text(listannonces[index].description),
+                                Text(annonces[index].description),
                                 SizedBox(height: 4,)
                               ],
                             ) ),
@@ -136,7 +167,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                 Container(
                                     height: 60,
                                     width: 60,
-                                    child:  getImage(listannonces[index].url)
+                                    child:  getImage(annonces[index].url)
                                 ),
                               ],
                             )
@@ -152,11 +183,11 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                             Row(
                               children: [
                                 Icon(Icons.favorite, color: Colors.deepOrange[400],),
-                                Text(listannonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400]),),
+                                Text(annonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400]),),
                                 SizedBox(width: 8),
                                 Icon(Icons.comment, color: Colors.cyan[600],),
-                                Text(listannonces[index].Comments.toString(), style: TextStyle(color: Colors.cyan[600]),),
-                                Expanded(child: Align(alignment: Alignment.centerRight, child: Text(listannonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)))
+                                Text(annonces[index].Comments.toString(), style: TextStyle(color: Colors.cyan[600]),),
+                                Expanded(child: Align(alignment: Alignment.centerRight, child: Text(annonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)))
                               ],
                             ),
                           ],
@@ -180,17 +211,3 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   }
 }
 
-class annonce {
-
-  annonce(String _username,String _descr, String img_url){
-    username = _username;
-    description = _descr;
-    url = img_url;
-  }
-  String username = '';
-  String description = '';
-  DateTime date = new DateTime.now();
-  int Comments = 2;
-  int Favs = 4;
-  String url = '';
-}
