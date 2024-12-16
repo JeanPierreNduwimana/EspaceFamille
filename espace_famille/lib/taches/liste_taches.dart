@@ -103,7 +103,9 @@ class _ListeTachesState extends State<ListeTaches> {
                       const SizedBox(height: 8),
                       ElevatedButton(
                         child: const Text('Je m\'en occupe 😌'),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                          _designService.dialogYesorNo(context);
+                        },
                       ),],),),);},);},
 
               leading: Image.asset(taches[index].img),

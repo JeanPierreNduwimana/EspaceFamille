@@ -87,13 +87,10 @@ class _PageProfileState extends State<PageProfile> {
                 ),
                 const SizedBox(height: 8,),
                 const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),),
-                    SizedBox(width: 8,),
-                    Text('|', style: TextStyle(fontSize: 24, color: Colors.grey)),
-                    SizedBox(width: 8,),
-                    Text('16-03-1999', style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic))
+                    Expanded(child: Text('Jean Pierre',textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),)),
+                    Text('   |   ', style: TextStyle(fontSize: 24, color: Colors.grey)),
+                    Expanded(child: Text('16-03-1999', textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic)))
                   ],
                 ),
                 const Row(
@@ -133,7 +130,20 @@ class _PageProfileState extends State<PageProfile> {
                 child: ListTile(
                   onTap: () => _designService.dialogEvaluerTacheDetailsProfile(false, context, taches[index], value),
                   leading: Image.asset(taches[index].img),
-                  title: Text(taches[index].descr, style: TextStyle(color: Colors.black,),),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(_designService.maximumString(taches[index].descr,28), style: TextStyle(color: Colors.black,),),
+                      SizedBox(height: 8),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Fait', style: TextStyle(fontStyle: FontStyle.italic)),
+                          Text('à faire Chaque lundi', style: TextStyle(fontStyle: FontStyle.italic))
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               );
 
@@ -168,5 +178,6 @@ String getImage(){
       return 'assets/images/bird.png';
   }
 }
+
 
 

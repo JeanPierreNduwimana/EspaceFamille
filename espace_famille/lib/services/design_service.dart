@@ -1,3 +1,4 @@
+import 'package:espace_famille/taches/details_tache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import '../taches/model_tache.dart';
@@ -44,7 +45,36 @@ class DesignService {
       ),
     );
   }
-
+  void dialogYesorNo(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (context){
+          return Dialog(
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              ),
+            child: Container(
+              color: Colors.white,
+              height: 200,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Êtes vous sûr?', style: TextStyle(fontWeight: FontWeight.bold),),
+                    SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(onPressed: ()=> Navigator.popUntil(context, ModalRoute.withName('/listetaches')), child: Text('Oui')),
+                        ElevatedButton(onPressed: ()=> Navigator.pop(context), child: Text('Non')),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ));
+    });
+  }
   void dialogEvaluerTacheDetailsProfile(bool visitor, BuildContext context, Tache t, double value){
 
     showModalBottomSheet(
@@ -168,11 +198,23 @@ class DesignService {
                       ) :
                       Container(
                         margin: const EdgeInsets.only(left: 8,right: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            ElevatedButton(onPressed: ()=> Navigator.pop(context), child: const Text('Consulter 🧐')),
-                            ElevatedButton(onPressed: ()=> Navigator.pop(context), child: const Text('Compris! 👍'))
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: (){
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DetailsTache(tache: t)));
+                                      //Navigator.pop(context);
+                                    },
+                                    child: const Text('Consulter 🧐')),
+                                ElevatedButton(onPressed: ()=> Navigator.pop(context), child: const Text('Compris! 👍'))
+                              ],
+                            ),
+                            SizedBox(height: 12),
+                            ElevatedButton(onPressed: ()=> Navigator.pop(context), child: const Text('La tache est fait! 👌'),)
                           ],
                         ),
                       ))
@@ -209,4 +251,21 @@ class DesignService {
       starColor: Colors.yellow,
     );
   }
+
+  //verification booléen de longueur maximale des description des tache
+  String maximumString(String descrTache, int max){
+    if(descrTache.length > max){
+      String stringAEnvoyer = '';
+      int index = 0;
+      while(index < max){
+        stringAEnvoyer += descrTache[index];
+        index++;
+      }
+      return ('$stringAEnvoyer...');
+
+    }else{
+      return descrTache;
+    }
+  }
 }
+
