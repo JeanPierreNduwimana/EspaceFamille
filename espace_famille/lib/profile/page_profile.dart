@@ -128,7 +128,7 @@ class _PageProfileState extends State<PageProfile> {
                 ]),
                 padding: const EdgeInsets.all(8),
                 child: ListTile(
-                  onTap: () => _designService.dialogEvaluerTacheDetailsProfile(false, context, taches[index], value),
+                  onTap: () => _designService.dialogEvaluerTacheDetailsProfile(true, context, taches[index], value),
                   leading: Image.asset(taches[index].img),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

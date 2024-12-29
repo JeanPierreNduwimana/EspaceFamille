@@ -8,6 +8,7 @@ class Commentaire{
   int nbLike = 0;
   int nbCommentaire = 0;
   bool afficheSousCommentaire = false;
+  bool afficheSectionReponse = false;
   List<Commentaire> commentaires = [];
   Commentaire(int _id, int _annonceId,String _utilisateur,
   String _description,

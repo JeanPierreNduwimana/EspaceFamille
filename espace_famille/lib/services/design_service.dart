@@ -1,3 +1,4 @@
+import 'package:espace_famille/espace_famille/model_commentaire.dart';
 import 'package:espace_famille/taches/details_tache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
@@ -8,6 +9,8 @@ class DesignService {
   DesignService();
 
   final TextEditingController comment_controller = TextEditingController();
+  final TextEditingController controllercommentRepondre = TextEditingController();
+
 /*
   PreferredSize appBar(String title){
     return PreferredSize(
@@ -76,7 +79,6 @@ class DesignService {
     });
   }
   void dialogEvaluerTacheDetailsProfile(bool visitor, BuildContext context, Tache t, double value){
-
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -222,6 +224,112 @@ class DesignService {
                     ],),),),
             );},);},);
   }
+
+  void dialogRepondreCommentaire(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Permet de s'ajuster au clavier
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom, // Ajustement pour le clavier
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min, // Ajuste la hauteur au contenu
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 30,
+                                    width: 30,
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        'assets/images/cat_profile_img.jpg',
+                                        semanticLabel: 'Image du profil',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  const Text(
+                                    'Nom de la personne',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  const Text(
+                                    '2024-04-03',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 12),
+                              Container(
+                                margin: const EdgeInsets.only(left: 4),
+                                child: const Text(
+                                  'bl bablabl abla blabla b lab blablal abb al blablabl babalbl',
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: controllercommentRepondre,
+                            maxLines: null,  // Makes the TextField multiline
+                            keyboardType: TextInputType.multiline,
+                            autofocus: true,
+                            decoration: const InputDecoration(
+                              hintText: 'Votre réponse...',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Action lorsque le bouton "Rep" est pressé
+                          },
+                          child: const Text('Rep'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+
 
   RatingStars getRatingStars(double value, bool afficheValeur){
     return RatingStars(
