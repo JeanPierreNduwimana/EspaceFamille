@@ -104,7 +104,7 @@ class _ListeTachesState extends State<ListeTaches> {
                       ElevatedButton(
                         child: const Text('Je m\'en occupe 😌'),
                         onPressed: () {
-                          _designService.dialogYesorNo(context);
+                          _designService.dialogYesorNo(context,'/listetaches');
                         },
                       ),],),),);},);},
 

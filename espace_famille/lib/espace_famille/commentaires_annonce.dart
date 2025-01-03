@@ -184,7 +184,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text('10 Commentaires', textAlign: TextAlign.right, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      Text( '${widget.annonce.commentaires.length} Commentaires', textAlign: TextAlign.right, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                       MediaQuery.of(context).viewInsets.bottom > 0 ? SizedBox(): Divider(
                         thickness: 1,
                         color: Colors.grey[400],
@@ -233,7 +233,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                               onTap: () {
                                 afficheSousCommentaire(ii);
                               },
-                              child: Text('Affiche commentaires'),
+                              child: widget.annonce.commentaires[ii].afficheSousCommentaire ? Text('Cacher les commentaires') : Text('Afficher les commentaires'),
                             ),
                             Row(
                               children: [

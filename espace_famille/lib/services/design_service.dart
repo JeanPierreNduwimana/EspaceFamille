@@ -48,7 +48,7 @@ class DesignService {
       ),
     );
   }
-  void dialogYesorNo(BuildContext context){
+  void dialogYesorNo(BuildContext context, String modalRouteName){
     showDialog(
         context: context,
         builder: (context){
@@ -68,7 +68,7 @@ class DesignService {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        ElevatedButton(onPressed: ()=> Navigator.popUntil(context, ModalRoute.withName('/listetaches')), child: Text('Oui')),
+                        ElevatedButton(onPressed: ()=> Navigator.popUntil(context, ModalRoute.withName(modalRouteName)), child: Text('Oui')),
                         ElevatedButton(onPressed: ()=> Navigator.pop(context), child: Text('Non')),
                       ],
                     ),
@@ -76,6 +76,18 @@ class DesignService {
                 ),
               ),
             ));
+    });
+  }
+  void dialogAfficherImage(BuildContext context, String image){
+    showDialog(
+        context: context,
+        builder: (context){
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          
+          child: Image.asset(image));
     });
   }
   void dialogEvaluerTacheDetailsProfile(bool visitor, BuildContext context, Tache t, double value){
@@ -314,6 +326,7 @@ class DesignService {
                         ElevatedButton(
                           onPressed: () {
                             // Action lorsque le bouton "Rep" est pressé
+                            Navigator.pop(context);
                           },
                           child: const Text('Rep'),
                         ),
@@ -328,9 +341,7 @@ class DesignService {
       },
     );
   }
-
-
-
+  
   RatingStars getRatingStars(double value, bool afficheValeur){
     return RatingStars(
       value: value,

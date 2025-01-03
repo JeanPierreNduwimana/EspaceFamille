@@ -1,5 +1,6 @@
 import 'package:espace_famille/espace_famille/commentaires_annonce.dart';
 import 'package:espace_famille/espace_famille/model_commentaire.dart';
+import 'package:espace_famille/nav_menu.dart';
 import 'package:espace_famille/services/design_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
     return Scaffold(
       appBar: _designService.appBar('Espace Famille'),
       body: buildBody(),
+      drawer: NavMenu(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
         onPressed: (){
@@ -164,10 +166,15 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                       ];
                                     }),
                                 SizedBox(height: 4,),
-                                Container(
-                                    height: 60,
-                                    width: 60,
-                                    child:  getImage(annonces[index].url)
+                                GestureDetector(
+                                  onTap: (){
+                                    _designService.dialogAfficherImage(context, annonces[index].url);
+                                  },
+                                  child: Container(
+                                      height: 60,
+                                      width: 60,
+                                      child:  getImage(annonces[index].url)
+                                  ),
                                 ),
                               ],
                             )
