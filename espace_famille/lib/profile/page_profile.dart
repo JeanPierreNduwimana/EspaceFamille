@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
+import '../nav_menu.dart';
 import '../services/design_service.dart';
 import '../taches/model_tache.dart';
 
@@ -152,6 +153,7 @@ class _PageProfileState extends State<PageProfile> {
         ],
 
       ),
+      drawer: NavMenu(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
         tooltip: 'justunbouton',

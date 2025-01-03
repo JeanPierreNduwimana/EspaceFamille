@@ -2,6 +2,7 @@ import 'package:espace_famille/espace_famille/model_annonce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../nav_menu.dart';
 import '../services/design_service.dart';
 
 DesignService _designService = DesignService();
@@ -34,14 +35,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
     return Scaffold(
       appBar: _designService.appBar('Commentaires'),
       body: buildBody(),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan,
-        onPressed: (){
-          Navigator.pushNamed(context, '/pageprofile');
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      drawer: NavMenu(),
     );
   }
 

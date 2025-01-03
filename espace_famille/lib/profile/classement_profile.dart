@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../nav_menu.dart';
 import '../services/design_service.dart';
 import 'model_profile.dart';
 
@@ -29,6 +30,7 @@ class _ClassementProfilesState extends State<ClassementProfiles> {
     return Scaffold(
       appBar: _designService.appBar('Classement des meilleurs membres'),
       body: buildBody(),
+      drawer: NavMenu(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
         onPressed: (){

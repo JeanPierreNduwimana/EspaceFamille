@@ -32,7 +32,6 @@ class _NavMenuState extends State<NavMenu> {
       _textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     var listview = Container(
@@ -140,7 +139,9 @@ class _NavMenuState extends State<NavMenu> {
                     style: TextStyle(fontSize: 12, color: Colors.black),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/accfam');
+                  },
                 ),
                 const SizedBox(height: 8),
                 ListTile(
@@ -169,7 +170,9 @@ class _NavMenuState extends State<NavMenu> {
                     style: TextStyle(fontSize: 12, color: Colors.black),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/listetaches');
+                  },
                 ),
                 const SizedBox(height: 8),
                 ListTile(
@@ -198,7 +201,9 @@ class _NavMenuState extends State<NavMenu> {
                     style: TextStyle(fontSize: 12, color: Colors.black),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/classement');
+                  },
                 )
               ],
             ),
@@ -233,7 +238,6 @@ class _NavMenuState extends State<NavMenu> {
         ],
       ),
     );
-
     return Drawer(
       child: Container(
         color: Colors.white,

@@ -10,6 +10,7 @@ class DesignService {
 
   final TextEditingController comment_controller = TextEditingController();
   final TextEditingController controllercommentRepondre = TextEditingController();
+  final TextEditingController controllerContenuAnnonce = TextEditingController();
 
 /*
   PreferredSize appBar(String title){
@@ -236,7 +237,56 @@ class DesignService {
                     ],),),),
             );},);},);
   }
-
+  void dialogCreerAnnonce(BuildContext context){
+    controllerContenuAnnonce.text = '';
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                height: 800,
+                decoration: const BoxDecoration(
+                  color: Colors.white, // Your desired background color
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20.0), // Same radius as the shape
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left:4, right: 4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: ((){
+                                Navigator.pop(context);
+                              }),
+                              child: const Text('Annuler', style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+                            ElevatedButton(onPressed: (){}, child: Icon(Icons.send))
+                          ],
+                        ),
+                      ),
+                      TextField(
+                        controller: controllerContenuAnnonce,
+                        maxLines: null,  // Makes the TextField multiline
+                        keyboardType: TextInputType.multiline,
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                          hintText: 'Quoi de neuf ?',
+                          //border: OutlineInputBorder(),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+            );},);},);
+  }
   void dialogRepondreCommentaire(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -341,7 +391,6 @@ class DesignService {
       },
     );
   }
-  
   RatingStars getRatingStars(double value, bool afficheValeur){
     return RatingStars(
       value: value,
@@ -370,7 +419,6 @@ class DesignService {
       starColor: Colors.yellow,
     );
   }
-
   //verification booléen de longueur maximale des description des tache
   String maximumString(String descrTache, int max){
     if(descrTache.length > max){

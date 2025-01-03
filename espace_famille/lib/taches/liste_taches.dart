@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../nav_menu.dart';
 import '../services/design_service.dart';
 import 'model_tache.dart';
 
@@ -32,6 +33,7 @@ class _ListeTachesState extends State<ListeTaches> {
     return Scaffold(
       appBar: _designService.appBar('Tâches disponibles'),
       body: buildBody(),
+      drawer: NavMenu(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
         onPressed: (){
