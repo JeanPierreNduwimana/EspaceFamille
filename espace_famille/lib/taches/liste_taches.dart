@@ -35,11 +35,12 @@ class _ListeTachesState extends State<ListeTaches> {
       body: buildBody(),
       drawer: NavMenu(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.cyan.shade400,
+        foregroundColor: Colors.white,
         onPressed: (){
-          Navigator.pushNamed(context, '/classement');
+          _designService.dialogCreerTache(context);
         },
-        tooltip: 'Increment',
+        tooltip: 'Ajouter une tâche',
         child: const Icon(Icons.add),
       ),
     );

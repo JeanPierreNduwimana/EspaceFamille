@@ -7,6 +7,7 @@ class Annonce {
   String description = '';
   String date = '';
   int Favs = 0;
+  bool liked = true;
   int Comments = 0;
   String url = '';
   List<Commentaire> commentaires = [];

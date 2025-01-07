@@ -1,4 +1,3 @@
-import 'package:espace_famille/espace_famille/model_commentaire.dart';
 import 'package:espace_famille/taches/details_tache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
@@ -11,6 +10,7 @@ class DesignService {
   final TextEditingController comment_controller = TextEditingController();
   final TextEditingController controllercommentRepondre = TextEditingController();
   final TextEditingController controllerContenuAnnonce = TextEditingController();
+  ScrollController _scrollController = ScrollController();
 
 /*
   PreferredSize appBar(String title){
@@ -238,13 +238,13 @@ class DesignService {
             );},);},);
   }
   void dialogCreerAnnonce(BuildContext context){
-    controllerContenuAnnonce.text = '';
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
+            //subTaskAdded = [];
             return SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(8),
@@ -272,20 +272,344 @@ class DesignService {
                           ],
                         ),
                       ),
-                      TextField(
-                        controller: controllerContenuAnnonce,
-                        maxLines: null,  // Makes the TextField multiline
-                        keyboardType: TextInputType.multiline,
-                        autofocus: true,
-                        decoration: const InputDecoration(
-                          hintText: 'Quoi de neuf ?',
-                          //border: OutlineInputBorder(),
+                      SizedBox(
+                        height: 200,
+                        child: TextField(
+                          controller: controllerContenuAnnonce,
+                          maxLines: null,  // Makes the TextField multiline
+                          keyboardType: TextInputType.multiline,
+                          expands: true,
+                          autofocus: true,
+                          decoration: const InputDecoration(
+                            hintText: 'Quoi de neuf ?',
+                            contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          ),
                         ),
                       )
                     ],
                   ),
                 )),
-            );},);},);
+            ); },);},);
+  }
+  void dialogCreerTache(BuildContext context){
+
+    final TextEditingController controllerTaskName = TextEditingController();
+    final TextEditingController controllerSubTaskName = TextEditingController();
+    final List<String> taskTypeOptions = ['une fois', 'Quotidien', 'Hebdo', 'Annuelle', 'Periodique'];
+    String? _selectedOption;
+    List<String> subTaskAdded = [];
+    bool periodique = false;
+    int _selectedNumber = 2;
+    String _selectedType = 'Day';
+    bool subTask = false;
+
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            final List<int> _numbers = [2, 3, 4, 5, 6];
+            final List<String> _types = ['Day', 'Week', 'Year'];
+            return SingleChildScrollView(
+                child: Container(
+                    padding: const EdgeInsets.all(8),
+                    height: MediaQuery.of(context).size.height * 0.9, // prend 90% de la hauteur de l'appareil,
+                    decoration: const BoxDecoration(
+                      color: Colors.white, // Your desired background color
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20.0), // Same radius as the shape
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left:4, right: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                  onTap: ((){
+                                    Navigator.pop(context);
+                                  }),
+                                  child: const Text('Annuler', style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white, backgroundColor: Colors.cyan.shade400, // Color of the icon
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12), // Rounded corners
+                                  ),
+                                ),
+                                child: Text('Ajouter', style: TextStyle(fontWeight: FontWeight.bold),)
+                              )
+
+                            ],
+                          ),
+                        ),
+                        TextField(
+                          controller: controllerTaskName,
+                          keyboardType: TextInputType.multiline,
+                          autofocus: true,
+                          maxLines: 2,
+                          minLines: 1,
+                          maxLength: 64,
+                          decoration: const InputDecoration(
+                            hintText: 'Quel est votre tâche?',
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.cyan, // Change border color here
+                                width: 2.0, // Border width
+                              ),
+                            ),
+                          ),
+                        ),
+                        subTask ? Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 16, right: 16, top: 8),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    "Ajouter des sous-tâches",
+                                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.cyan),
+                                  ),
+                                  SizedBox(width: 8),
+                                  GestureDetector(
+                                      onTap: (){
+                                        setState((){
+                                          subTask = !subTask;
+                                        });
+                                        subTaskAdded = [];
+                                      },
+                                      child: Icon(Icons.close, color: Colors.orangeAccent,))
+                                ],
+                              ),
+                            ),
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxHeight: 200
+                              ),
+                              child: Container(
+                                padding: EdgeInsets.only(left: 16, right: 16),
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 18),
+                                  child: ListView.builder(
+                                      itemCount: subTaskAdded.length,
+                                      shrinkWrap: true,
+                                      controller: _scrollController,
+                                      itemBuilder: (BuildContext context, int index){
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Expanded(flex: 4,child: Text(subTaskAdded[index])),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: GestureDetector(
+                                                    onTap: (){
+                                                      setState((){subTaskAdded.remove(subTaskAdded[index]);});
+                                                    },
+                                                    child: Icon(Icons.close, size: 28)))
+                                            ],
+                                          ),
+                                        )
+                                        ;
+                                      }),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 16, right: 16),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: TextField(
+                                      controller: controllerSubTaskName,
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: 2,
+                                      minLines: 1,
+                                      maxLength: 64,
+                                      decoration: const InputDecoration(
+                                          hintText: 'Quel est votre sous-tâche?',
+                                          hintStyle: TextStyle(color: Colors.grey),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.cyan, // Change border color here
+                                              width: 2.0, // Border width
+                                            ),
+                                          ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(flex: 1,
+                                      child: GestureDetector(
+                                          onTap: (){
+                                            if(controllerSubTaskName.text.trim() == ''){
+                                              afficheMessage(context, 'Sub-task name cannot be empty!');
+                                              return;
+                                            }
+                                            setState((){subTaskAdded.add(controllerSubTaskName.text);});
+                                            controllerSubTaskName.text = '';
+                                            _scrollController.animateTo(
+                                              _scrollController.position.maxScrollExtent, // Maximum scroll extent (bottom)
+                                              duration: Duration(milliseconds: 300), // Animation duration
+                                              curve: Curves.easeInOut, // Animation curve
+                                            );
+                                          },
+                                          child: Icon(Icons.add, size: 32, color: Colors.cyan,)
+                                      )
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ) :
+                        Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.only(left:16,right: 16),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.cyan.shade400, backgroundColor: Colors.white,
+                                ),
+                                onPressed: (){
+                              setState((){
+                                subTask = !subTask;
+                              });
+                              },
+                                child: const Text('Ajouter des sous-tâches')),
+                          ),
+                        Container(
+                          margin: EdgeInsets.only(top: 12, bottom: 12),
+                          child: const Text(
+                            "Choisissez la recurrence:",
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
+                          ),
+                        ),
+                        Container(
+                          height: 150,
+                          child: GridView.builder(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisExtent: 64,
+                                crossAxisSpacing: 8,
+                                mainAxisSpacing: 8,
+                              ),
+                              itemCount: taskTypeOptions.length,
+                              itemBuilder: (context, index){
+                                return GestureDetector(
+                                  onTap: ((){
+                                    _selectedOption = taskTypeOptions[index];
+                                    periodique = taskTypeOptions[index] == 'Periodique';
+                                    setState((){});
+                                  }),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: _selectedOption == taskTypeOptions[index]
+                                          ? Colors.cyan.shade50
+                                          : Colors.white,
+                                      border: Border.all(
+                                        color: _selectedOption == taskTypeOptions[index]
+                                            ? Colors.cyan.shade200
+                                            : Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Radio<String>(
+                                          value: taskTypeOptions[index],
+                                          groupValue: _selectedOption,
+                                          activeColor: Colors.cyan,
+                                          onChanged: (value){
+                                            _selectedOption = value;
+                                            periodique = taskTypeOptions[index] == 'Periodique';
+                                            setState((){});
+                                          },
+                                        ),
+                                        Expanded(
+                                            child: Text(
+                                              taskTypeOptions[index],
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: _selectedOption == taskTypeOptions[index] ? Colors.cyan : Colors.black,
+                                                fontWeight: _selectedOption == taskTypeOptions[index] ? FontWeight.bold : FontWeight.normal
+                                              ),
+                                              overflow: TextOverflow.ellipsis,))
+                                      ],
+                                      ),
+                                  ),
+                                )
+                                ;
+                              }),
+                        ),
+                        periodique ?
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Configurer la periodique',
+                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: DropdownButton<int>(
+                                      value: _selectedNumber,
+                                      items: _numbers
+                                          .map((number) => DropdownMenuItem<int>(
+                                        value: number,
+                                        child: Text(
+                                          number.toString(),
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ))
+                                          .toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedNumber = value!;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: DropdownButton<String>(
+                                      value: _selectedType,
+                                      items: _types
+                                          .map((type) => DropdownMenuItem<String>(
+                                        value: type,
+                                        child: Text(
+                                          type,
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ))
+                                          .toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedType = value!;
+                                        });
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                            :
+                        const SizedBox(),
+                      ],
+                    )),
+              );
+            },);},);
   }
   void dialogRepondreCommentaire(BuildContext context) {
     showModalBottomSheet(
@@ -434,5 +758,37 @@ class DesignService {
       return descrTache;
     }
   }
+
+  void afficheMessage(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white, // Set background color to white
+          title: const Text(
+            'Error',
+            style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold), // Cyan text color for title
+          ),
+          content: Text(
+            message,
+            style: TextStyle(color: Colors.black), // Cyan text color for the message
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(color: Colors.cyan), // Cyan text color for the button
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 }
 

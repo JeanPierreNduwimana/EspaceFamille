@@ -190,7 +190,14 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                             ),
                             Row(
                               children: [
-                                Icon(Icons.favorite, color: Colors.deepOrange[400],),
+                                GestureDetector(
+                                  onTap: ((){
+                                    setState(() {
+                                      annonces[index].liked = !annonces[index].liked;
+                                    });
+                                  }),
+                                  child: annonces[index].liked ? Icon(Icons.favorite, color: Colors.deepOrange[400],) : Icon(Icons.favorite_border, color: Colors.deepOrange[400],),
+                                ),
                                 Text(annonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400]),),
                                 SizedBox(width: 8),
                                 Icon(Icons.comment, color: Colors.cyan[600],),
