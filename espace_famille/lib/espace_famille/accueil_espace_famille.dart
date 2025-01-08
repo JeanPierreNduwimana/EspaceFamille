@@ -68,7 +68,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
         backgroundColor: Colors.cyan,
         onPressed: (){
           //Navigator.pushNamed(context, '/pageprofile');
-          _designService.dialogCreerAnnonce(context,'');
+          _designService.dialogCreerAnnonce(context,'', null);
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -89,6 +89,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                   const SizedBox(height: 12,),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                    padding: const EdgeInsets.only(top:16, bottom: 10, right: 16,left: 16),
                     decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
@@ -99,118 +100,83 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                           ),
                         ],
                        border: Border.all(color: Colors.grey.shade300, width: 1)),
-                    child: ListTile(
-                        title: Row(
+                    child: Column(
+                      children : [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(child:Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                      child:Container(
-                                        height: 40,
-                                        width: 40,
-                                        child: ClipOval(
-                                          child: Image.asset(
-                                            'assets/images/cat_profile_img.jpg',
-                                            semanticLabel: 'Image du profil',
-                                            fit: BoxFit.cover,),
-                                        ),
-                                      ),
-                                      onTap: (){
-                                        Navigator.pushNamed(context, '/pageprofile');
-                                      },
-                                    ),
-
-                                    const SizedBox(width: 12,),
-                                    Text(annonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold),)
-                                  ],
-                                ),
-                                SizedBox(height: 8),
-                                Text(annonces[index].description),
-                                SizedBox(height: 4,)
-                              ],
-                            ) ),
-                            SizedBox(width: 8),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                               /* PopupMenuButton<String>(
-                                    icon: const Icon(Icons.more_horiz),
-                                    onSelected: (String value){
-                                      print('Selected: $value');
-                                    },
-                                    itemBuilder: (BuildContext context){
-                                      return const [
-                                        PopupMenuItem<String>(
-                                          value: 'Modifier',
-                                          child: Row(
-                                            children: [
-                                              Text('Modifier', style: TextStyle(fontSize: 16),),
-                                              //SizedBox(width: 4,),
-                                              //SizedBox(width: 10, child: Icon(Icons.edit),)
-                                              //Icon(Icons.edit)
-                                            ],
-                                          ),
-                                        ),
-                                        PopupMenuItem<String>(
-                                          value: 'Supprimer',
-                                          child: Row(
-                                            children: [
-                                              Text('Supprimer', style: TextStyle(fontSize: 16),),
-                                              //SizedBox(width: 4,),
-                                              //SizedBox(width: 10,child: Icon(Icons.delete),)
-                                              //Icon(Icons.delete)
-                                            ],
-                                          ),
-                                        )
-                                      ];
-                                    }),*/
-                                 Row(
-                                  children: [
-                                    GestureDetector(
-                                        onTap: ()async{
-                                          String message = 'Voulez-vous vraiment \n modifier cette annonce ?';
-                                          bool? result = await _designService.dialogYesorNo(context, message );
-
-                                          if(result !=null){
-                                            result ? _designService.dialogCreerAnnonce(context, annonces[index].description) : null;
-                                          }
-                                          //_designService.dialogYesorNo(context, modalRouteName);
-                                        },
-                                        child: Icon(Icons.edit, color: Colors.orangeAccent,)
-                                    ),
-                                    SizedBox(width: 12),
-                                    GestureDetector(
-                                        onTap: ()async{
-                                          String message = 'Voulez-vous vraiment \n supprimer cette annonce ?';
-                                          bool? result = await _designService.dialogYesorNo(context, message);
-                                          if(result !=null){
-                                            result ? null : null;
-                                          }
-                                          //_designService.dialogYesorNo(context, modalRouteName);
-                                        },
-                                        child: Icon(Icons.delete_outlined, color: Colors.redAccent,)
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 16,),
                                 GestureDetector(
-                                  onTap: (){
-                                    _designService.dialogAfficherImage(context, annonces[index].url);
-                                  },
-                                  child: Container(
-                                      height: 60,
-                                      width: 60,
-                                      child:  getImage(annonces[index].url)
+                                  child:Container(
+                                    height: 40,
+                                    width: 40,
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        'assets/images/cat_profile_img.jpg',
+                                        semanticLabel: 'Image du profil',
+                                        fit: BoxFit.cover,),
+                                    ),
                                   ),
+                                  onTap: (){
+                                    Navigator.pushNamed(context, '/pageprofile');
+                                  },
                                 ),
+                                const SizedBox(width: 12,),
+                                Text(annonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold),)
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                    onTap: ()async{
+                                      String message = 'Voulez-vous vraiment \n modifier cette annonce ?';
+                                      bool? result = await _designService.dialogYesorNo(context, message );
+
+                                      if(result !=null){
+                                        Image? currentImage;
+
+                                        annonces[index].url == '' ? currentImage = null : currentImage = Image.asset(annonces[index].url);
+                                        result ? _designService.dialogCreerAnnonce(context, annonces[index].description, currentImage) : null;
+                                      }
+                                    },
+                                    child: Icon(Icons.edit, color: Colors.orangeAccent,)
+                                ),
+                                SizedBox(width: 12),
+                                GestureDetector(
+                                    onTap: ()async{
+                                      String message = 'Voulez-vous vraiment \n supprimer cette annonce ?';
+                                      bool? result = await _designService.dialogYesorNo(context, message);
+                                      if(result !=null){
+                                        result ? null : null;
+                                      }
+                                      //_designService.dialogYesorNo(context, modalRouteName);
+                                    },
+                                    child: Icon(Icons.delete_outlined, color: Colors.redAccent,)
+                                )
                               ],
                             )
                           ],
                         ),
-                        subtitle: Column(
+                        SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(child: Text(annonces[index].description)),
+                            SizedBox(height: 4,),
+                            GestureDetector(
+                              onTap: (){
+                                _designService.dialogAfficherImage(context, annonces[index].url);
+                              },
+                              child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  child:  getImage(annonces[index].url)
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
                           children: [
                             Divider(
                               thickness: 1,
@@ -236,6 +202,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                             ),
                           ],
                         )
+                      ]
                     ),
                   )
                 ],

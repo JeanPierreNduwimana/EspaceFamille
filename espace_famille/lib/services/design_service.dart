@@ -287,10 +287,11 @@ class DesignService {
                     ],),),),
             );},);},);
   }
-  void dialogCreerAnnonce(BuildContext context, String editMessage){
+  void dialogCreerAnnonce(BuildContext context, String editMessage, Image? currentImage){
 
     bool isEditMessage = editMessage != '';
     controllerContenuAnnonce.text = editMessage;
+    currentImage != null ? uploadedImage = currentImage : uploadedImage = null;
 
     showModalBottomSheet(
       context: context,
@@ -298,7 +299,17 @@ class DesignService {
       builder: (context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            //subTaskAdded = [];
+            void getImage() async{
+              ImagePicker picker = ImagePicker();
+              XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+              String? imagePath = pickedImage!.path;
+
+              if(imagePath != ""){
+                uploadedImage = Image.file(File(imagePath),fit: BoxFit.cover,);
+                setState((){});
+              }
+            }
+
             return SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(8),
@@ -328,7 +339,11 @@ class DesignService {
                                     foregroundColor: isEditMessage ? Colors.orangeAccent : Colors.cyan,
                                     backgroundColor: isEditMessage ? Colors.orange.shade50 : Colors.cyan.shade50
                                 ),
-                                onPressed: (){},
+                                onPressed: (){
+                                  if(controllerContenuAnnonce.text.trim() == ''){
+                                    afficheMessage(context, 'Le champs ne peut pas être vide 😠');
+                                  }
+                                },
                                 child: isEditMessage ? Icon(Icons.mode_edit_outlined) : Icon(Icons.send)),
 
                           ],
@@ -374,7 +389,6 @@ class DesignService {
                           ),
                           onPressed: () async{
                             getImage();
-                            //setState((){});
                           },
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -383,7 +397,16 @@ class DesignService {
                               SizedBox(width: 4),
                               Text('Ajouter une image')
                             ],
-                          ))
+                          )),
+                      SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                              height: 200, width: 200,
+                              child: uploadedImage != null? uploadedImage! : const SizedBox())
+                        ],
+                      )
                     ],
                   ),
                 )),
@@ -449,9 +472,8 @@ class DesignService {
                         ),
                         TextField(
                           controller: controllerTaskName,
-                          keyboardType: TextInputType.multiline,
+                          keyboardType: TextInputType.text,
                           autofocus: true,
-                          maxLines: 2,
                           minLines: 1,
                           maxLength: 64,
                           decoration: const InputDecoration(
@@ -527,8 +549,7 @@ class DesignService {
                                     flex: 4,
                                     child: TextField(
                                       controller: controllerSubTaskName,
-                                      keyboardType: TextInputType.multiline,
-                                      maxLines: 2,
+                                      keyboardType: TextInputType.text,
                                       minLines: 1,
                                       maxLength: 64,
                                       decoration: const InputDecoration(
@@ -645,65 +666,82 @@ class DesignService {
                                 ;
                               }),
                         ),
-                        periodique ?
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Configurer la periodique',
-                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
-                              ),
-                              Row(
+                        Row(
+                          children: [
+                            periodique ?
+                            Expanded(
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: DropdownButton<int>(
-                                      value: _selectedNumber,
-                                      items: _numbers
-                                          .map((number) => DropdownMenuItem<int>(
-                                        value: number,
-                                        child: Text(
-                                          number.toString(),
-                                          style: const TextStyle(fontSize: 16),
-                                        ),
-                                      ))
-                                          .toList(),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _selectedNumber = value!;
-                                        });
-                                      },
-                                    ),
+                                  const Text(
+                                    'Configurer la periodique',
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: DropdownButton<String>(
-                                      value: _selectedType,
-                                      items: _types
-                                          .map((type) => DropdownMenuItem<String>(
-                                        value: type,
-                                        child: Text(
-                                          type,
-                                          style: const TextStyle(fontSize: 16),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: DropdownButton<int>(
+                                          value: _selectedNumber,
+                                          items: _numbers
+                                              .map((number) => DropdownMenuItem<int>(
+                                            value: number,
+                                            child: Text(
+                                              number.toString(),
+                                              style: const TextStyle(fontSize: 16),
+                                            ),
+                                          ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _selectedNumber = value!;
+                                            });
+                                          },
                                         ),
-                                      ))
-                                          .toList(),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _selectedType = value!;
-                                        });
-                                      },
-                                    ),
-                                  )
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: DropdownButton<String>(
+                                          value: _selectedType,
+                                          items: _types
+                                              .map((type) => DropdownMenuItem<String>(
+                                            value: type,
+                                            child: Text(
+                                              type,
+                                              style: const TextStyle(fontSize: 16),
+                                            ),
+                                          ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _selectedType = value!;
+                                            });
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
-                        )
-                            :
-                        const SizedBox(),
+                            )
+                                :
+                            const SizedBox(),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.cyan,
+                                  backgroundColor: Colors.cyan.shade50
+                                ),
+                                onPressed: (){},
+                                child: const Row(
+                                  children: [
+                                    Icon(Icons.upload_outlined),
+                                    SizedBox(width: 5,),
+                                    Text('Ajouter une image'),
+                                  ],
+                                ))
+                          ],
+                        ),
                       ],
                     )),
               );
@@ -863,7 +901,7 @@ class DesignService {
         return AlertDialog(
           backgroundColor: Colors.white, // Set background color to white
           title: const Text(
-            'Error',
+            'Erreur',
             style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold), // Cyan text color for title
           ),
           content: Text(
@@ -885,15 +923,7 @@ class DesignService {
       },
     );
   }
-  void getImage() async{
-    ImagePicker picker = ImagePicker();
-    XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    String? imagePath = pickedImage!.path;
 
-    if(imagePath != ""){
-      uploadedImage = Image.file(File(imagePath),fit: BoxFit.cover,);
-    }
-  }
 
 }
 

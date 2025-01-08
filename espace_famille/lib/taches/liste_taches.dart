@@ -86,35 +86,107 @@ class _ListeTachesState extends State<ListeTaches> {
             child: ListTile(
               onTap: () {
                 showModalBottomSheet<void>(
-                context: context,
-                builder: (BuildContext context) {
-                return Container(
-                  padding: const EdgeInsets.all(8),
-                  height: 400,
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const SizedBox(height: 24,),
-                      Image.asset(taches[index].img),
-                        const SizedBox(height: 18,),
-                      Text(taches[index].descr),
-                        const SizedBox(height: 24,),
-                      ListView.builder(shrinkWrap: true,itemCount: taches[index].sous_taches.length, itemBuilder: (BuildContext context, int i){
-                        return Text('\n• ${taches[index].sous_taches[i]}');
-                      }),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        child: const Text('Je m\'en occupe 😌'),
-                        onPressed: () async {
-                          String message = 'Voulez-vous vraiment \n assumer cette tâche ?';
-                          bool? result = await _designService.dialogYesorNo(context, message);
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(24),
+                    ),
+                  ),
+                  builder: (BuildContext context) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                      height: 400,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(24),
+                        ),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            // Image
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                taches[index].img,
+                                height: 80,
+                                width: 80,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(height: 18),
 
-                          if(result != null){
-                            result ? Navigator.pushNamed(context, '/listetaches') : null;
-                          }
-                        },
-                      ),],),),);},);},
+                            // Description
+                            Text(
+                              taches[index].descr,
+                              style: const TextStyle(
+                                fontSize: 18,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 24),
+
+                            // List of tasks
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: taches[index].sous_taches.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.check_circle_outline, color: Colors.cyan),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          taches[index].sous_taches[i],
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 24),
+
+                            // Button
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 2,
+                                backgroundColor: Colors.cyan,
+                                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: const Text(
+                                'Je m\'en occupe 😌',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              onPressed: () async {
+                                String message = 'Voulez-vous vraiment \n assumer cette tâche ?';
+                                bool? result = await _designService.dialogYesorNo(context, message);
+
+                                if (result != null) {
+                                  result ? Navigator.pushNamed(context, '/listetaches') : null;
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
 
               leading: Image.asset(taches[index].img),
               title: Text(
