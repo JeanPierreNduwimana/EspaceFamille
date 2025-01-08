@@ -1,6 +1,11 @@
+import 'dart:io';
+import 'dart:math';
+
+import 'package:espace_famille/espace_famille/accueil_espace_famille.dart';
 import 'package:espace_famille/taches/details_tache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+import 'package:image_picker/image_picker.dart';
 import '../taches/model_tache.dart';
 
 class DesignService {
@@ -11,6 +16,7 @@ class DesignService {
   final TextEditingController controllercommentRepondre = TextEditingController();
   final TextEditingController controllerContenuAnnonce = TextEditingController();
   ScrollController _scrollController = ScrollController();
+  Image? uploadedImage;
 
 /*
   PreferredSize appBar(String title){
@@ -49,35 +55,79 @@ class DesignService {
       ),
     );
   }
-  void dialogYesorNo(BuildContext context, String modalRouteName){
-    showDialog(
-        context: context,
-        builder: (context){
-          return Dialog(
-              shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              ),
-            child: Container(
+  Future<bool?> dialogYesorNo(BuildContext context, String message) async {
+
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
               color: Colors.white,
-              height: 200,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  blurRadius: 10,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            height: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Êtes vous sûr?', style: TextStyle(fontWeight: FontWeight.bold),),
-                    SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton(onPressed: ()=> Navigator.popUntil(context, ModalRoute.withName(modalRouteName)), child: Text('Oui')),
-                        ElevatedButton(onPressed: ()=> Navigator.pop(context), child: Text('Non')),
-                      ],
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.cyan,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      ),
+                      child: Text('Oui', style: TextStyle(fontSize: 16)),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.redAccent,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      ),
+                      child: Text('Non', style: TextStyle(fontSize: 16)),
                     ),
                   ],
                 ),
-              ),
-            ));
-    });
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+
   }
   void dialogAfficherImage(BuildContext context, String image){
     showDialog(
@@ -237,7 +287,11 @@ class DesignService {
                     ],),),),
             );},);},);
   }
-  void dialogCreerAnnonce(BuildContext context){
+  void dialogCreerAnnonce(BuildContext context, String editMessage){
+
+    bool isEditMessage = editMessage != '';
+    controllerContenuAnnonce.text = editMessage;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -257,6 +311,7 @@ class DesignService {
                 ),
                 child: Center(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left:4, right: 4),
@@ -268,24 +323,67 @@ class DesignService {
                                 Navigator.pop(context);
                               }),
                               child: const Text('Annuler', style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
-                            ElevatedButton(onPressed: (){}, child: Icon(Icons.send))
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    foregroundColor: isEditMessage ? Colors.orangeAccent : Colors.cyan,
+                                    backgroundColor: isEditMessage ? Colors.orange.shade50 : Colors.cyan.shade50
+                                ),
+                                onPressed: (){},
+                                child: isEditMessage ? Icon(Icons.mode_edit_outlined) : Icon(Icons.send)),
+
                           ],
                         ),
                       ),
-                      SizedBox(
+                      Container(
+                        height: 40,
+                        width: 40,
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/cat_profile_img.jpg',
+                            semanticLabel: 'Image du profil',
+                            fit: BoxFit.cover,),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 12),
                         height: 200,
                         child: TextField(
                           controller: controllerContenuAnnonce,
-                          maxLines: null,  // Makes the TextField multiline
-                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          keyboardType: TextInputType.text,
                           expands: true,
+                          maxLength: 200,
                           autofocus: true,
                           decoration: const InputDecoration(
                             hintText: 'Quoi de neuf ?',
                             contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.cyan, // Change border color here
+                                width: 2.0, // Border width
+                              ),
+                            ),
                           ),
+
                         ),
-                      )
+                      ),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.cyan,
+                            backgroundColor: Colors.cyan.shade50,
+                          ),
+                          onPressed: () async{
+                            getImage();
+                            //setState((){});
+                          },
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.upload_outlined),
+                              SizedBox(width: 4),
+                              Text('Ajouter une image')
+                            ],
+                          ))
                     ],
                   ),
                 )),
@@ -758,7 +856,6 @@ class DesignService {
       return descrTache;
     }
   }
-
   void afficheMessage(BuildContext context, String message) {
     showDialog(
       context: context,
@@ -788,7 +885,15 @@ class DesignService {
       },
     );
   }
+  void getImage() async{
+    ImagePicker picker = ImagePicker();
+    XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    String? imagePath = pickedImage!.path;
 
+    if(imagePath != ""){
+      uploadedImage = Image.file(File(imagePath),fit: BoxFit.cover,);
+    }
+  }
 
 }
 

@@ -106,8 +106,13 @@ class _ListeTachesState extends State<ListeTaches> {
                       const SizedBox(height: 8),
                       ElevatedButton(
                         child: const Text('Je m\'en occupe 😌'),
-                        onPressed: () {
-                          _designService.dialogYesorNo(context,'/listetaches');
+                        onPressed: () async {
+                          String message = 'Voulez-vous vraiment \n assumer cette tâche ?';
+                          bool? result = await _designService.dialogYesorNo(context, message);
+
+                          if(result != null){
+                            result ? Navigator.pushNamed(context, '/listetaches') : null;
+                          }
                         },
                       ),],),),);},);},
 

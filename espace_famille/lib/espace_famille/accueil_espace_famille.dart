@@ -16,11 +16,11 @@ class AccueilEspaceFammille extends StatefulWidget {
   @override
   State<AccueilEspaceFammille> createState() => _AccueilEspaceFammilleState();
 }
+String testmessage = 'String message = Voulez-vous vraiment modifier cette annonce ?; String message = Voulez-vous vraiment modifier cette annonce ?;String message = Voulez-vous vraiment modifier cette annonce ?;Stri';
 
 class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
-
   final List<Annonce> annonces = [
-    Annonce(1,'jeanpierre', 'Quel belle journée aujourd\'hui','10 mins',6,2, image),
+    Annonce(1,'jeanPierre',testmessage,'10 mins',6,2, image),
     Annonce(2,'Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo', '2024-10-11',4,0, ''),
     Annonce(3,'Henry','Qui veut regarder les magas avec moi ce soir????', '2 jours',9,8, ''),
     Annonce(4,'jeanpierre', 'Quel belle journée aujourd\'hui', '30 mins',4,3, image),
@@ -68,7 +68,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
         backgroundColor: Colors.cyan,
         onPressed: (){
           //Navigator.pushNamed(context, '/pageprofile');
-          _designService.dialogCreerAnnonce(context);
+          _designService.dialogCreerAnnonce(context,'');
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -89,7 +89,6 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                   const SizedBox(height: 12,),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                    //padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
@@ -137,7 +136,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                PopupMenuButton<String>(
+                               /* PopupMenuButton<String>(
                                     icon: const Icon(Icons.more_horiz),
                                     onSelected: (String value){
                                       print('Selected: $value');
@@ -149,8 +148,9 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                           child: Row(
                                             children: [
                                               Text('Modifier', style: TextStyle(fontSize: 16),),
-                                              SizedBox(width: 4,),
-                                              Icon(Icons.edit, size: 16,)
+                                              //SizedBox(width: 4,),
+                                              //SizedBox(width: 10, child: Icon(Icons.edit),)
+                                              //Icon(Icons.edit)
                                             ],
                                           ),
                                         ),
@@ -159,14 +159,43 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                           child: Row(
                                             children: [
                                               Text('Supprimer', style: TextStyle(fontSize: 16),),
-                                              SizedBox(width: 4,),
-                                              Icon(Icons.delete, size: 16,)
+                                              //SizedBox(width: 4,),
+                                              //SizedBox(width: 10,child: Icon(Icons.delete),)
+                                              //Icon(Icons.delete)
                                             ],
                                           ),
                                         )
                                       ];
-                                    }),
-                                SizedBox(height: 4,),
+                                    }),*/
+                                 Row(
+                                  children: [
+                                    GestureDetector(
+                                        onTap: ()async{
+                                          String message = 'Voulez-vous vraiment \n modifier cette annonce ?';
+                                          bool? result = await _designService.dialogYesorNo(context, message );
+
+                                          if(result !=null){
+                                            result ? _designService.dialogCreerAnnonce(context, annonces[index].description) : null;
+                                          }
+                                          //_designService.dialogYesorNo(context, modalRouteName);
+                                        },
+                                        child: Icon(Icons.edit, color: Colors.orangeAccent,)
+                                    ),
+                                    SizedBox(width: 12),
+                                    GestureDetector(
+                                        onTap: ()async{
+                                          String message = 'Voulez-vous vraiment \n supprimer cette annonce ?';
+                                          bool? result = await _designService.dialogYesorNo(context, message);
+                                          if(result !=null){
+                                            result ? null : null;
+                                          }
+                                          //_designService.dialogYesorNo(context, modalRouteName);
+                                        },
+                                        child: Icon(Icons.delete_outlined, color: Colors.redAccent,)
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 16,),
                                 GestureDetector(
                                   onTap: (){
                                     _designService.dialogAfficherImage(context, annonces[index].url);
