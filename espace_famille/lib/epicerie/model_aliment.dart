@@ -1,14 +1,14 @@
 class Aliment {
-  String alimentKey = '';
+  //String alimentKey = '';
   String nom = '';
-  String description = '';
-  String dateAjout = '';
+  //String description = '';
+  //String dateAjout = '';
   int quantite = 0;
   bool validerAchat = false;
-  String imageUri = '';
-  bool alimentauto = false;
+  //String imageUri = '';
+  //bool alimentauto = false;
 
-  Aliment(String Nom, String _description, int Quantite,bool ValiderAchat, String _imageUri, String _dateAjout, bool _alimentauto){
+  /*Aliment(String Nom, String _description, int Quantite,bool ValiderAchat, String _imageUri, String _dateAjout, bool _alimentauto){
 
     nom = Nom;
     description = _description;
@@ -17,6 +17,14 @@ class Aliment {
     imageUri = _imageUri;
     dateAjout = _dateAjout;
     alimentauto = _alimentauto;
+
+  } */
+
+  Aliment(String Nom, int Quantite,bool ValiderAchat){
+
+    nom = Nom;
+    quantite = Quantite;
+    validerAchat = ValiderAchat;
 
   }
 }

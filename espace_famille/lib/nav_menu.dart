@@ -165,7 +165,7 @@ class _NavMenuState extends State<NavMenu> {
                     ),
                   ),
                   subtitle: const Text(
-                    "Connectez avec vos proches",
+                    "Que ce qu'on mange?",
                     style: TextStyle(fontSize: 12, color: Colors.black),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
@@ -248,7 +248,7 @@ class _NavMenuState extends State<NavMenu> {
                     child: const Icon(Icons.calendar_month, color: Colors.deepPurple, size: 20),
                   ),
                   title: const Text(
-                    "Horaire",
+                    "Événements",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w800,
@@ -258,12 +258,12 @@ class _NavMenuState extends State<NavMenu> {
                     ),
                   ),
                   subtitle: const Text(
-                    "L'agenda des tâches",
+                    "Se réunir en famille!",
                     style: TextStyle(fontSize: 12, color: Colors.black),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
                   onTap: () {
-                    Navigator.pushNamed(context, '/horaire');
+                    Navigator.pushNamed(context, '/events');
                   },
                 )
               ],

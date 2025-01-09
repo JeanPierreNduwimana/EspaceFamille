@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         '/listetaches' : (context) => const ListeTaches(),
         '/listevaluation' : (context) => const ListeEvaluation(),
         '/classement' : (context) => const ClassementProfiles(),
-        '/horaire' : (context) => const Horaire(),
+        '/events' : (context) => const Horaire(),
         '/liste_epicerie' : (context) => const ListeEpicerie(),
       },
 
