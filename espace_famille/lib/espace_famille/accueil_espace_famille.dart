@@ -4,6 +4,7 @@ import 'package:espace_famille/nav_menu.dart';
 import 'package:espace_famille/services/design_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'model_annonce.dart';
 
@@ -19,6 +20,8 @@ class AccueilEspaceFammille extends StatefulWidget {
 String testmessage = 'String message = Voulez-vous vraiment modifier cette annonce ?; String message = Voulez-vous vraiment modifier cette annonce ?;String message = Voulez-vous vraiment modifier cette annonce ?;Stri';
 
 class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
+
+
   final List<Annonce> annonces = [
     Annonce(1,'jeanPierre',testmessage,'10 mins',6,2, image),
     Annonce(2,'Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo', '2024-10-11',4,0, ''),
@@ -35,6 +38,9 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp // Optional
+    ]);
 
     annonces.forEach((a) {
       if(a.Comments > 0){
@@ -63,9 +69,10 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
     return Scaffold(
       appBar: _designService.appBar('Espace Famille'),
       body: buildBody(),
-      drawer: NavMenu(),
+      drawer: const NavMenu(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.cyan.shade400,
+        foregroundColor: Colors.white,
         onPressed: (){
           //Navigator.pushNamed(context, '/pageprofile');
           _designService.dialogCreerAnnonce(context,'', null);

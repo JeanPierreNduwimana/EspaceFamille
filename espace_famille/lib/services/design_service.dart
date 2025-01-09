@@ -1,7 +1,4 @@
 import 'dart:io';
-import 'dart:math';
-
-import 'package:espace_famille/espace_famille/accueil_espace_famille.dart';
 import 'package:espace_famille/taches/details_tache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
@@ -299,17 +296,6 @@ class DesignService {
       builder: (context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            void getImage() async{
-              ImagePicker picker = ImagePicker();
-              XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
-              String? imagePath = pickedImage!.path;
-
-              if(imagePath != ""){
-                uploadedImage = Image.file(File(imagePath),fit: BoxFit.cover,);
-                setState((){});
-              }
-            }
-
             return SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(8),
@@ -388,7 +374,7 @@ class DesignService {
                             backgroundColor: Colors.cyan.shade50,
                           ),
                           onPressed: () async{
-                            getImage();
+                            getImage(setState);
                           },
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -423,6 +409,7 @@ class DesignService {
     int _selectedNumber = 2;
     String _selectedType = 'Day';
     bool subTask = false;
+    uploadedImage = null;
 
 
     showModalBottomSheet(
@@ -457,14 +444,16 @@ class DesignService {
                                   }),
                                   child: const Text('Annuler', style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  controllerTaskName.text.trim() == '' ? afficheMessage(context, 'La description de la tâche ne peut être vide') : null;
+                                },
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.white, backgroundColor: Colors.cyan.shade400, // Color of the icon
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12), // Rounded corners
                                   ),
                                 ),
-                                child: Text('Ajouter', style: TextStyle(fontWeight: FontWeight.bold),)
+                                child: const Text('Ajouter', style: TextStyle(fontWeight: FontWeight.bold),)
                               )
 
                             ],
@@ -489,14 +478,14 @@ class DesignService {
                         subTask ? Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(left: 16, right: 16, top: 8),
+                              margin: const EdgeInsets.only(left: 16, right: 16, top: 8),
                               child: Row(
                                 children: [
-                                  const Text(
-                                    "Ajouter des sous-tâches",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.cyan),
+                                  Text(
+                                    'Ajouter des sous-tâches (${subTaskAdded.length}/3)',
+                                    style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.cyan),
                                   ),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   GestureDetector(
                                       onTap: (){
                                         setState((){
@@ -504,7 +493,7 @@ class DesignService {
                                         });
                                         subTaskAdded = [];
                                       },
-                                      child: Icon(Icons.close, color: Colors.orangeAccent,))
+                                      child: const Icon(Icons.close, color: Colors.orangeAccent,))
                                 ],
                               ),
                             ),
@@ -513,9 +502,9 @@ class DesignService {
                                 maxHeight: 200
                               ),
                               child: Container(
-                                padding: EdgeInsets.only(left: 16, right: 16),
+                                padding: const EdgeInsets.only(left: 16, right: 16),
                                 child: Container(
-                                  margin: EdgeInsets.only(bottom: 18),
+                                  margin: const EdgeInsets.only(bottom: 18),
                                   child: ListView.builder(
                                       itemCount: subTaskAdded.length,
                                       shrinkWrap: true,
@@ -530,9 +519,12 @@ class DesignService {
                                                   flex: 1,
                                                   child: GestureDetector(
                                                     onTap: (){
-                                                      setState((){subTaskAdded.remove(subTaskAdded[index]);});
+                                                      setState((){
+                                                        subTaskAdded.remove(subTaskAdded[index]);
+                                                        controllerSubTaskName.text = '';
+                                                      });
                                                     },
-                                                    child: Icon(Icons.close, size: 28)))
+                                                    child: const Icon(Icons.close, size: 28)))
                                             ],
                                           ),
                                         )
@@ -541,8 +533,9 @@ class DesignService {
                                 ),
                               ),
                             ),
+                            subTaskAdded.length < 3 ?
                             Container(
-                              margin: EdgeInsets.only(left: 16, right: 16),
+                              margin: const EdgeInsets.only(left: 16, right: 16),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -584,7 +577,7 @@ class DesignService {
                                   )
                                 ],
                               ),
-                            )
+                            ) : const SizedBox()
                           ],
                         ) :
                         Container(
@@ -608,7 +601,7 @@ class DesignService {
                             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 150,
                           child: GridView.builder(
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -667,6 +660,7 @@ class DesignService {
                               }),
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             periodique ?
                             Expanded(
@@ -727,19 +721,47 @@ class DesignService {
                             )
                                 :
                             const SizedBox(),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.cyan,
-                                  backgroundColor: Colors.cyan.shade50
-                                ),
-                                onPressed: (){},
-                                child: const Row(
-                                  children: [
-                                    Icon(Icons.upload_outlined),
-                                    SizedBox(width: 5,),
-                                    Text('Ajouter une image'),
-                                  ],
-                                ))
+                            Column(
+                              children: [
+                                uploadedImage != null ?
+                                Container(
+                                    height:120, width:120,
+                                    margin: const EdgeInsets.only(bottom: 8),
+                                    child: uploadedImage!) : const SizedBox(),
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.cyan,
+                                        backgroundColor: Colors.cyan.shade50
+                                    ),
+                                    onPressed: (){
+                                      getImage(setState);
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.upload_outlined),
+                                        SizedBox(width: 5,),
+                                        Text('Ajouter une image'),
+                                      ],
+                                    )),
+                                uploadedImage != null ?
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.redAccent,
+                                        backgroundColor: Colors.red.shade50
+                                    ),
+                                    onPressed: (){
+                                      removeImage(setState);
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.delete_outlined),
+                                        SizedBox(width: 5,),
+                                        Text('Supprimer l\'image'),
+                                      ],
+                                    )) : const SizedBox(),
+
+                              ],
+                            )
                           ],
                         ),
                       ],
@@ -923,7 +945,21 @@ class DesignService {
       },
     );
   }
+  void getImage(StateSetter setState) async{
+    ImagePicker picker = ImagePicker();
+    XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    String? imagePath = pickedImage!.path;
 
+    if(imagePath != ""){
+      uploadedImage = Image.file(File(imagePath),fit: BoxFit.cover,);
+      setState((){});
+    }
+  }
+
+  void removeImage(StateSetter setState){
+    uploadedImage = null;
+    setState((){});
+  }
 
 }
 

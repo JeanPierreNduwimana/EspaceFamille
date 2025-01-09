@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../nav_menu.dart';
 import '../services/design_service.dart';
@@ -25,20 +26,23 @@ List<Profile> profiles = [
 ];
 
 class _ClassementProfilesState extends State<ClassementProfiles> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp // Optional
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Classement des meilleurs membres'),
+      appBar: _designService.appBar('Meilleurs membres'),
       body: buildBody(),
-      drawer: NavMenu(),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan,
-        onPressed: (){
-          Navigator.pushNamed(context, '/accfam');
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      backgroundColor: Colors.white,
+      drawer: const NavMenu(),
     );
   }
 }
@@ -47,119 +51,233 @@ Widget buildBody(){
   return ListView.builder(
       itemCount: profiles.length,
       itemBuilder: (BuildContext context, int index) {
-
         if(index == 0){ // À l'index 0, on affiche le podium
           return Container(
-            margin: const EdgeInsets.only(bottom: 24, left: 8, top: 8, right: 8),
+            margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
             padding: const EdgeInsets.all(16),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Expanded(flex:1,
-                    child: Container(
-                      height: 240,
-                      child: Column(
-                        children: [
-                          Expanded(child: Container(),),
-                          Container(
-
-                            margin: const EdgeInsets.only(bottom: 8),
-                            child: ClipOval(
-                              child: Image.asset(
-                                'assets/images/cat_profile_img.jpg',
-                                semanticLabel: 'Image du profil',
-                                fit: BoxFit.cover, height: 48, width: 48,),
-                            ),
-                          ),
-                          Expanded(child: Container(decoration: const BoxDecoration(color: Colors.grey)))
-                        ],
+                // 2nd place
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ClipOval(
+                        child: Image.asset(
+                          'assets/images/cat_profile_img.jpg',
+                          fit: BoxFit.cover,
+                          height: 48,
+                          width: 48,
+                        ),
                       ),
-                    )
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 120,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          '2',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                Expanded(flex:1,
-                    child: Container(
-                      height: 240,
-                      child: Column(
-                        children: [
-                          Expanded(flex: 1,child: Container(),),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 8),
-
-                            child: ClipOval(
-                              child: Image.asset(
-                                'assets/images/cat_profile_img.jpg',
-                                semanticLabel: 'Image du profil',
-                                fit: BoxFit.cover,height: 60, width: 60, ),
-                            ),
-                          ),
-                          Expanded(flex: 20,child: Container(decoration: const BoxDecoration(color: Colors.yellow)))
-                        ],
+                // 1st place
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ClipOval(
+                        child: Image.asset(
+                          'assets/images/cat_profile_img.jpg',
+                          fit: BoxFit.cover,
+                          height: 60,
+                          width: 60,
+                        ),
                       ),
-                    )
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 160,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.yellow.shade600,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.yellow.withOpacity(0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          '1',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                Expanded(flex:1,
-                    child: Container(
-                      height: 240,
-                      child: Column(
-                        children: [
-                          Expanded(flex: 2, child: Container(),),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 8),
-                            //height: 20, width: 20,
-                            child: ClipOval(
-                              child: Image.asset(
-                                'assets/images/cat_profile_img.jpg',
-                                semanticLabel: 'Image du profil',
-                                fit: BoxFit.cover, height: 36, width: 36, ),
-                            ),
-                          ),
-                          Expanded(flex:1,child: Container(decoration: const BoxDecoration(color: Colors.brown)))
-                        ],
+                // 3rd place
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ClipOval(
+                        child: Image.asset(
+                          'assets/images/cat_profile_img.jpg',
+                          fit: BoxFit.cover,
+                          height: 40,
+                          width: 40,
+                        ),
                       ),
-                    )
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 100,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.brown.shade400,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.brown.withOpacity(0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          '3',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           );
+
         }
         return Container(
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.grey.shade300, width: 1),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
-                  // Couleur de l'ombre avec opacité
-                  spreadRadius: 2,
-                  // Rayonnement de l'ombre
-                  blurRadius: 2,
-                  // Rayon du flou de l'ombre
-                  offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
-                ),
-              ]),
-          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: index == 1 ? Colors.yellow.shade600.withOpacity(0.2) : (index == 2) ? Colors.grey.shade400.withOpacity(0.2) : (index == 3) ? Colors.brown.shade800.withOpacity(0.2) : Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+                color: index == 1 ? Colors.yellow.shade600.withOpacity(0.1) : (index == 2) ? Colors.grey.shade400.withOpacity(0.1) : (index == 3) ? Colors.brown.shade400.withOpacity(0.1) : Colors.grey.shade300,
+                width: 1),
+            boxShadow: [
+              BoxShadow(
+                color: index == 1 ? Colors.yellow.shade600.withOpacity(0.1) : (index == 2) ? Colors.grey.shade400.withOpacity(0.1) : (index == 3) ? Colors.brown.shade400.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
+                spreadRadius: 2,
+                blurRadius: 3,
+                offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.all(16),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text('$index', textAlign: TextAlign.center , style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18)),),
-              const Expanded(flex: 2,child: Text("🥇",textAlign: TextAlign.center ,style: TextStyle(fontSize: 20))),
+              // Classement
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: index == 1 ? Colors.yellow.shade600 : (index == 2) ? Colors.grey.shade400 : (index == 3) ? Colors.brown.shade400 : Colors.cyan.shade50, shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  '$index',
+                  style: TextStyle(
+                    color: ( index == 1 || index == 2 || index == 3) ? Colors.white : Colors.cyan,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+
+              // Emoji
+              Text(
+                index == 1 ? "🥇" : index == 2 ? "🥈" : index == 3 ? "🥉" : "",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24),
+              ),
+              const SizedBox(width: 16),
+
+              // Image de profil
               ClipOval(
                 child: Image.asset(
                   'assets/images/cat_profile_img.jpg',
                   semanticLabel: 'Image du profil',
-                  fit: BoxFit.cover, height: 48, width: 48,),
+                  fit: BoxFit.cover,
+                  height: 56,
+                  width: 56,
+                ),
               ),
+
+              // Informations utilisateur
               Expanded(
-                flex: 6,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(profiles[index].nom,style: const TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),),
-                    Text(profiles[index].date),
-                    _designService.getRatingStars(profiles[index].nbEtoiles, false)
+                    Text(
+                      profiles[index].nom,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      profiles[index].date,
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    _designService.getRatingStars(profiles[index].nbEtoiles, false),
                   ],
                 ),
-              )
+              ),
             ],
-          )
+          ),
         );
+
       });
 }
