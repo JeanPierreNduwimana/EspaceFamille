@@ -56,179 +56,187 @@ class _ListeTachesState extends State<ListeTaches> {
   }
 
   Widget buildBody() {
-    return ListView.builder(
-        itemCount: taches.length,
-        itemBuilder: (BuildContext context, int index) {
 
-          if(index == 0){ // À l'index 0, on affiche les infos du profil
-            return Container(
-              margin: const EdgeInsets.all(8),
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  const SizedBox(height: 32),
-                  Image.asset('assets/images/task_list.png'),
-                  const SizedBox(height: 32),
-                  const Text('Selectionner la taches qui vous convient avec votre disponibilité', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  const SizedBox(height: 24),
-                ],
-              ),
-            );
-          }
-          return GestureDetector(
-             onTap: () {
-              showModalBottomSheet<void>(
-                context: context,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(24),
-                  ),
+    Future<void> _onRefresh() async {
+    }
+
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      color: Colors.cyan,
+      child: ListView.builder(
+          itemCount: taches.length,
+          itemBuilder: (BuildContext context, int index) {
+
+            if(index == 0){ // À l'index 0, on affiche les infos du profil
+              return Container(
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 32),
+                    Image.asset('assets/images/task_list.png'),
+                    const SizedBox(height: 32),
+                    const Text('Selectionner la taches qui vous convient avec votre disponibilité', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    const SizedBox(height: 24),
+                  ],
                 ),
-                builder: (BuildContext context) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                    height: 400,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(24),
-                      ),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          // Image
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              taches[index].img,
-                              height: 80,
-                              width: 80,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(height: 18),
-
-                          // Description
-                          Text(
-                            taches[index].descr,
-                            style: const TextStyle(
-                              fontSize: 18,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 24),
-
-                          // List of tasks
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: taches[index].sous_taches.length,
-                            itemBuilder: (BuildContext context, int i) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.check_circle_outline, color: Colors.cyan),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      child: Text(
-                                        taches[index].sous_taches[i],
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 24),
-
-                          // Button
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 2,
-                              backgroundColor: Colors.cyan,
-                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            child: const Text(
-                              'Je m\'en occupe 😌',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: () async {
-                              String message = 'Voulez-vous vraiment \n assumer cette tâche ?';
-                              bool? result = await _designService.dialogYesorNo(context, message);
-
-                              if (result != null) {
-                                result ? Navigator.pushNamed(context, '/listetaches') : null;
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
               );
-            },
-            child: Container(
-              //height: 200,
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade300, width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
-                      // Couleur de l'ombre avec opacité
-                      spreadRadius: 2,
-                      // Rayonnement de l'ombre
-                      blurRadius: 2,
-                      // Rayon du flou de l'ombre
-                      offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+            }
+            return GestureDetector(
+               onTap: () {
+                showModalBottomSheet<void>(
+                  context: context,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(24),
                     ),
-                  ]),
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox( height: 80, width:80, child: Image.asset(taches[index].img)),
-                      Expanded(
-                        child: Text(
-                          taches[index].descr,
-                          style: const TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  builder: (BuildContext context) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                      height: 400,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(24),
                         ),
                       ),
-                    ],
-                  ),
-                  Divider(
-                    thickness: 1,
-                    color: Colors.cyan[200],
-                    height: 20,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(Icons.restart_alt, color: Colors.cyan,),
-                      SizedBox(width: 8),
-                      Text('Quotidien', style: TextStyle(fontStyle: FontStyle.italic),)
-                    ],
-                  ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            // Image
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                taches[index].img,
+                                height: 80,
+                                width: 80,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(height: 18),
 
-                ],
+                            // Description
+                            Text(
+                              taches[index].descr,
+                              style: const TextStyle(
+                                fontSize: 18,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 24),
+
+                            // List of tasks
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: taches[index].sous_taches.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.check_circle_outline, color: Colors.cyan),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          taches[index].sous_taches[i],
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 24),
+
+                            // Button
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 2,
+                                backgroundColor: Colors.cyan,
+                                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: const Text(
+                                'Je m\'en occupe 😌',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              onPressed: () async {
+                                String message = 'Voulez-vous vraiment \n assumer cette tâche ?';
+                                bool? result = await _designService.dialogYesorNo(context, message);
+
+                                if (result != null) {
+                                  result ? Navigator.pushNamed(context, '/listetaches') : null;
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: Container(
+                //height: 200,
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade300, width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        // Couleur de l'ombre avec opacité
+                        spreadRadius: 2,
+                        // Rayonnement de l'ombre
+                        blurRadius: 2,
+                        // Rayon du flou de l'ombre
+                        offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+                      ),
+                    ]),
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox( height: 80, width:80, child: Image.asset(taches[index].img)),
+                        Expanded(
+                          child: Text(
+                            taches[index].descr,
+                            style: const TextStyle(color: Colors.black, fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      thickness: 1,
+                      color: Colors.cyan[200],
+                      height: 20,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(Icons.restart_alt, color: Colors.cyan,),
+                        SizedBox(width: 8),
+                        Text('Quotidien', style: TextStyle(fontStyle: FontStyle.italic),)
+                      ],
+                    ),
+
+                  ],
+                ),
               ),
-            ),
-          );
-        });
+            );
+          }),
+    );
   }
 }
 

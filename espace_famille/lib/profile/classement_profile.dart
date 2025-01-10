@@ -48,139 +48,235 @@ class _ClassementProfilesState extends State<ClassementProfiles> {
 }
 
 Widget buildBody(){
-  return ListView.builder(
-      itemCount: profiles.length,
-      itemBuilder: (BuildContext context, int index) {
-        if(index == 0){ // À l'index 0, on affiche le podium
+  Future<void> _onRefresh() async {
+  }
+  return RefreshIndicator(
+    onRefresh: _onRefresh,
+    color: Colors.cyan,
+    child: ListView.builder(
+        itemCount: profiles.length,
+        itemBuilder: (BuildContext context, int index) {
+          if(index == 0){ // À l'index 0, on affiche le podium
+            return Container(
+              margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // 2nd place
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ClipOval(
+                          child: Image.asset(
+                            'assets/images/cat_profile_img.jpg',
+                            fit: BoxFit.cover,
+                            height: 48,
+                            width: 48,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          height: 120,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.4),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            '2',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // 1st place
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ClipOval(
+                          child: Image.asset(
+                            'assets/images/cat_profile_img.jpg',
+                            fit: BoxFit.cover,
+                            height: 60,
+                            width: 60,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          height: 160,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.yellow.shade600,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.yellow.withOpacity(0.4),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            '1',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // 3rd place
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ClipOval(
+                          child: Image.asset(
+                            'assets/images/cat_profile_img.jpg',
+                            fit: BoxFit.cover,
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          height: 100,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.brown.shade400,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.brown.withOpacity(0.4),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            '3',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+
+          }
           return Container(
-            margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: index == 1 ? Colors.yellow.shade600.withOpacity(0.2) : (index == 2) ? Colors.grey.shade400.withOpacity(0.2) : (index == 3) ? Colors.brown.shade800.withOpacity(0.2) : Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                  color: index == 1 ? Colors.yellow.shade600.withOpacity(0.1) : (index == 2) ? Colors.grey.shade400.withOpacity(0.1) : (index == 3) ? Colors.brown.shade400.withOpacity(0.1) : Colors.grey.shade300,
+                  width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color: index == 1 ? Colors.yellow.shade600.withOpacity(0.1) : (index == 2) ? Colors.grey.shade400.withOpacity(0.1) : (index == 3) ? Colors.brown.shade400.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 3,
+                  offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+                ),
+              ],
+            ),
             padding: const EdgeInsets.all(16),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // 2nd place
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ClipOval(
-                        child: Image.asset(
-                          'assets/images/cat_profile_img.jpg',
-                          fit: BoxFit.cover,
-                          height: 48,
-                          width: 48,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        height: 120,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade400,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.4),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          '2',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
+                // Classement
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: index == 1 ? Colors.yellow.shade600 : (index == 2) ? Colors.grey.shade400 : (index == 3) ? Colors.brown.shade400 : Colors.cyan.shade50, shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    '$index',
+                    style: TextStyle(
+                      color: ( index == 1 || index == 2 || index == 3) ? Colors.white : Colors.cyan,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
-                // 1st place
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ClipOval(
-                        child: Image.asset(
-                          'assets/images/cat_profile_img.jpg',
-                          fit: BoxFit.cover,
-                          height: 60,
-                          width: 60,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        height: 160,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.yellow.shade600,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.yellow.withOpacity(0.4),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          '1',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
+                const SizedBox(width: 16),
+
+                // Emoji
+                Text(
+                  index == 1 ? "🥇" : index == 2 ? "🥈" : index == 3 ? "🥉" : "",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 24),
+                ),
+                const SizedBox(width: 16),
+
+                // Image de profil
+                ClipOval(
+                  child: Image.asset(
+                    'assets/images/cat_profile_img.jpg',
+                    semanticLabel: 'Image du profil',
+                    fit: BoxFit.cover,
+                    height: 56,
+                    width: 56,
                   ),
                 ),
-                // 3rd place
+
+                // Informations utilisateur
                 Expanded(
-                  flex: 1,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ClipOval(
-                        child: Image.asset(
-                          'assets/images/cat_profile_img.jpg',
-                          fit: BoxFit.cover,
-                          height: 40,
-                          width: 40,
+                      Text(
+                        profiles[index].nom,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        profiles[index].date,
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 14,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Container(
-                        height: 100,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.brown.shade400,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.brown.withOpacity(0.4),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          '3',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      _designService.getRatingStars(profiles[index].nbEtoiles, false),
                     ],
                   ),
                 ),
@@ -188,96 +284,6 @@ Widget buildBody(){
             ),
           );
 
-        }
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: index == 1 ? Colors.yellow.shade600.withOpacity(0.2) : (index == 2) ? Colors.grey.shade400.withOpacity(0.2) : (index == 3) ? Colors.brown.shade800.withOpacity(0.2) : Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-                color: index == 1 ? Colors.yellow.shade600.withOpacity(0.1) : (index == 2) ? Colors.grey.shade400.withOpacity(0.1) : (index == 3) ? Colors.brown.shade400.withOpacity(0.1) : Colors.grey.shade300,
-                width: 1),
-            boxShadow: [
-              BoxShadow(
-                color: index == 1 ? Colors.yellow.shade600.withOpacity(0.1) : (index == 2) ? Colors.grey.shade400.withOpacity(0.1) : (index == 3) ? Colors.brown.shade400.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
-                spreadRadius: 2,
-                blurRadius: 3,
-                offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
-              ),
-            ],
-          ),
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Classement
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: index == 1 ? Colors.yellow.shade600 : (index == 2) ? Colors.grey.shade400 : (index == 3) ? Colors.brown.shade400 : Colors.cyan.shade50, shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  '$index',
-                  style: TextStyle(
-                    color: ( index == 1 || index == 2 || index == 3) ? Colors.white : Colors.cyan,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-
-              // Emoji
-              Text(
-                index == 1 ? "🥇" : index == 2 ? "🥈" : index == 3 ? "🥉" : "",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
-              ),
-              const SizedBox(width: 16),
-
-              // Image de profil
-              ClipOval(
-                child: Image.asset(
-                  'assets/images/cat_profile_img.jpg',
-                  semanticLabel: 'Image du profil',
-                  fit: BoxFit.cover,
-                  height: 56,
-                  width: 56,
-                ),
-              ),
-
-              // Informations utilisateur
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      profiles[index].nom,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      profiles[index].date,
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontStyle: FontStyle.italic,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    _designService.getRatingStars(profiles[index].nbEtoiles, false),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-
-      });
+        }),
+  );
 }

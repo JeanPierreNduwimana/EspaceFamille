@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:espace_famille/taches/details_tache.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:image_picker/image_picker.dart';
@@ -159,17 +159,55 @@ class DesignService {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      const SizedBox(height: 24,),
-                      visitor? const Text('Evaluer JeanPierre pour cette tache', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),) :
-                      const Text('Informations sur ma tâche', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Annuler', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                          ),
+                          visitor? const Text('Evaluer JeanPierre pour cette tache', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),) :
+                          const Text('Détails sur ma tâche', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.cyan,
+                                  foregroundColor: Colors.white,
+                              ),
+                              onPressed: (){
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Ok')),
+                        ]
+                      ),
                       const SizedBox(height: 24,),
                       Image.asset(t.img),
                       const SizedBox(height: 12,),
-                      Text(t.descr),
+                      Text(t.descr, style: const TextStyle(fontWeight: FontWeight.bold),),
                       Container( //Sous Taches
                         margin: t.sous_taches.isNotEmpty? const EdgeInsets.only(top: 12, bottom: 12) : const EdgeInsets.only(bottom: 24),
-                        child: ListView.builder(shrinkWrap: true,itemCount: t.sous_taches.length, itemBuilder: (BuildContext context, int i){
-                          return Text('\n• ${t.sous_taches[i]}');
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: t.sous_taches.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int i){
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.check_circle, color: Colors.grey,size: 16),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        t.sous_taches[i],
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                          //return Text('\n• ${t.sous_taches[i]}');
                         }),
                       ),
                       (visitor?RatingStars(
@@ -206,9 +244,10 @@ class DesignService {
                       ) : const SizedBox()),
                       (!visitor?Container(
                         margin: const EdgeInsets.all(8),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: Colors.grey.shade300, width: 1),
                             boxShadow: [
                               BoxShadow(
@@ -220,22 +259,62 @@ class DesignService {
                                 // Rayon du flou de l'ombre
                                 offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
                               ),
-                            ]),
+                            ]
+                        ),
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('À effectuer d\'ici'),
-                                Text('En retard')
+                                Text(
+                                  'À effectuer d\'ici',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                Text(
+                                  'En retard',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.redAccent,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ],
                             ),
+                            SizedBox(height: 12),
                             Row(
                               children: [
-                                Text('5', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32,),textAlign: TextAlign.end,),
-                                Text('   Jours Restants',),
-                                Expanded(child: Text('Jusqu\'au 25--302-24', textAlign: TextAlign.end,))
+                                Text(
+                                  '5',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 36,
+                                    color: Colors.cyan, // Accentuation avec Cyan
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Jours Restants',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    'Jusqu\'au 25-02-2024',
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black54,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ],
@@ -259,24 +338,57 @@ class DesignService {
                         onPressed: () => Navigator.pop(context),
                       ) :
                       Container(
-                        margin: const EdgeInsets.only(left: 8,right: 8),
+                        margin: const EdgeInsets.only(left: 8,right: 8, top:8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: (){
-                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DetailsTache(tache: t)));
-                                      //Navigator.pop(context);
-                                    },
-                                    child: const Text('Consulter 🧐')),
-                                ElevatedButton(onPressed: ()=> Navigator.pop(context), child: const Text('Compris! 👍'))
-                              ],
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.red,
+                                  side: BorderSide(
+                                      color: Colors.red.withOpacity(0.2)
+                                  ),
+                                elevation: 0
+                              ),
+                              onPressed: ()=> Navigator.pop(context),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Abandonner'),
+                                  SizedBox(width: 8),
+                                  Icon(Icons.dangerous)
+                                ],
+                              ),
                             ),
-                            SizedBox(height: 12),
-                            ElevatedButton(onPressed: ()=> Navigator.pop(context), child: const Text('La tache est fait! 👌'),)
+                            const SizedBox(height: 8),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.purple,
+                                side: BorderSide(
+                                  color: Colors.purple.withOpacity(0.5)
+                                ),
+                                elevation: 0
+                              ),
+                              onPressed: () {
+                                dialogTransferTache(context);
+                              },
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Tranferer'),
+                                  SizedBox(width: 12),
+                                  Icon(Icons.compare_arrows)
+                                ],
+                              ),),
+                            const SizedBox(height: 8),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  foregroundColor: Colors.white
+                              ),
+                              onPressed: ()=> Navigator.pop(context), child: const Text('La tache est fait! 👌'),)
                           ],
                         ),
                       ))
@@ -955,11 +1067,81 @@ class DesignService {
       setState((){});
     }
   }
-
   void removeImage(StateSetter setState){
     uploadedImage = null;
     setState((){});
   }
 
+  void dialogTransferTache(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (context){
+          return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Container(
+                height: 400,
+                child: Column(
+                  children: [
+                    Text('À qui voulez-vous transferer cette tâche?', style: TextStyle(fontWeight: FontWeight.bold),),
+                    CarouselSlider.builder(
+                      itemCount: 7,
+                      itemBuilder: (context, index, realIndex) {
+                        return GestureDetector(
+                          onTap: () {
+
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.all(8),
+                                child: Stack(
+                                  fit: StackFit.loose,
+                                  children: [
+                                    Container(
+                                      height: 80,
+                                      width: 80,
+                                      margin: const EdgeInsets.only(top: 20),
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          'assets/images/cat_profile_img.jpg',
+                                          semanticLabel: 'Image du profil',
+                                          fit: BoxFit.cover,),
+                                      ),
+                                    ),
+                                    Container(
+                                      //alignment: Alignment.bottomCenter,
+                                      height: 80,
+                                      width: 80,
+                                      margin: const EdgeInsets.only(top: 20),
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          'assets/images/cat_profile_img.jpg',
+                                          semanticLabel: 'Image du profil',
+                                          fit: BoxFit.cover,),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        );
+                      },
+                      options: CarouselOptions(
+                        //height: 250,
+                        enlargeCenterPage: true,
+                        enableInfiniteScroll: true,
+                      ),
+                    )
+                  ],
+                ),
+              )
+          );
+        },
+    );
+  }
 }
 

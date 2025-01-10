@@ -38,7 +38,52 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Gestion d\'epicerie'),
+      //appBar: _designService.appBar('Gestion d\'epicerie'),
+      appBar: AppBar(
+        backgroundColor: Colors.cyan,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Gestion d\'epicerie',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            PopupMenuButton<String>(
+              surfaceTintColor: Colors.white,
+              onSelected: (value) {
+                // Action à exécuter selon l'option sélectionnée
+                if (value == 'Date') {
+
+                } else if (value == 'Achat') {
+
+                }
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                const PopupMenuItem(enabled: false, child: Text('Trier Par:', style: TextStyle(color: Colors.black),)),
+                //const PopupMenuDivider(),
+                const PopupMenuItem<String>(
+                  value: 'Date',
+                  child: Text('Date'),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'Achat',
+                  child: Text('Achat'),
+                ),
+              ],
+              icon: const Row(
+                children: [
+                  Text('Trier  ', style: TextStyle(fontSize: 14, color: Colors.white),),
+                  Icon(Icons.sort, color: Colors.white),
+                ],
+              ) // Icône à trois points
+            ),
+          ],
+        ),
+      ),
       body: buildBody(),
       drawer: const NavMenu(),
       floatingActionButton: FloatingActionButton(
@@ -62,10 +107,27 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
         Expanded(
           child: RefreshIndicator(
             onRefresh: _onRefresh,
+            color: Colors.cyan,
             child: ListView.builder(
               itemCount: aliments.length, // Example number of items
               itemBuilder: (context, index) {
-                return Dismissible(
+                return index == 0 ?
+                 Container(
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
+                  child: const Column(
+                    children: [
+                      SizedBox(height: 32),
+                      Icon(Icons.dinner_dining, color: Colors.redAccent, size: 54,),
+                      SizedBox(height: 32),
+                      Text('Que ce qui manque dans le frigo?', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                      Text('Ajoutez ici tout aliment qui manquent',textAlign: TextAlign.center, style: TextStyle(fontSize: 12)),
+                      SizedBox(height: 24),
+                    ],
+                  ),
+                )
+                :
+                Dismissible(
                   key: Key(aliments[index].nom),
                   background: Container(
                     margin: const EdgeInsets.symmetric(vertical: 18),
@@ -87,6 +149,13 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                       setState(() {
                         aliments[index].validerAchat = !aliments[index].validerAchat;
                       });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          duration: const Duration(seconds: 3),
+                          content: Text(
+                                aliments[index].validerAchat ? 'Cet aliment a été acheté : ${aliments[index].nom}'
+                                    : 'L\'achat de cet aliment est annulé : ${aliments[index].nom}' ))
+                      );
                       return false;
 
                     } else if (direction == DismissDirection.endToStart) {

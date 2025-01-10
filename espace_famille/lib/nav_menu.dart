@@ -71,16 +71,37 @@ class _NavMenuState extends State<NavMenu> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            margin: const EdgeInsets.only(top: 20),
-                            child: ClipOval(
-                              child: Image.asset(
-                                'assets/images/cat_profile_img.jpg',
-                                semanticLabel: 'Image du profil',
-                                fit: BoxFit.cover,
-                              ),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, '/pageprofile');
+                            },
+                            child: Stack(
+                              children: [
+                                Container(
+                                  height: 80,
+                                  width: 80,
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/cat_profile_img.jpg',
+                                      semanticLabel: 'Image du profil',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 80,
+                                  width: 80,
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/cat_profile_img.jpg', //image de base si le client n'a pas de photo de profil
+                                      semanticLabel: 'Image du profil',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 12),

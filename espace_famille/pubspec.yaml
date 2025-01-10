@@ -13,6 +13,7 @@ dependencies:
   flutter_rating_stars: ^1.1.0
   palette_generator: ^0.3.3+4
   image_picker: ^1.0.8
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
