@@ -12,6 +12,10 @@ class DesignService {
   final TextEditingController comment_controller = TextEditingController();
   final TextEditingController controllercommentRepondre = TextEditingController();
   final TextEditingController controllerContenuAnnonce = TextEditingController();
+  final TextEditingController nom_aliment_controller = TextEditingController();
+  final TextEditingController descr_aliment_controller = TextEditingController();
+  final TextEditingController quantite_aliment_controller = TextEditingController();
+
   ScrollController _scrollController = ScrollController();
   Image? uploadedImage;
 
@@ -1071,7 +1075,6 @@ class DesignService {
     uploadedImage = null;
     setState((){});
   }
-
   void dialogTransferTache(BuildContext context){
     showDialog(
         context: context,
@@ -1179,5 +1182,280 @@ class DesignService {
           );
         },
     );
+  }
+
+  void dialogAjoutAliment(BuildContext context){
+
+    final List<Map<String, dynamic>> foodItems = [
+      {"name": "Pomme", "image": "assets/images/naruto.jpg", "quantity": 0},
+      {"name": "Banane", "image": "assets/images/naruto.jpg", "quantity": 0},
+      {"name": "Orange", "image": "assets/images/naruto.jpg", "quantity": 0},
+    ];
+
+    uploadedImage = null;
+    nom_aliment_controller.text = '';
+    descr_aliment_controller.text = '';
+    quantite_aliment_controller.text = '';
+
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context){
+      return Container(
+        height: MediaQuery.of(context).size.height * 0.9, // prend 90% de la hauteur de l'appareil,
+        child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState){
+
+              return Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: DefaultTabController(
+                        length: 2, // Nombre d'onglets
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min, // Adapte la hauteur au contenu
+                            children: [
+                              // Onglets (TabBar)
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                                ),
+                                child: const TabBar(
+                                  labelColor: Colors.redAccent,
+                                  unselectedLabelColor: Colors.grey,
+                                  indicatorColor: Colors.redAccent,
+                                  tabs: [
+                                    Tab(icon: Icon(Icons.add)),
+                                    Tab(icon: Icon(Icons.tips_and_updates)),
+                                  ],
+                                ),
+                              ),
+
+                              // Contenu des onglets (TabBarView)
+                              SizedBox(
+                                height: 600, // Hauteur du contenu
+                                child: TabBarView(
+                                  children: [
+                                    // Contenu pour l'onglet 1
+                                    Column(
+                                      children: [
+                                        TextField(
+                                          controller: nom_aliment_controller,
+                                          keyboardType: TextInputType.name,
+                                          maxLength: 16,
+                                          decoration:  const InputDecoration(
+                                              hintText:'Nom de l\'aliment',
+                                              hintStyle: TextStyle(color: Colors.black38),
+                                              focusedBorder: UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.cyan, // Change border color here
+                                                    width: 2.0, // Border width
+                                                  )
+                                              )
+                                          ),
+                                        ),
+                                        TextField(
+                                          controller: quantite_aliment_controller,
+                                          keyboardType: TextInputType.number,
+                                          maxLength: 2,
+                                          decoration:  const InputDecoration(
+                                              hintText:'Quantité',
+                                              hintStyle: TextStyle(color: Colors.black38),
+                                              focusedBorder: UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.cyan, // Change border color here
+                                                    width: 2.0, // Border width
+                                                  )
+                                              )
+                                          ),
+                                        ),
+                                        TextField(
+                                          controller: descr_aliment_controller,
+                                          keyboardType: TextInputType.name,
+                                          maxLength: 16,
+                                          decoration:  const InputDecoration(
+                                              hintText:'Description (facultatif)',
+                                              hintStyle: TextStyle(color: Colors.black38),
+                                              focusedBorder: UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.cyan, // Change border color here
+                                                    width: 2.0, // Border width
+                                                  )
+                                              )
+                                          ),
+                                        ),
+                                        uploadedImage != null ?
+                                        Container(
+                                            height:120, width:120,
+                                            margin: const EdgeInsets.only(bottom: 8),
+                                            child: uploadedImage!) : const SizedBox(),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Colors.red,
+                                              backgroundColor: Colors.white,
+                                              elevation: 0,
+                                              side: BorderSide(
+                                                width: 1,
+                                                color: Colors.red.withOpacity(0.2)
+                                              )
+                                            ),
+                                            onPressed: () async{
+                                              getImage(setState);
+                                            },
+                                            child: const Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.upload_outlined),
+                                                SizedBox(width: 4),
+                                                Text('Ajouter une image')
+                                              ],
+                                            )
+                                        ),
+                                        const SizedBox(height: 12),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Colors.white,
+                                              backgroundColor: Colors.red,
+                                            ),
+                                            onPressed: () async{
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.add),
+                                                SizedBox(width: 4),
+                                                Text('Ajouter l\'aliment'),
+                                              ],
+                                            )
+                                        ),
+
+
+                                      ],
+                                    ),
+                                    // Contenu pour l'onglet 2
+                                    ListView.builder(
+                                        itemCount: foodItems.length,
+                                        itemBuilder: (context, index) {
+
+                                          final food = foodItems[index];
+                                          return Card(
+                                            margin: const EdgeInsets.all(8),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(16.0),
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  // Image de l'aliment
+                                                  ClipRRect(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    child: Image.asset(
+                                                      food['image'],
+                                                      height: 60,
+                                                      width: 60,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 16),
+
+                                                  // Nom et contrôle de quantité
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          food['name'],
+                                                          style: const TextStyle(
+                                                              fontWeight: FontWeight.bold, fontSize: 18),
+                                                        ),
+                                                        const SizedBox(height: 8),
+                                                        Row(
+                                                          children: [
+                                                            IconButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  if (food['quantity'] > 0) {
+                                                                    food['quantity']--;
+                                                                  }
+                                                                });
+                                                              },
+                                                              icon: const Icon(Icons.remove_circle_outline),
+                                                              color: Colors.red,
+                                                            ),
+                                                            Text(
+                                                              '${food['quantity']}',
+                                                              style: const TextStyle(fontSize: 16),
+                                                            ),
+                                                            IconButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  food['quantity']++;
+                                                                });
+                                                              },
+                                                              icon: const Icon(Icons.add_circle_outline),
+                                                              color: Colors.green,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+
+                                                  // Bouton d'ajout
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      // Action à exécuter lors de l'ajout
+                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                        content: Text('${food['name']} ajouté au panier!'),
+                                                      ));
+                                                    },
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors.redAccent,
+                                                      foregroundColor: Colors.white,
+                                                    ),
+                                                    child: const Text('Ajouter'),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      height: 60,
+                      color: Colors.grey.withOpacity(0.2),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.close, color: Colors.black,)
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              );
+            }),
+      );
+    });
+
   }
 }

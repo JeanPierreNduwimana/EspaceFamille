@@ -91,6 +91,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
         foregroundColor: Colors.white,
         onPressed: (){
           //dialog d'ajout d'un aliment
+          _designService.dialogAjoutAliment(context);
         },
         tooltip: 'Ajout d\'un aliment',
         child: const Icon(Icons.add),
@@ -160,7 +161,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
 
                     } else if (direction == DismissDirection.endToStart) {
                       // Action quand l'utilisateur glisse vers la gauche
-                      bool? result = await _designService.dialogYesorNo(context, '(In)Valider cette aliment');
+                      bool? result = await _designService.dialogYesorNo(context, 'Supprimer cette aliment');
                       if(result != null && result){
                           return true;
                       }
