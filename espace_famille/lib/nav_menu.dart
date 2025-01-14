@@ -327,6 +327,7 @@ class _NavMenuState extends State<NavMenu> {
             ),
             onTap: () {
               // Déconnexion logic
+              Navigator.pushNamed(context, '/connexion');
             },
           ),
         ],

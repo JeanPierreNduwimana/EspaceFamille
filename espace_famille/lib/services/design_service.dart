@@ -1076,67 +1076,104 @@ class DesignService {
     showDialog(
         context: context,
         builder: (context){
+          int selectedIndex = -1;
           return Dialog(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Container(
-                height: 400,
-                child: Column(
-                  children: [
-                    Text('À qui voulez-vous transferer cette tâche?', style: TextStyle(fontWeight: FontWeight.bold),),
-                    CarouselSlider.builder(
-                      itemCount: 7,
-                      itemBuilder: (context, index, realIndex) {
-                        return GestureDetector(
-                          onTap: () {
-
-                          },
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(8),
-                                child: Stack(
-                                  fit: StackFit.loose,
-                                  children: [
-                                    Container(
-                                      height: 80,
-                                      width: 80,
-                                      margin: const EdgeInsets.only(top: 20),
-                                      child: ClipOval(
-                                        child: Image.asset(
-                                          'assets/images/cat_profile_img.jpg',
-                                          semanticLabel: 'Image du profil',
-                                          fit: BoxFit.cover,),
-                                      ),
+                height: 300,
+                child: StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    return Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.only(top: 18, bottom: 8),
+                            child: Text('À qui voulez-vous transferer cette tâche?', style: TextStyle(fontWeight: FontWeight.bold),)),
+                        Expanded(
+                          flex: 3,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 7,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index){
+                                return GestureDetector(
+                                  onTap: (){
+                                    setState((){
+                                      selectedIndex = index;
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4),
+                                    child: Stack(
+                                      fit: StackFit.loose,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(12),
+                                          height: 80,
+                                          width: 80,
+                                          margin: const EdgeInsets.only(top: 20),
+                                          child: ClipOval(
+                                            child: Image.asset(
+                                              'assets/images/cat_profile_img.jpg',
+                                              semanticLabel: 'Image du profil',
+                                              fit: BoxFit.cover,),
+                                          ),
+                                        ),
+                                        Container(
+                                          color: selectedIndex == index ? Colors.purple : null,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                padding: const EdgeInsets.all(12),
+                                                height: 80,
+                                                width: 80,
+                                                margin: const EdgeInsets.only(top: 20),
+                                                child: ClipOval(
+                                                  child: Image.asset(
+                                                    'assets/images/cat_profile_img.jpg',
+                                                    semanticLabel: 'Image du profil',
+                                                    fit: BoxFit.cover,),
+                                                ),
+                                              ),
+                                              //const SizedBox(height: 4),
+                                              Text('Jean Pierre', textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold,
+                                                  color:  selectedIndex == index ? Colors.white : Colors.black,
+                                                ),)
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Container(
-                                      //alignment: Alignment.bottomCenter,
-                                      height: 80,
-                                      width: 80,
-                                      margin: const EdgeInsets.only(top: 20),
-                                      child: ClipOval(
-                                        child: Image.asset(
-                                          'assets/images/cat_profile_img.jpg',
-                                          semanticLabel: 'Image du profil',
-                                          fit: BoxFit.cover,),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold),)
-                            ],
+                                  ),
+                                );
+                              }),
+                        ),
+                        selectedIndex != -1 ? Expanded(flex: 1, child: Align(alignment: Alignment.center,child: const Text('Transferer à Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold)))) : const Expanded(child: SizedBox()),
+                        Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.only(bottom: 12,left: 16, right: 16),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: selectedIndex == -1 ? Colors.grey : Colors.purple,
+                                foregroundColor: Colors.white
+                            ),
+                            onPressed: (){
+                              if(selectedIndex != -1){
+                                Navigator.of(context).pop();
+                              }
+                            },
+                            child: Text('Transferer'),
                           ),
-                        );
-                      },
-                      options: CarouselOptions(
-                        //height: 250,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
-                      ),
-                    )
-                  ],
+                        )
+
+                      ],
+                    );
+                  }
+
                 ),
               )
           );
@@ -1144,4 +1181,3 @@ class DesignService {
     );
   }
 }
-

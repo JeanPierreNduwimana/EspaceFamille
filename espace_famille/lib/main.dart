@@ -1,3 +1,5 @@
+import 'package:espace_famille/authentification/connexion.dart';
+import 'package:espace_famille/authentification/inscription.dart';
 import 'package:espace_famille/epicerie/liste_epicerie.dart';
 import 'package:espace_famille/profile/classement_profile.dart';
 import 'package:espace_famille/profile/page_profile.dart';
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const AccueilEspaceFammille(),
+      home: const Connection(),
       routes: {
         '/accfam': (context) => const AccueilEspaceFammille(),
         '/pageprofile': (context) => const PageProfile(),
@@ -32,6 +34,8 @@ class MyApp extends StatelessWidget {
         '/classement' : (context) => const ClassementProfiles(),
         '/events' : (context) => const Horaire(),
         '/liste_epicerie' : (context) => const ListeEpicerie(),
+        '/connexion' : (context) => const Connection(),
+        '/inscription' : (context) => const Inscription(),
       },
 
     );
