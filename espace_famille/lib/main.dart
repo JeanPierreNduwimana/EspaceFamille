@@ -7,6 +7,7 @@ import 'package:espace_famille/taches/horaire.dart';
 import 'package:espace_famille/taches/liste_evaluation.dart';
 import 'package:espace_famille/taches/liste_taches.dart';
 import 'package:flutter/material.dart';
+import 'accueil/accueil.dart';
 import 'espace_famille/accueil_espace_famille.dart';
 
 void main() {
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Connection(),
+      home: const Accueil(),
       routes: {
         '/accfam': (context) => const AccueilEspaceFammille(),
         '/pageprofile': (context) => const PageProfile(),
