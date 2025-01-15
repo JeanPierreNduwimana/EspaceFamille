@@ -16,8 +16,9 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Evaluations de Jean Pierre'),
+      appBar: _designService.appBar(context,'Evaluations de Jean Pierre', false),
       body: buildBody(),
+      bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan,
         onPressed: (){

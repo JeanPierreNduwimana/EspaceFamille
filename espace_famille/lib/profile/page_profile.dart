@@ -37,8 +37,9 @@ class _PageProfileState extends State<PageProfile> {
     Future<void> _onRefresh() async {
     }
     return Scaffold(
-      appBar: _designService.appBar('Mon profil'),
+      appBar: _designService.appBar(context,'Mon profil', true),
       resizeToAvoidBottomInset: true, // Permet d'éviter que le clavier cache le contenu
+      bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       body: RefreshIndicator(
         onRefresh: _onRefresh,
         color: Colors.cyan,
@@ -209,15 +210,7 @@ class _PageProfileState extends State<PageProfile> {
 
         ),
       ),
-      drawer: NavMenu(),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan,
-        tooltip: 'justunbouton',
-        child: Icon(Icons.add),
-        onPressed: (){
-          Navigator.pushNamed(context, '/listetaches');
-        },
-      ),
+      //drawer: NavMenu(),
     );
   }
 

@@ -67,9 +67,10 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _designService.appBar('Espace Famille'),
+      appBar: _designService.appBar(context,'Espace Famille', false),
       body: buildBody(),
-      drawer: const NavMenu(),
+      //drawer: const NavMenu(),
+      bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan.shade400,
         foregroundColor: Colors.white,

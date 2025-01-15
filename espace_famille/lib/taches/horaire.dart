@@ -35,9 +35,10 @@ class _HoraireState extends State<Horaire> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Horaire'),
+      appBar: _designService.appBar(context,'Horaire', false),
       body: buildBody(),
-      drawer: const NavMenu(),
+      bottomNavigationBar: _designService.navigationBar(context, 4, setState),
+      //drawer: const NavMenu(),
     );
   }
 

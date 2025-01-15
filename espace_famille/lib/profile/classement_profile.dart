@@ -39,10 +39,11 @@ class _ClassementProfilesState extends State<ClassementProfiles> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Meilleurs membres'),
+      appBar: _designService.appBar(context,'Meilleurs membres', false),
       body: buildBody(),
       backgroundColor: Colors.white,
-      drawer: const NavMenu(),
+      bottomNavigationBar: _designService.navigationBar(context, 3, setState),
+      //drawer: const NavMenu(),
     );
   }
 }
@@ -124,7 +125,7 @@ Widget buildBody(){
                           height: 160,
                           width: 80,
                           decoration: BoxDecoration(
-                            color: Colors.yellow.shade600,
+                            color: Colors.yellow.shade700,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
@@ -197,14 +198,13 @@ Widget buildBody(){
           return Container(
             margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: index == 1 ? Colors.yellow.shade600.withOpacity(0.2) : (index == 2) ? Colors.grey.shade400.withOpacity(0.2) : (index == 3) ? Colors.brown.shade800.withOpacity(0.2) : Colors.white,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: index == 1 ? Colors.yellow.shade600.withOpacity(0.1) : (index == 2) ? Colors.grey.shade400.withOpacity(0.1) : (index == 3) ? Colors.brown.shade400.withOpacity(0.1) : Colors.grey.shade300,
-                  width: 1),
+                  color: Colors.grey.shade300, width: 1),
               boxShadow: [
                 BoxShadow(
-                  color: index == 1 ? Colors.yellow.shade600.withOpacity(0.1) : (index == 2) ? Colors.grey.shade400.withOpacity(0.1) : (index == 3) ? Colors.brown.shade400.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
+                  color: Colors.grey.withOpacity(0.1),
                   spreadRadius: 2,
                   blurRadius: 3,
                   offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
@@ -220,27 +220,19 @@ Widget buildBody(){
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: index == 1 ? Colors.yellow.shade600 : (index == 2) ? Colors.grey.shade400 : (index == 3) ? Colors.brown.shade400 : Colors.cyan.shade50, shape: BoxShape.circle,
+                    color: index == 1 ? Colors.yellow.shade700 : (index == 2) ? Colors.grey.shade400 : (index == 3) ? Colors.brown.shade400 : Colors.cyan.shade200, shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     '$index',
                     style: TextStyle(
-                      color: ( index == 1 || index == 2 || index == 3) ? Colors.white : Colors.cyan,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
-
-                // Emoji
-                Text(
-                  index == 1 ? "🥇" : index == 2 ? "🥈" : index == 3 ? "🥉" : "",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24),
-                ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 32),
 
                 // Image de profil
                 ClipOval(

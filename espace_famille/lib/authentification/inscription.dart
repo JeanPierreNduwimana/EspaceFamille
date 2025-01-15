@@ -19,7 +19,7 @@ class _InscriptionState extends State<Inscription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Inscription'),
+      appBar: _designService.appBar(context,'Inscription', true),
       body: buildBody(),
     );
   }
@@ -87,7 +87,7 @@ class _InscriptionState extends State<Inscription> {
                     children: [
                       ElevatedButton(
                         onPressed: () async {
-                          Navigator.pushNamed(context, '/accfam');
+                          Navigator.pushNamed(context, '/acceuil');
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.cyan,

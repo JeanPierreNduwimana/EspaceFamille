@@ -18,7 +18,7 @@ class _ConnectionState extends State<Connection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Connexion'),
+      appBar: _designService.appBar(context,'Connexion', true),
       body: buildBody(),
     );
   }
@@ -70,7 +70,8 @@ class _ConnectionState extends State<Connection> {
                     children: [
                       ElevatedButton(
                         onPressed: () async {
-                          Navigator.pushNamed(context, '/accfam');
+                          //Navigator.pushNamed(context, '/acceuil');
+                          Navigator.popAndPushNamed(context, '/acceuil');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.cyan,

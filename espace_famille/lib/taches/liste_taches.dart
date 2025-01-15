@@ -40,9 +40,10 @@ class _ListeTachesState extends State<ListeTaches> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Tâches disponibles'),
+      appBar: _designService.appBar(context,'Tâches disponibles', false),
       body: buildBody(),
-      drawer: const NavMenu(),
+      //drawer: const NavMenu(),
+      bottomNavigationBar: _designService.navigationBar(context, 3, setState),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyan.shade400,
         foregroundColor: Colors.white,

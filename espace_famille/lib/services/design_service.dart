@@ -18,37 +18,18 @@ class DesignService {
 
   ScrollController _scrollController = ScrollController();
   Image? uploadedImage;
+  int currentPage = -1;
 
-/*
-  PreferredSize appBar(String title){
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(100.0), // Hauteur de l'AppBar
-      child: AppBar(
-        backgroundColor: Colors.cyan,
-        flexibleSpace: Padding(
-          padding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-*/
-  AppBar appBar(String title){
+  AppBar appBar(BuildContext context,String title, bool onProfilePage){
     return AppBar(
+      leading: null,
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
+      elevation: 0,
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Expanded(child: SizedBox()),
           Text(
             title,
             style: const TextStyle(
@@ -57,6 +38,29 @@ class DesignService {
               fontWeight: FontWeight.bold,
             ),
           ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(child: SizedBox()),
+                onProfilePage ? const SizedBox() : GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/app_options');
+                  },
+                  child: Container(
+                    height: 32,
+                    width: 32,
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/images/cat_profile_img.jpg',
+                        semanticLabel: 'Image du profil',
+                        fit: BoxFit.cover,),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+
         ],
       ),
     );
@@ -229,7 +233,7 @@ class DesignService {
                         },
                         starBuilder: (index, color) => Icon(
                           Icons.star,
-                          color: color,
+                          color: Colors.yellow.shade700,
                         ),
                         starCount: 5,
                         starSize: 20,
@@ -999,7 +1003,7 @@ class DesignService {
       value: value,
       starBuilder: (index, color) => Icon(
         Icons.star,
-        color: color,
+        color: Colors.yellow.shade700,
       ),
       starCount: 5,
       starSize: 20,
@@ -1462,5 +1466,77 @@ class DesignService {
       );
     });
 
+  }
+
+  BottomNavigationBar navigationBar(BuildContext context, int _selectedIndex, StateSetter setState){
+    currentPage = _selectedIndex;
+    return BottomNavigationBar(
+      currentIndex: _selectedIndex, // Ajout pour suivre l'onglet actif
+      onTap: (index) {
+        setState(() {
+          _selectedIndex = index; // Met à jour l'onglet actif
+        });
+
+        switch(index){
+          case 0 :
+          //Navigation vers Espace
+            Navigator.pushNamed(context, '/acceuil');
+            break;
+          case 1 :
+          //Navigation vers Épicerie
+            Navigator.pushNamed(context, '/liste_epicerie');
+            break;
+          case 2 :
+          //Navigation vers Acceuil
+            Navigator.pushNamed(context, '/accfam');
+            break;
+          case 3 :
+          //Navigation vers Taches
+            Navigator.pushNamed(context, '/listetaches');
+            break;
+          case 4 :
+          //Navigation vers Evenements
+            Navigator.pushNamed(context, '/events');
+            break;
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.dashboard_outlined), // Icône représentative pour Accueil
+          activeIcon: Icon(Icons.dashboard,color: Colors.cyan), // Icône pour l'état actif
+          label: 'Accueil',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart_outlined), // Icône représentative pour Accueil
+          activeIcon: Icon(Icons.shopping_cart, color: Colors.redAccent), // Icône pour l'état actif
+          label: 'Épicerie',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.people_alt_outlined), // Icône plus moderne pour un espace famille
+          activeIcon: Icon(Icons.people_alt, color: Colors.cyan,), // Icône pour l'état actif
+          label: 'Espace',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.task_alt_outlined), // Icône plus moderne pour Profil
+          activeIcon: Icon(Icons.task_alt, color: Colors.green), // Icône pour l'état actif
+          label: 'Taches',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_month_outlined), // Icône plus moderne pour Profil
+          activeIcon: Icon(Icons.calendar_month, color: Colors.purple), // Icône pour l'état actif
+          label: 'Evenements',
+        ),
+      ],
+      selectedItemColor: (
+          _selectedIndex == 0 ? Colors.cyan
+              : _selectedIndex == 1 ? Colors.redAccent
+              : _selectedIndex == 2 ? Colors.cyan
+              : _selectedIndex == 3 ? Colors.green
+              : Colors.purple),
+      // Couleur des icônes actives
+      unselectedItemColor: Colors.grey, // Couleur des icônes inactives
+      type: BottomNavigationBarType.fixed, // Assure un comportement stable
+      elevation: 8, // Ajoute une ombre pour un meilleur visuel
+    );
   }
 }

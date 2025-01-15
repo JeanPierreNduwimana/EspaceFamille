@@ -35,9 +35,10 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar('Commentaires'),
+      appBar: _designService.appBar(context,'Commentaires', false),
       body: buildBody(),
-      drawer: NavMenu(),
+      bottomNavigationBar: _designService.navigationBar(context, 2, setState),
+      //drawer: NavMenu(),
     );
   }
 
