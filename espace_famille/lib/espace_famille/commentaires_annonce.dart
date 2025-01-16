@@ -87,7 +87,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                           },
                         ),
                         const SizedBox(width: 12,),
-                        Text('Jean Pierre', style: const TextStyle(fontWeight: FontWeight.bold),)
+                        Text('Jean Pierre', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
                       ],
                     ),
                     Row(
@@ -149,12 +149,25 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                     ),
                     Row(
                       children: [
-                        Icon(Icons.favorite, color: Colors.deepOrange[400],),
-                        Text('2', style: TextStyle(color: Colors.deepOrange[400]),),
-                        SizedBox(width: 8),
-                        Icon(Icons.comment, color: Colors.cyan[600],),
-                        Text('3', style: TextStyle(color: Colors.cyan[600]),),
-                        Expanded(child: Align(alignment: Alignment.centerRight, child: Text('2023-03-04', style: const TextStyle(fontStyle: FontStyle.italic),)))
+                        Icon(Icons.favorite, color: Colors.deepOrange[400], size: 20),
+                        SizedBox(width: 2),
+                        Text('2', style: TextStyle(color: Colors.deepOrange[400],fontSize: 16)),
+                        SizedBox(width: 24),
+                        GestureDetector(
+                          onTap: (){
+                            _designService.controllercommentRepondre.text = '';
+                            _designService.dialogRepondreCommentaire(context);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.comment, color: Colors.cyan[600], size: 20),
+                              const SizedBox(width: 2),
+                              Text('3', style: TextStyle(color: Colors.cyan[600],fontSize: 16)),
+                            ],
+                          ),
+                        ),
+
+                        const Expanded(child: Align(alignment: Alignment.centerRight, child: Text('2023-03-04', style: TextStyle(fontStyle: FontStyle.italic),)))
                       ],
                     ),
                   ],
@@ -221,8 +234,9 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.favorite, color: Colors.deepOrange[400],),
-                                  Text('2', style: TextStyle(color: Colors.deepOrange[400]),),
+                                  Icon(Icons.favorite, color: Colors.deepOrange[400], size: 20),
+                                  SizedBox(width: 2),
+                                  Text('2', style: TextStyle(color: Colors.deepOrange[400],fontSize: 16)),
                                 ],),
                               GestureDetector(
                                 onTap: () {
@@ -281,8 +295,9 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                                           children: [
                                             Row(
                                               children: [
-                                                Icon(Icons.favorite, color: Colors.deepOrange[400],),
-                                                Text('2', style: TextStyle(color: Colors.deepOrange[400]),),
+                                                Icon(Icons.favorite, color: Colors.deepOrange[400], size: 20),
+                                                SizedBox(width: 2),
+                                                Text('2', style: TextStyle(color: Colors.deepOrange[400],fontSize: 16)),
                                               ],
                                             ),
                                             //SizedBox(width: 8),

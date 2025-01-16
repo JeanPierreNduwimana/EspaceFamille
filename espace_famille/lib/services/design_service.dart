@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,10 +15,10 @@ class DesignService {
   final TextEditingController descr_aliment_controller = TextEditingController();
   final TextEditingController quantite_aliment_controller = TextEditingController();
 
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   Image? uploadedImage;
   int currentPage = -1;
-  bool orgExist = false;
+  bool orgExist = true;
 
   AppBar appBar(BuildContext context,String title, bool onProfilePage){
     return AppBar(
@@ -30,7 +29,7 @@ class DesignService {
       title: Row(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           Text(
             title,
             style: const TextStyle(
@@ -42,12 +41,12 @@ class DesignService {
           Expanded(
             child: Row(
               children: [
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 onProfilePage ? const SizedBox() : GestureDetector(
                   onTap: (){
                     Navigator.pushNamed(context, '/app_options');
                   },
-                  child: Container(
+                  child: SizedBox(
                     height: 32,
                     width: 32,
                     child: ClipOval(
@@ -84,7 +83,7 @@ class DesignService {
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.2),
                   blurRadius: 10,
-                  offset: Offset(0, 5),
+                  offset: const Offset(0, 5),
                 ),
               ],
             ),
@@ -101,7 +100,7 @@ class DesignService {
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -115,7 +114,7 @@ class DesignService {
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
-                      child: Text('Oui', style: TextStyle(fontSize: 16)),
+                      child: const Text('Oui', style: TextStyle(fontSize: 16)),
                     ),
                     ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(false),
@@ -127,7 +126,7 @@ class DesignService {
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
-                      child: Text('Non', style: TextStyle(fontSize: 16)),
+                      child: const Text('Non', style: TextStyle(fontSize: 16)),
                     ),
                   ],
                 ),
@@ -158,7 +157,7 @@ class DesignService {
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.2),
                   blurRadius: 10,
-                  offset: Offset(0, 5),
+                  offset: const Offset(0, 5),
                 ),
               ],
             ),
@@ -188,11 +187,11 @@ class DesignService {
                     ),
                   ],
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 100,
                       child: ElevatedButton(
                         onPressed: () => Navigator.of(context).pop(true),
@@ -204,7 +203,7 @@ class DesignService {
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         ),
-                        child: Text('Joindre', style: TextStyle(fontSize: 16)),
+                        child: const Text('Joindre', style: TextStyle(fontSize: 16)),
                       ),
                     ),
                     SizedBox(
@@ -219,7 +218,7 @@ class DesignService {
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         ),
-                        child: Text('Créer', style: TextStyle(fontSize: 16)),
+                        child: const Text('Créer', style: TextStyle(fontSize: 16)),
                       ),
                     ),
                   ],
@@ -275,7 +274,7 @@ class DesignService {
                             },
                             child: const Text('Annuler', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                           ),
-                          visitor? const Text('Evaluer JeanPierre pour cette tache', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),) :
+                          visitor? const Text('Evaluer JeanPierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),) :
                           const Text('Détails sur ma tâche', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -327,7 +326,7 @@ class DesignService {
                         },
                         starBuilder: (index, color) => Icon(
                           Icons.star,
-                          color: Colors.yellow.shade700,
+                          color: color,
                         ),
                         starCount: 5,
                         starSize: 20,
@@ -347,7 +346,7 @@ class DesignService {
                         const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
                         valueLabelMargin: const EdgeInsets.only(right: 8),
                         starOffColor: const Color(0xffe7e8ea),
-                        starColor: Colors.yellow,
+                        starColor: Colors.yellow.shade700,
                       ) : const SizedBox()),
                       (!visitor?Container(
                         margin: const EdgeInsets.all(8),
@@ -561,12 +560,12 @@ class DesignService {
                                     afficheMessage(context, 'Le champs ne peut pas être vide 😠');
                                   }
                                 },
-                                child: isEditMessage ? Icon(Icons.mode_edit_outlined) : Icon(Icons.send)),
+                                child: isEditMessage ? const Icon(Icons.mode_edit_outlined) : const Icon(Icons.send)),
 
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         height: 40,
                         width: 40,
                         child: ClipOval(
@@ -620,7 +619,7 @@ class DesignService {
                               Text('Ajouter une image')
                             ],
                           )),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -804,11 +803,11 @@ class DesignService {
                                             controllerSubTaskName.text = '';
                                             _scrollController.animateTo(
                                               _scrollController.position.maxScrollExtent, // Maximum scroll extent (bottom)
-                                              duration: Duration(milliseconds: 300), // Animation duration
+                                              duration: const Duration(milliseconds: 300), // Animation duration
                                               curve: Curves.easeInOut, // Animation curve
                                             );
                                           },
-                                          child: Icon(Icons.add, size: 32, color: Colors.cyan,)
+                                          child: const Icon(Icons.add, size: 32, color: Colors.cyan,)
                                       )
                                   )
                                 ],
@@ -831,7 +830,7 @@ class DesignService {
                                 child: const Text('Ajouter des sous-tâches')),
                           ),
                         Container(
-                          margin: EdgeInsets.only(top: 12, bottom: 12),
+                          margin: const EdgeInsets.only(top: 12, bottom: 12),
                           child: const Text(
                             "Choisissez la recurrence:",
                             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
@@ -1041,7 +1040,7 @@ class DesignService {
                             children: [
                               Row(
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     height: 30,
                                     width: 30,
                                     child: ClipOval(
@@ -1169,7 +1168,7 @@ class DesignService {
           ),
           content: Text(
             message,
-            style: TextStyle(color: Colors.black), // Cyan text color for the message
+            style: const TextStyle(color: Colors.black), // Cyan text color for the message
           ),
           actions: <Widget>[
             TextButton(
@@ -1210,15 +1209,15 @@ class DesignService {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Container(
+              child: SizedBox(
                 height: 300,
                 child: StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
                     return Column(
                       children: [
                         Container(
-                            margin: EdgeInsets.only(top: 18, bottom: 8),
-                            child: Text('À qui voulez-vous transferer cette tâche?', style: TextStyle(fontWeight: FontWeight.bold),)),
+                            margin: const EdgeInsets.only(top: 18, bottom: 8),
+                            child: const Text('À qui voulez-vous transferer cette tâche?', style: TextStyle(fontWeight: FontWeight.bold),)),
                         Expanded(
                           flex: 3,
                           child: ListView.builder(
@@ -1281,10 +1280,10 @@ class DesignService {
                                 );
                               }),
                         ),
-                        selectedIndex != -1 ? Expanded(flex: 1, child: Align(alignment: Alignment.center,child: const Text('Transferer à Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold)))) : const Expanded(child: SizedBox()),
+                        selectedIndex != -1 ? const Expanded(flex: 1, child: Align(alignment: Alignment.center,child: Text('Transferer à Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold)))) : const Expanded(child: SizedBox()),
                         Container(
                           width: double.infinity,
-                          margin: EdgeInsets.only(bottom: 12,left: 16, right: 16),
+                          margin: const EdgeInsets.only(bottom: 12,left: 16, right: 16),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: selectedIndex == -1 ? Colors.grey : Colors.purple,
@@ -1295,7 +1294,7 @@ class DesignService {
                                 Navigator.of(context).pop();
                               }
                             },
-                            child: Text('Transferer'),
+                            child: const Text('Transferer'),
                           ),
                         )
 
@@ -1326,7 +1325,7 @@ class DesignService {
         context: context,
         isScrollControlled: true,
         builder: (context){
-      return Container(
+      return SizedBox(
         height: MediaQuery.of(context).size.height * 0.9, // prend 90% de la hauteur de l'appareil,
         child: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState){
@@ -1482,6 +1481,13 @@ class DesignService {
                                               child: Row(
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
+                                                  Container(
+                                                    margin: const EdgeInsets.only(right: 24),
+                                                    child: GestureDetector(
+                                                        onTap: (){
+
+                                                        },
+                                                        child: const Icon(Icons.delete_outlined, color: Colors.redAccent))),
                                                   // Image de l'aliment
                                                   ClipRRect(
                                                     borderRadius: BorderRadius.circular(8),
@@ -1493,19 +1499,22 @@ class DesignService {
                                                     ),
                                                   ),
                                                   const SizedBox(width: 16),
-
                                                   // Nom et contrôle de quantité
                                                   Expanded(
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
-                                                          food['name'],
-                                                          style: const TextStyle(
-                                                              fontWeight: FontWeight.bold, fontSize: 18),
+                                                        Container(
+                                                          margin : const EdgeInsets.only(left: 16,top: 4),
+                                                          child: Text(
+                                                            food['name'],
+                                                            style: const TextStyle(
+                                                                fontWeight: FontWeight.bold, fontSize: 18),
+                                                          ),
                                                         ),
                                                         const SizedBox(height: 8),
                                                         Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
                                                           children: [
                                                             IconButton(
                                                               onPressed: () {
@@ -1516,7 +1525,7 @@ class DesignService {
                                                                 });
                                                               },
                                                               icon: const Icon(Icons.remove_circle_outline),
-                                                              color: Colors.red,
+                                                              color: Colors.grey,
                                                             ),
                                                             Text(
                                                               '${food['quantity']}',
@@ -1573,7 +1582,7 @@ class DesignService {
                     child: Container(
                       height: 60,
                       color: Colors.grey.withOpacity(0.2),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.close, color: Colors.black,)
@@ -1660,6 +1669,90 @@ class DesignService {
     );
   }
 
+  void dialogDetailAliment(BuildContext context) {
+    bool foodSaved = false;
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+           return Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+             child: Column(
+               mainAxisSize: MainAxisSize.min,
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 Center(
+                   child: Container(
+                     width: 50,
+                     height: 5,
+                     decoration: BoxDecoration(
+                       color: Colors.grey[300],
+                       borderRadius: BorderRadius.circular(10),
+                     ),
+                   ),
+                 ),
+                 const SizedBox(height: 16),
+                 const Text(
+                   'Banane',
+                   style: TextStyle(
+                     fontSize: 20,
+                     fontWeight: FontWeight.bold,
+                   ),
+                 ),
+                 const SizedBox(height: 8),
+                 const Text(
+                   'Ceci est une description de la banane',
+                   style: TextStyle(
+                     fontSize: 16,
+                     color: Colors.grey,
+                   ),
+                 ),
+                 const SizedBox(height: 16),
+                 Center(
+                   child: ClipRRect(
+                     borderRadius: BorderRadius.circular(16),
+                     child: Image.asset(
+                       'assets/images/naruto.jpg',
+                       height: 80,
+                       width: 80,
+                       fit: BoxFit.cover,
+                     ),
+                   ),
+                 ),
+                 const SizedBox(height: 16),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     const Text(
+                       'Quantité: 5',
+                       style: TextStyle(fontSize: 16),
+                     ),
+                     IconButton(
+                       onPressed: () {
+                         setState((){
+                           foodSaved = !foodSaved;
+                         });
+                       },
+                       icon: Icon( foodSaved? Icons.bookmark : Icons.bookmark_outline, color: Colors.cyan),
+                     ),
+                   ],
+                 ),
+                 const SizedBox(height: 16),
+               ],
+             ),
+           );
+          }
+        );
+      },
+    );
+  }
+
   // Dialog to create an organization
   void dialogCreateOrganizationDialog(BuildContext context) {
     final TextEditingController orgNameController = TextEditingController();
@@ -1672,7 +1765,7 @@ class DesignService {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          title: Text(
+          title: const Text(
             'Create Organization',
             style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),
           ),
@@ -1681,13 +1774,13 @@ class DesignService {
             cursorColor: Colors.cyan,
             decoration: InputDecoration(
               labelText: 'Organization Name',
-              labelStyle: TextStyle(color: Colors.grey),
+              labelStyle: const TextStyle(color: Colors.grey),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
+                borderSide: const BorderSide(color: Colors.grey),
                 borderRadius: BorderRadius.circular(10),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.cyan, width: 2),
+                borderSide: const BorderSide(color: Colors.cyan, width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
@@ -1695,7 +1788,7 @@ class DesignService {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel', style: TextStyle(color: Colors.black)),
+              child: const Text('Cancel', style: TextStyle(color: Colors.black)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -1737,13 +1830,13 @@ class DesignService {
             cursorColor: Colors.cyan,
             decoration: InputDecoration(
               labelText: 'Enter Code',
-              labelStyle: TextStyle(color: Colors.grey),
+              labelStyle: const TextStyle(color: Colors.grey),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
+                borderSide: const BorderSide(color: Colors.grey),
                 borderRadius: BorderRadius.circular(10),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.cyan, width: 2),
+                borderSide: const BorderSide(color: Colors.cyan, width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
@@ -1751,7 +1844,7 @@ class DesignService {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel', style: TextStyle(color: Colors.black)),
+              child: const Text('Cancel', style: TextStyle(color: Colors.black)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -1766,7 +1859,7 @@ class DesignService {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Join'),
+              child: const Text('Join'),
             ),
           ],
         );

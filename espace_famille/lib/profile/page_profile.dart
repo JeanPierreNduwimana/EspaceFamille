@@ -149,7 +149,7 @@ class _PageProfileState extends State<PageProfile> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: ListTile(
                     onTap: () => _designService.dialogEvaluerTacheDetailsProfile(
-                        false, context, taches[index], value),
+                        true, context, taches[index], value),
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(8), // Ajout de coins arrondis à l'image
                       child: Image.asset(

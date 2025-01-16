@@ -136,7 +136,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                     },
                                   ),
                                   const SizedBox(width: 12,),
-                                  Text(annonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold),)
+                                  Text(annonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
                                 ],
                               ),
                               Row(
@@ -204,12 +204,25 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                         annonces[index].liked = !annonces[index].liked;
                                       });
                                     }),
-                                    child: annonces[index].liked ? Icon(Icons.favorite, color: Colors.deepOrange[400],) : Icon(Icons.favorite_border, color: Colors.deepOrange[400],),
+                                    child: annonces[index].liked ? Icon(Icons.favorite, color: Colors.deepOrange[400],size: 20,) : Icon(Icons.favorite_border, color: Colors.deepOrange[400],),
                                   ),
-                                  Text(annonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400]),),
-                                  SizedBox(width: 8),
-                                  Icon(Icons.comment, color: Colors.cyan[600],),
-                                  Text(annonces[index].Comments.toString(), style: TextStyle(color: Colors.cyan[600]),),
+                                  SizedBox(width: 2),
+                                  Text(annonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400], fontSize: 16),),
+                                  SizedBox(width: 24),
+                                  GestureDetector(
+                                    onTap: (){
+                                      _designService.controllercommentRepondre.text = '';
+                                      _designService.dialogRepondreCommentaire(context);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.comment, color: Colors.cyan[600],size: 20),
+                                        SizedBox(width: 2),
+                                        Text(annonces[index].Comments.toString(), style: TextStyle(color: Colors.cyan[600], fontSize: 16),),
+                                      ]
+                                    ),
+                                  ),
+
                                   Expanded(child: Align(alignment: Alignment.centerRight, child: Text(annonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)))
                                 ],
                               ),

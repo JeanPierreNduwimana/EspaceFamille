@@ -1,6 +1,9 @@
+import 'package:espace_famille/app_management/about_us_page.dart';
 import 'package:espace_famille/profile/page_profile.dart';
 import 'package:espace_famille/services/design_service.dart';
 import 'package:flutter/material.dart';
+
+import 'notification_page.dart';
 
 class AppOptions extends StatefulWidget {
   const AppOptions({super.key});
@@ -79,16 +82,17 @@ class _AppOptionsState extends State<AppOptions> {
             'Notifications',
             Colors.green,
                 () {
-              /*Navigator.push(
+
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => NotificationsPage()),
-              );*/
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
+              );
             },
           ),
           _buildListTile(
             context,
             Icon(Icons.settings, color: Colors.cyan),
-            'Parameters',
+            'Modifier mon profil',
             Colors.cyan,
                 () {
 
@@ -113,13 +117,13 @@ class _AppOptionsState extends State<AppOptions> {
           _buildListTile(
             context,
             Icon(Icons.info, color: Colors.blueAccent),
-            'About Us',
+            'À propos',
             Colors.blueAccent,
                 () {
-              /*Navigator.push(
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AboutUsPage()),
-              );*/
+                MaterialPageRoute(builder: (context) => const AboutUsPage()),
+              );
             },
           ),
         ],
@@ -187,33 +191,3 @@ class _AppOptionsState extends State<AppOptions> {
 
 }
 
-// Dummy pages for each option
-class ParametersPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Parameters')),
-      body: Center(child: Text('Settings and preferences')),
-    );
-  }
-}
-
-class AboutUsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('About Us')),
-      body: Center(child: Text('Information about the app')),
-    );
-  }
-}
-
-class NotificationsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Notifications')),
-      body: Center(child: Text('Manage your notifications')),
-    );
-  }
-}

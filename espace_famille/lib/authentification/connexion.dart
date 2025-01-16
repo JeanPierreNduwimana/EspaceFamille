@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../nav_menu.dart';
 import '../services/design_service.dart';
-import 'inscription.dart';
 
 class Connection extends StatefulWidget {
   const Connection({super.key});

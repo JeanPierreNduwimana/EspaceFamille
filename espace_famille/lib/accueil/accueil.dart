@@ -21,7 +21,7 @@ final List<Map<String, String>> categories = [
 bool containposts = true;
 bool postimageavailable = true;
 bool valideAchat1 = false;
-bool orgExist = false;
+bool orgExist = true;
 
 class _AccueilState extends State<Accueil> {
 

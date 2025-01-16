@@ -13,7 +13,8 @@ DesignService _designService = DesignService();
 final TextEditingController username_controller = TextEditingController();
 final TextEditingController password_controller = TextEditingController();
 final TextEditingController passwordConfirm_controller = TextEditingController();
-
+DateTime? _selectedDate;
+final TextEditingController _dateController = TextEditingController();
 
 class _InscriptionState extends State<Inscription> {
   @override
@@ -37,6 +38,7 @@ class _InscriptionState extends State<Inscription> {
                   TextField(
                     controller: username_controller,
                     keyboardType: TextInputType.name,
+                    cursorColor: Colors.cyan,
                     maxLength: 16,
                     decoration:  const InputDecoration(
                         hintText:'username',
@@ -50,8 +52,23 @@ class _InscriptionState extends State<Inscription> {
                     ),
                   ),
                   TextField(
+                    controller: _dateController,
+                    readOnly: true,
+                    cursorColor: Colors.cyan,
+                    decoration: const InputDecoration(
+                      hintText: "Date de naissance",
+                      suffixIcon: Icon(Icons.calendar_today, color: Colors.cyan),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.cyan),
+                      ),
+                    ),
+                    onTap: () => _selectDate(context),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
                     controller: password_controller,
                     obscureText: true,
+                    cursorColor: Colors.cyan,
                     keyboardType: TextInputType.visiblePassword,
                     decoration: const InputDecoration(
                         hintText: 'Mot de passe',
@@ -64,10 +81,11 @@ class _InscriptionState extends State<Inscription> {
                         )
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   TextField(
                     controller: passwordConfirm_controller,
                     obscureText: true,
+                    cursorColor: Colors.cyan,
                     keyboardType: TextInputType.visiblePassword,
                     decoration: const InputDecoration(
                         hintText: 'Confirmer le mot de passe',
@@ -150,5 +168,41 @@ class _InscriptionState extends State<Inscription> {
           )
       ),
     );
+  }
+
+  void _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime(2000), // Date par défaut
+      firstDate: DateTime(1900),  // Date minimale
+      lastDate: DateTime.now(),  // Date maximale
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData(
+            //primaryColor: Colors.cyan, // Accent sur les boutons
+            colorScheme: const ColorScheme.light(
+              primary: Colors.cyan, // Header background color & buttons
+              onPrimary: Colors.white, // Text color on header buttons
+              onSurface: Colors.black, // Text color for dates
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.cyan // Button text color
+              ),
+            ),
+            dialogBackgroundColor: Colors.white, // Background color of the dialog
+            scaffoldBackgroundColor: Colors.white,
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+        _dateController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+      });
+    }
   }
 }

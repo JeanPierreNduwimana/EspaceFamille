@@ -219,99 +219,104 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                 aliments.remove(aliments[index]);
               });
             },
-            child: Card(
-              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-              color: aliments[index].validerAchat ? Colors.grey.withOpacity(0.1) : Colors.white,
-              elevation: aliments[index].validerAchat ? 0 :  1,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 20),
-                      height: 80, width: 80,
-                      child: Image.asset('assets/images/naruto.jpg', fit: BoxFit.cover,),
-                    ),
-                     Expanded(
-                       flex: 2,
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Text(
-                             aliments[index].nom,
-                             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                                                        ),
-                             const SizedBox(height: 8),
-                             Row(
-                               children: [
-                                 SizedBox(
-                                   height: 20,
-                                   width: 20,
-                                   child: ClipOval(
-                                     child: Image.asset(
-                                       'assets/images/cat_profile_img.jpg',
-                                       semanticLabel: 'Image du profil',
-                                       fit: BoxFit.cover,),
+            child: GestureDetector(
+              onTap: (){
+                _designService.dialogDetailAliment(context);
+              },
+              child: Card(
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                color: aliments[index].validerAchat ? Colors.grey.withOpacity(0.1) : Colors.white,
+                elevation: aliments[index].validerAchat ? 0 :  1,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        height: 80, width: 80,
+                        child: Image.asset('assets/images/naruto.jpg', fit: BoxFit.cover,),
+                      ),
+                       Expanded(
+                         flex: 2,
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Text(
+                               aliments[index].nom,
+                               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                                          ),
+                               const SizedBox(height: 8),
+                               Row(
+                                 children: [
+                                   SizedBox(
+                                     height: 20,
+                                     width: 20,
+                                     child: ClipOval(
+                                       child: Image.asset(
+                                         'assets/images/cat_profile_img.jpg',
+                                         semanticLabel: 'Image du profil',
+                                         fit: BoxFit.cover,),
+                                     ),
                                    ),
-                                 ),
-                                 const SizedBox(width: 8),
-                                 const Text('il y a 2 mins'),
-                               ],
-                             ),
-                           ],
-                         ),
-                     ),
-                     Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          //border: ,
-                          color: aliments[index].validerAchat ? Colors.grey.withOpacity(0.3) : Colors.red.withOpacity(0.6),
-                          shape: BoxShape.circle,
+                                   const SizedBox(width: 8),
+                                   const Text('il y a 2 mins'),
+                                 ],
+                               ),
+                             ],
+                           ),
+                       ),
+                       Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            //border: ,
+                            color: aliments[index].validerAchat ? Colors.grey.withOpacity(0.3) : Colors.red.withOpacity(0.6),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                aliments[index].quantite.toString(),
+                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+                              ),
+                              const Text(
+                                "Qté",
+                                style: TextStyle(fontSize: 10, color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              aliments[index].quantite.toString(),
-                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
-                            ),
-                            const Text(
-                              "Qté",
-                              style: TextStyle(fontSize: 10, color: Colors.white),
-                            ),
-                          ],
+                      ),
+                      /*ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: aliments[index].validerAchat ? Colors.green : Colors.white,
+                          foregroundColor: aliments[index].validerAchat ? Colors.white : Colors.green,
                         ),
-                      ),
-                    ),
-                    /*ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: aliments[index].validerAchat ? Colors.green : Colors.white,
-                        foregroundColor: aliments[index].validerAchat ? Colors.white : Colors.green,
-                      ),
-                      child: Icon(Icons.check,),
-                      onPressed: () {
-                        setState(() {
-                          aliments[index].validerAchat = !aliments[index].validerAchat;
-                        });
-                      },
-                    ),*/
-                    /*Container(
-                      decoration: BoxDecoration(
-                        color: aliments[index].validerAchat ? Colors.red.withOpacity(0.6) : null, // Background color
-                        shape: BoxShape.circle, // Optional: To make it circular
-                      ),
-                      child: IconButton(
-                        icon: Icon(Icons.check),
-                        color: aliments[index].validerAchat ? Colors.white : Colors.red,
+                        child: Icon(Icons.check,),
                         onPressed: () {
                           setState(() {
                             aliments[index].validerAchat = !aliments[index].validerAchat;
                           });
                         },
-                      ),
-                    ),*/
-                  ],
+                      ),*/
+                      /*Container(
+                        decoration: BoxDecoration(
+                          color: aliments[index].validerAchat ? Colors.red.withOpacity(0.6) : null, // Background color
+                          shape: BoxShape.circle, // Optional: To make it circular
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.check),
+                          color: aliments[index].validerAchat ? Colors.white : Colors.red,
+                          onPressed: () {
+                            setState(() {
+                              aliments[index].validerAchat = !aliments[index].validerAchat;
+                            });
+                          },
+                        ),
+                      ),*/
+                    ],
+                  ),
                 ),
               ),
             ),

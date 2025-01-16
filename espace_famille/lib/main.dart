@@ -1,4 +1,4 @@
-import 'package:espace_famille/app_options.dart';
+import 'package:espace_famille/app_management/app_options.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/authentification/inscription.dart';
 import 'package:espace_famille/epicerie/liste_epicerie.dart';
@@ -10,6 +10,7 @@ import 'package:espace_famille/taches/liste_evaluation.dart';
 import 'package:espace_famille/taches/liste_taches.dart';
 import 'package:flutter/material.dart';
 import 'accueil/accueil.dart';
+import 'app_management/notification_page.dart';
 import 'espace_famille/accueil_espace_famille.dart';
 
 void main() {
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
         '/inscription' : (context) => const Inscription(),
         '/acceuil' : (context) => const Accueil(),
         '/app_options' : (context) => const AppOptions(),
-        '/edit_profile' : (context) => const EditProfilePage()
+        '/edit_profile' : (context) => const EditProfilePage(),
+        '/notifications' : (context) => const NotificationsPage()
       },
 
     );
