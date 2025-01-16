@@ -21,7 +21,7 @@ final List<Map<String, String>> categories = [
 bool containposts = true;
 bool postimageavailable = true;
 bool valideAchat1 = false;
-int _selectedIndex = 0;
+bool orgExist = false;
 
 class _AccueilState extends State<Accueil> {
 
@@ -148,14 +148,27 @@ class _AccueilState extends State<Accueil> {
                                               borderRadius: BorderRadius.circular(8),
                                             ),
                                           ),
-                                          onPressed: (){
-                                            Navigator.pushNamed(context, '/accfam');
-                                          }, child: const Row(
-                                        children: [
-                                          Text("Joindre l'espace"),
-                                          SizedBox(width: 8),
-                                          Icon(Icons.arrow_right_alt)
-                                        ],
+                                          onPressed: () async {
+                                            if(orgExist){
+                                              Navigator.pushNamed(context, '/accfam');
+                                            }else {
+                                              bool? result = await _designService.dialogJoinorCreatFam(context);
+                                              if(result != null){
+                                                if(result){
+                                                  _designService.dialogJoinOrganizationDialog(context);
+                                                }else{
+                                                  _designService.dialogCreateOrganizationDialog(context);
+                                                }
+                                              }
+                                            }
+
+                                          },
+                                          child: const Row(
+                                            children: [
+                                              Text("Joindre l'espace"),
+                                              SizedBox(width: 8),
+                                              Icon(Icons.arrow_right_alt)
+                                            ],
                                       )
                                       ),
                                     ],
@@ -191,34 +204,35 @@ class _AccueilState extends State<Accueil> {
                     ) :
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
+                        const Icon(
+                          Icons.chat_bubble_outline,
+                          size: 48,
+                          color: Colors.cyan,
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          "Aucun post pour l'instant.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          "Soyez le premier à partager avec vos proches !",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              Icons.chat_bubble_outline,
-                              size: 48,
-                              color: Colors.cyan,
-                            ),
-                            const SizedBox(height: 12),
-                            const Text(
-                              "Aucun post pour l'instant.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              "Soyez le premier à partager avec vos proches !",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
                             ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.cyan,
@@ -523,8 +537,19 @@ class _AccueilState extends State<Accueil> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, '/classement');
+                      onTap: ()async{
+                        if(orgExist){
+                          Navigator.pushNamed(context, '/classement');
+                        }else {
+                          bool? result = await _designService.dialogJoinorCreatFam(context);
+                          if(result != null){
+                            if(result){
+                              _designService.dialogJoinOrganizationDialog(context);
+                            }else{
+                              _designService.dialogCreateOrganizationDialog(context);
+                            }
+                          }
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -631,6 +656,148 @@ class _AccueilState extends State<Accueil> {
                         'Evenements',
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 32),
+              padding: const EdgeInsets.all(12.0),
+              child: const Text('Apercu des membres de votre famille !', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+            ),
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
+                    spreadRadius: 4, // Rayonnement de l'ombre
+                    blurRadius: 6, // Rayon du flou de l'ombre
+                    offset: const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
+                  ),
+                ],
+              ),
+              child: GestureDetector(
+                onTap: (){
+                  //Navigator.pushNamed(context, '/events');
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Image de la catégorie
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch ,
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
+                                    spreadRadius: 4, // Rayonnement de l'ombre
+                                    blurRadius: 6, // Rayon du flou de l'ombre
+                                    offset: const Offset(3,0), // Décalage horizontal et vertical de l'ombre
+                                  ),
+                                ],
+                              ),
+                              child: Image.asset(
+                                'assets/images/family_jump.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 5,
+                              child: orgExist ?
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 7,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index){
+                                    return Container(
+                                      padding: const EdgeInsets.all(4),
+                                      margin: const EdgeInsets.only(top: 8),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.all(12),
+                                            height: 80,
+                                            width: 80,
+                                            margin: const EdgeInsets.only(top: 20),
+                                            child: ClipOval(
+                                              child: Image.asset(
+                                                'assets/images/cat_profile_img.jpg',
+                                                semanticLabel: 'Image du profil',
+                                                fit: BoxFit.cover,),
+                                            ),
+                                          ),
+                                          //const SizedBox(height: 4),
+                                          const Text('Jean Pierre', textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),)
+                                        ],
+                                      ),
+                                    );
+                                  }) :
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.pinkAccent,
+                                        foregroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                      onPressed: ()async{
+                                        bool? result = await _designService.dialogJoinorCreatFam(context);
+                                        if(result != null){
+                                          if(result){
+                                            _designService.dialogJoinOrganizationDialog(context);
+                                          }else{
+                                            _designService.dialogCreateOrganizationDialog(context);
+                                          }
+                                        }
+                                      }, child: const Row(
+                                        children: [
+                                          Text('Joinde ma famille'),
+                                          SizedBox(width: 8),
+                                          Icon(Icons.arrow_right_alt)
+                                        ],
+                                      )
+                                  ),
+                                ],
+                              ),
+                          )
+                        ],
+                      ),
+                    ),
+                    // Titre de la catégorie
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                        color: Colors.pinkAccent,
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(16),
+                        ),
+                      ),
+                      child: Text(
+                        orgExist? 'Nom de l\'organisation' : 'Votre famille',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),

@@ -39,77 +39,91 @@ class _PageProfileState extends State<PageProfile> {
     return Scaffold(
       appBar: _designService.appBar(context,'Mon profil', true),
       resizeToAvoidBottomInset: true, // Permet d'éviter que le clavier cache le contenu
-      bottomNavigationBar: _designService.navigationBar(context, 2, setState),
+      bottomNavigationBar: _designService.navigationBar(context, 0, setState),
       body: RefreshIndicator(
         onRefresh: _onRefresh,
         color: Colors.cyan,
         child: Column(
           children: [
-            Container( //Bloc complet d'information utilisateur
-              margin: const EdgeInsets.only(top: 24,left: 8,right: 8,bottom: 20),
-              padding: const EdgeInsets.only(bottom: 12),
-              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.grey.shade300, width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
-                      spreadRadius: 2, // Rayonnement de l'ombre
-                      blurRadius: 2, // Rayon du flou de l'ombre
-                      offset: Offset(1, 1), // Décalage horizontal et vertical de l'ombre
-                    ),
-                  ]),
-              child: Column( //Informations d'utilisateur
-                children: [
-                  Row( // rangé contenant l'image
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: SizedBox()),
-                      Container(
-                          height: 120,
-                          width: 120,
-                          margin: const EdgeInsets.only(top: 20),
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/cat_profile_img.jpg',
-                              semanticLabel: 'Image du profil',
-                              fit: BoxFit.cover,),
-                          ),
-                        ),
-                      Expanded(
+              Container( //Bloc complet d'information utilisateur
+                margin: const EdgeInsets.only(top: 24,left: 8,right: 8,bottom: 20),
+                padding: const EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.grey.shade300, width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
+                        spreadRadius: 2, // Rayonnement de l'ombre
+                        blurRadius: 2, // Rayon du flou de l'ombre
+                        offset: Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+                      ),
+                    ]),
+                child: Column( //Informations d'utilisateur
+                  children: [
+                    Row( // rangé contenant l'image
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
                           child: Container(
-                            margin: const EdgeInsets.only(top:16, right: 16),
+                            margin: const EdgeInsets.only(top:16, left: 12),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GestureDetector(
-                                  onTap: (){
-                                    Navigator.pushNamed(context, '/listevaluation');
-                                  },
-                                    child: Image.asset('assets/images/task_list.png', height: 28, width: 28,fit: BoxFit.fill,color: Colors.white, colorBlendMode: BlendMode.difference,))
+                                    onTap: (){
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Icon(Icons.arrow_back_ios_new)
+                                )
                               ],
                             ),
-                          ))
-                    ],
-                  ),
-                  const SizedBox(height: 8,),
-                  const Row(
-                    children: [
-                      Expanded(child: Text('Jean Pierre',textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),)),
-                      Text('   |   ', style: TextStyle(fontSize: 24, color: Colors.grey)),
-                      Expanded(child: Text('16-03-1999', textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic)))
-                    ],
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Salut c\'est jean Pierre, Bonne journée', style: TextStyle(color: Colors.grey),),
-                    ],
-                  ),
-                  const SizedBox(height: 8,),
-                  _designService.getRatingStars(value, true)
-                ],
+                          )),
+                        Container(
+                            height: 120,
+                            width: 120,
+                            margin: const EdgeInsets.only(top: 20),
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/images/cat_profile_img.jpg',
+                                semanticLabel: 'Image du profil',
+                                fit: BoxFit.cover,),
+                            ),
+                          ),
+                        Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(top:16, right: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.pushNamed(context, '/listevaluation');
+                                    },
+                                      child: Image.asset('assets/images/task_list.png', height: 28, width: 28,fit: BoxFit.fill,color: Colors.white, colorBlendMode: BlendMode.difference,))
+                                ],
+                              ),
+                            ))
+                      ],
+                    ),
+                    const SizedBox(height: 8,),
+                    const Row(
+                      children: [
+                        Expanded(child: Text('Jean Pierre',textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),)),
+                        Text('   |   ', style: TextStyle(fontSize: 24, color: Colors.grey)),
+                        Expanded(child: Text('16-03-1999', textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic)))
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Salut c\'est jean Pierre, Bonne journée', style: TextStyle(color: Colors.grey),),
+                      ],
+                    ),
+                    const SizedBox(height: 8,),
+                    _designService.getRatingStars(value, true)
+                  ],
+                ),
               ),
-            ),
               const Row( // Titre Taches attribuées
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

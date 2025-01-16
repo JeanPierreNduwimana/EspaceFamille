@@ -9,7 +9,7 @@ class AppOptions extends StatefulWidget {
   State<AppOptions> createState() => _AppOptionsState();
 }
 DesignService _designService = DesignService();
-
+bool orgExist = false;
 class _AppOptionsState extends State<AppOptions> {
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,41 @@ class _AppOptionsState extends State<AppOptions> {
           ),
           _buildListTile(
             context,
+            Container(
+              height: 36,
+              width: 36,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Image.asset(
+                  'assets/images/cat_profile_img.jpg',
+                  semanticLabel: 'Image du profil',
+                  fit: BoxFit.cover,),
+              ),
+            ),
+            'Ma famille',
+            Colors.cyan,
+                () async {
+
+              if(orgExist){
+
+              }else{
+                bool? result = await _designService.dialogJoinorCreatFam(context);
+                if(result != null){
+                  if(result){
+                    _designService.dialogJoinOrganizationDialog(context);
+                  }else{
+                    _designService.dialogCreateOrganizationDialog(context);
+                  }
+                }
+              }
+              /* Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PageProfile()),
+              ); */
+            },
+          ),
+          _buildListTile(
+            context,
             Icon(Icons.notifications, color: Colors.green),
             'Notifications',
             Colors.green,
@@ -56,6 +91,9 @@ class _AppOptionsState extends State<AppOptions> {
             'Parameters',
             Colors.cyan,
                 () {
+
+              Navigator.pushNamed(context, '/edit_profile');
+
               /*Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ParametersPage()),
@@ -123,6 +161,7 @@ class _AppOptionsState extends State<AppOptions> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text('Logout'),
           content: Text('Are you sure you want to log out?'),
           actions: [
@@ -135,7 +174,7 @@ class _AppOptionsState extends State<AppOptions> {
             TextButton(
               onPressed: () {
                 // Implement the logout action
-                Navigator.pop(context); // Close dialog
+                Navigator.pushNamed(context, '/connexion'); // Close dialog
                 // Navigate to login page or perform logout action
               },
               child: Text('Logout'),

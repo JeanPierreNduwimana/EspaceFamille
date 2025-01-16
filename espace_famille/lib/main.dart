@@ -3,6 +3,7 @@ import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/authentification/inscription.dart';
 import 'package:espace_famille/epicerie/liste_epicerie.dart';
 import 'package:espace_famille/profile/classement_profile.dart';
+import 'package:espace_famille/profile/page_edit_profile.dart';
 import 'package:espace_famille/profile/page_profile.dart';
 import 'package:espace_famille/taches/horaire.dart';
 import 'package:espace_famille/taches/liste_evaluation.dart';
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
         '/connexion' : (context) => const Connection(),
         '/inscription' : (context) => const Inscription(),
         '/acceuil' : (context) => const Accueil(),
-        '/app_options' : (context) => const AppOptions()
+        '/app_options' : (context) => const AppOptions(),
+        '/edit_profile' : (context) => const EditProfilePage()
       },
 
     );

@@ -19,6 +19,7 @@ class DesignService {
   ScrollController _scrollController = ScrollController();
   Image? uploadedImage;
   int currentPage = -1;
+  bool orgExist = false;
 
   AppBar appBar(BuildContext context,String title, bool onProfilePage){
     return AppBar(
@@ -127,6 +128,99 @@ class DesignService {
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
                       child: Text('Non', style: TextStyle(fontSize: 16)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+
+  }
+  Future<bool?> dialogJoinorCreatFam(BuildContext context) async {
+
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  blurRadius: 10,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            height: 300,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Column(
+                  children: [
+                    Text(
+                      'Votre compte n\'est pas associé à une famille',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    SizedBox(height: 24),
+                    Text(
+                      'Veuillez joindre ou créer la votre.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 28),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: 100,
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.cyan,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        ),
+                        child: Text('Joindre', style: TextStyle(fontSize: 16)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.cyan,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        ),
+                        child: Text('Créer', style: TextStyle(fontSize: 16)),
+                      ),
                     ),
                   ],
                 ),
@@ -384,8 +478,20 @@ class DesignService {
                                 ),
                                 elevation: 0
                               ),
-                              onPressed: () {
-                                dialogTransferTache(context);
+                              onPressed: () async {
+                                if(orgExist){
+                                  dialogTransferTache(context);
+                                }else{
+                                  bool? result = await dialogJoinorCreatFam(context);
+                                  if(result != null){
+                                    if(result){
+                                      dialogJoinOrganizationDialog(context);
+                                    }else{
+                                      dialogCreateOrganizationDialog(context);
+                                    }
+                                  }
+                                }
+
                               },
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -499,7 +605,12 @@ class DesignService {
                             backgroundColor: Colors.cyan.shade50,
                           ),
                           onPressed: () async{
-                            getImage(setState);
+                           Image? result = await getImage();
+                           if(result != null){
+                             setState((){
+                               uploadedImage = result;
+                             });
+                           }
                           },
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -858,8 +969,13 @@ class DesignService {
                                         foregroundColor: Colors.cyan,
                                         backgroundColor: Colors.cyan.shade50
                                     ),
-                                    onPressed: (){
-                                      getImage(setState);
+                                    onPressed: ()async{
+                                      Image? result = await getImage();
+                                      if(result != null){
+                                        setState((){
+                                          uploadedImage = result;
+                                        });
+                                      }
                                     },
                                     child: const Row(
                                       children: [
@@ -1070,15 +1186,16 @@ class DesignService {
       },
     );
   }
-  void getImage(StateSetter setState) async{
+  Future<Image?> getImage() async{
     ImagePicker picker = ImagePicker();
     XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
     String? imagePath = pickedImage!.path;
 
     if(imagePath != ""){
-      uploadedImage = Image.file(File(imagePath),fit: BoxFit.cover,);
-      setState((){});
+      return Image.file(File(imagePath),fit: BoxFit.cover,);
     }
+
+    return null;
   }
   void removeImage(StateSetter setState){
     uploadedImage = null;
@@ -1192,7 +1309,6 @@ class DesignService {
         },
     );
   }
-
   void dialogAjoutAliment(BuildContext context){
 
     final List<Map<String, dynamic>> foodItems = [
@@ -1312,7 +1428,12 @@ class DesignService {
                                               )
                                             ),
                                             onPressed: () async{
-                                              getImage(setState);
+                                              Image? result = await getImage();
+                                              if(result != null){
+                                                setState((){
+                                                  uploadedImage = result;
+                                                });
+                                              }
                                             },
                                             child: const Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -1467,7 +1588,6 @@ class DesignService {
     });
 
   }
-
   BottomNavigationBar navigationBar(BuildContext context, int _selectedIndex, StateSetter setState){
     currentPage = _selectedIndex;
     return BottomNavigationBar(
@@ -1537,6 +1657,120 @@ class DesignService {
       unselectedItemColor: Colors.grey, // Couleur des icônes inactives
       type: BottomNavigationBarType.fixed, // Assure un comportement stable
       elevation: 8, // Ajoute une ombre pour un meilleur visuel
+    );
+  }
+
+  // Dialog to create an organization
+  void dialogCreateOrganizationDialog(BuildContext context) {
+    final TextEditingController orgNameController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: Text(
+            'Create Organization',
+            style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),
+          ),
+          content: TextField(
+            controller: orgNameController,
+            cursorColor: Colors.cyan,
+            decoration: InputDecoration(
+              labelText: 'Organization Name',
+              labelStyle: TextStyle(color: Colors.grey),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.cyan, width: 2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel', style: TextStyle(color: Colors.black)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.cyan,
+              ),
+              onPressed: () {
+                String organizationName = orgNameController.text.trim();
+                if (organizationName.isNotEmpty) {
+                  // Handle organization creation logic here
+                  print('Organization Created: $organizationName');
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text('Create', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Dialog to join an organization using a code
+  void dialogJoinOrganizationDialog(BuildContext context) {
+    final TextEditingController orgCodeController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Text(
+            'Join Organization',style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),
+          ),
+          content: TextField(
+            controller: orgCodeController,
+            cursorColor: Colors.cyan,
+            decoration: InputDecoration(
+              labelText: 'Enter Code',
+              labelStyle: TextStyle(color: Colors.grey),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.cyan, width: 2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel', style: TextStyle(color: Colors.black)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.cyan,
+                foregroundColor: Colors.white
+              ),
+              onPressed: () {
+                String organizationCode = orgCodeController.text.trim();
+                if (organizationCode.isNotEmpty) {
+                  // Handle joining organization logic here
+                  print('Joined Organization with Code: $organizationCode');
+                  Navigator.pop(context);
+                }
+              },
+              child: Text('Join'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
