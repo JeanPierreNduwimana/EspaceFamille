@@ -224,7 +224,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                       annonces[index].liked = !annonces[index].liked;
                                     });
                                   }),
-                                  child: annonces[index].liked ? Icon(Icons.favorite, color: Colors.deepOrange[400],size: 20,) : Icon(Icons.favorite_border, color: Colors.deepOrange[400],),
+                                  child: annonces[index].liked ? Icon(Icons.favorite, color: Colors.deepOrange[400],size: 20,) : Icon(Icons.favorite_border, color: Colors.deepOrange[400],size: 20),
                                 ),
                                 SizedBox(width: 2),
                                 Text(annonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400], fontSize: 16),),
@@ -243,7 +243,25 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                   ),
                                 ),
 
-                                Expanded(child: Align(alignment: Alignment.centerRight, child: Text(annonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)))
+                                Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        index == 3 ?
+                                        Expanded(
+                                            flex: 2,
+                                            child: Container(
+                                                margin: const EdgeInsets.symmetric(horizontal: 24),
+                                                padding: EdgeInsets.symmetric(vertical: 2),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.cyan.shade400,
+                                                    borderRadius: BorderRadius.circular(12)
+                                                ),
+                                                child: const Text('Message automatique', textAlign: TextAlign.center, style: TextStyle(color: Colors.white,),)
+                                            )) : const SizedBox(),
+                                        Align(alignment: Alignment.centerRight, child: Text(annonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)),
+                                      ],
+                                    ))
                               ],
                             ),
                           ],

@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import '../services/widget_service.dart';
 
 WidgetService _designService = WidgetService();
 bool test = false;
 bool isloading = true;
+TextEditingController _evaluationInstantaneController = TextEditingController();
 class ListeEvaluation extends StatefulWidget {
   const ListeEvaluation({super.key});
 
@@ -35,7 +37,91 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   Future<void> _onRefresh() async {
     await fetchData();
   }
-
+  void _showFeedbackDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState){
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              title: const Text('Faites une évaluation rapide de Jean Pierre'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RatingStars(
+                    value: value,
+                    onValueChanged: (v) {
+                      //
+                      setState(() {
+                        value = v;
+                      });
+                    },
+                    starBuilder: (index, color) => Icon(
+                      Icons.star,
+                      color: color,
+                    ),
+                    starCount: 5,
+                    starSize: 20,
+                    valueLabelColor: const Color(0xff9b9b9b),
+                    valueLabelTextStyle: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 12.0),
+                    valueLabelRadius: 10,
+                    maxValue: 5,
+                    starSpacing: 2,
+                    maxValueVisibility: true,
+                    valueLabelVisibility: true,
+                    animationDuration: const Duration(milliseconds: 1000),
+                    valueLabelPadding:
+                    const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
+                    valueLabelMargin: const EdgeInsets.only(right: 8),
+                    starOffColor: Colors.grey,
+                    starColor: Colors.yellow.shade700,
+                  ),
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: _evaluationInstantaneController,
+                    cursorColor: Colors.cyan,
+                    maxLines: 5,
+                    decoration: const InputDecoration(
+                      hintText: 'Votre message...',
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.cyan,
+                              width: 1.0
+                          )
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Annuler', style: TextStyle(color: Colors.cyan)),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Logique pour envoyer le message (ici, on l'affiche dans la console)
+                    print("Message envoyé: ${_evaluationInstantaneController.text}");
+                    _evaluationInstantaneController.clear();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Envoyer', style: TextStyle(color: Colors.cyan)),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +134,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
         onPressed: (){
           // TODO: Ajouter un dialog qui permet de faire un commentaire instanté à un profil
           if(!isloading){
-
+            _showFeedbackDialog();
           }
         },
         tooltip: 'Increment',

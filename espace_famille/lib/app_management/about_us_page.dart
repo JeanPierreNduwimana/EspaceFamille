@@ -19,6 +19,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: const Text('Nous aimerions avoir votre avis'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -27,12 +28,20 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 'Veuillez nous faire part de vos commentaires ou suggestions.',
                 style: TextStyle(fontSize: 14),
               ),
+              const SizedBox(height: 12),
               TextField(
                 controller: _messageController,
+                cursorColor: Colors.cyan,
                 maxLines: 5,
                 decoration: const InputDecoration(
                   hintText: 'Votre message...',
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors.cyan,
+                          width: 1.0
+                      )
+                  ),
                 ),
               ),
             ],
@@ -42,7 +51,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Annuler'),
+              child: const Text('Annuler', style: TextStyle(color: Colors.cyan)),
             ),
             TextButton(
               onPressed: () {
@@ -51,7 +60,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 _messageController.clear();
                 Navigator.of(context).pop();
               },
-              child: const Text('Envoyer'),
+              child: const Text('Envoyer', style: TextStyle(color: Colors.cyan)),
             ),
           ],
         );

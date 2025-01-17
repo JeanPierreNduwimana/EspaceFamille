@@ -1088,12 +1088,18 @@ class WidgetService {
                         Expanded(
                           child: TextField(
                             controller: controllercommentRepondre,
+                            cursorColor: Colors.cyan,
                             maxLines: null,  // Makes the TextField multiline
                             keyboardType: TextInputType.multiline,
                             autofocus: true,
                             decoration: const InputDecoration(
                               hintText: 'Votre réponse...',
-                              border: OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.cyan,
+                                  width: 1.0
+                                )
+                              ),
                             ),
                           ),
                         ),
