@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+import '../generated/l10n.dart';
 import '../services/widget_service.dart';
 
 WidgetService _designService = WidgetService();
@@ -38,6 +39,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
     await fetchData();
   }
   void _showFeedbackDialog() {
+    _evaluationInstantaneController.text = '';
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -45,7 +47,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
           builder: (BuildContext context, StateSetter setState){
             return AlertDialog(
               backgroundColor: Colors.white,
-              title: const Text('Faites une évaluation rapide de Jean Pierre'),
+              title: Text(S.of(context).dialogQuickRatingTitle('JeanPierre')),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -86,10 +88,10 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                     controller: _evaluationInstantaneController,
                     cursorColor: Colors.cyan,
                     maxLines: 5,
-                    decoration: const InputDecoration(
-                      hintText: 'Votre message...',
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      hintText: S.of(context).labelHintMessage,
+                      border: const OutlineInputBorder(),
+                      focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Colors.cyan,
                               width: 1.0
@@ -104,16 +106,15 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Annuler', style: TextStyle(color: Colors.cyan)),
+                  child: Text(S.of(context).buttonCancel, style: const TextStyle(color: Colors.cyan)),
                 ),
                 TextButton(
                   onPressed: () {
                     // Logique pour envoyer le message (ici, on l'affiche dans la console)
-                    print("Message envoyé: ${_evaluationInstantaneController.text}");
                     _evaluationInstantaneController.clear();
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Envoyer', style: TextStyle(color: Colors.cyan)),
+                  child: Text(S.of(context).buttonSend, style: const TextStyle(color: Colors.cyan)),
                 ),
               ],
             );
@@ -125,7 +126,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Evaluations de Jean Pierre', false),
+      appBar: _designService.appBar(context,S.of(context).evaluationProfilePageTitle('JeanPierre'), false),
       body: isloading ? _designService.shimmerListeEvaluation() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       floatingActionButton: FloatingActionButton(
@@ -168,8 +169,8 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.cyan),),
-                    _designService.getRatingStars(value, true),
+                    //Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.cyan),),
+                    _designService.getRatingStars(value, false),
                     const SizedBox(height: 12),
                   ],
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../services/widget_service.dart';
 
 class Connection extends StatefulWidget {
@@ -16,7 +17,7 @@ class _ConnectionState extends State<Connection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Connexion', true),
+      appBar: _designService.appBar(context,S.of(context).buttonConnexion, true),
       body: buildBody(),
     );
   }
@@ -29,16 +30,16 @@ class _ConnectionState extends State<Connection> {
               padding: const EdgeInsets.all(48.0),
               child: Column(
                 children: [
-                  Text('Se connecter', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+                  Text(S.of(context).connexionPageTitle, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
                   const SizedBox(height: 24),
                   TextField(
                     controller: username_controller,
                     keyboardType: TextInputType.name,
                     maxLength: 16,
-                    decoration:  const InputDecoration(
-                        hintText:'username',
-                        hintStyle: TextStyle(color: Colors.black38),
-                        focusedBorder: UnderlineInputBorder(
+                    decoration:  InputDecoration(
+                        hintText:S.of(context).labelUsername,
+                        hintStyle: const TextStyle(color: Colors.black38),
+                        focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.cyan, // Change border color here
                             width: 2.0, // Border width
@@ -50,10 +51,10 @@ class _ConnectionState extends State<Connection> {
                     controller: password_controller,
                     obscureText: true,
                     keyboardType: TextInputType.visiblePassword,
-                    decoration: const InputDecoration(
-                        hintText: 'Mot de passe',
-                        hintStyle: TextStyle(color: Colors.black38),
-                        focusedBorder: UnderlineInputBorder(
+                    decoration: InputDecoration(
+                        hintText: S.of(context).labelPassword ,
+                        hintStyle: const TextStyle(color: Colors.black38),
+                        focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.cyan, // Change border color here
                               width: 2.0, // Border width
@@ -68,14 +69,13 @@ class _ConnectionState extends State<Connection> {
                     children: [
                       ElevatedButton(
                         onPressed: () async {
-                          //Navigator.pushNamed(context, '/acceuil');
                           Navigator.popAndPushNamed(context, '/acceuil');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.cyan,
                           foregroundColor: Colors.white
                         ),
-                        child: Text('Connection'),
+                        child: Text(S.of(context).buttonConnexion),
                       ),
                       const SizedBox(height: 12,),
                       ElevatedButton(
@@ -88,7 +88,7 @@ class _ConnectionState extends State<Connection> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Connexion avec'),
+                            Text(S.of(context).buttonConnexionWith),
                             const SizedBox(width: 16),
                             SizedBox(height: 20, child: Image.asset('assets/images/google_image_logo.png',)),
                           ],
@@ -96,14 +96,14 @@ class _ConnectionState extends State<Connection> {
                       ),
                       //const SizedBox(height: 24,),
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 12),
+                        margin: const EdgeInsets.symmetric(vertical: 12),
                         child: Row(
                           children: [
-                            Expanded(child: const Divider(thickness: 1, color: Colors.grey)),
+                            const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
                             const SizedBox(width: 16),
-                            Text('Ou'),
+                            Text(S.of(context).labelOr),
                             const SizedBox(width: 16),
-                            Expanded(child: const Divider(thickness: 1, color: Colors.grey)),
+                            const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
                           ],
                         ),
                       ),
@@ -122,12 +122,8 @@ class _ConnectionState extends State<Connection> {
                           )
                         ),
 
-                        child: Text('Créer un compte'),
+                        child: Text(S.of(context).buttonCreateAccont),
                       ),
-                      /* const SizedBox(height: 12,),
-                      GestureDetector(
-                          onTap: (){},
-                          child: Text('Je ne suis pas inscrit', textAlign: TextAlign.center,)) */
 
                     ],
                   )

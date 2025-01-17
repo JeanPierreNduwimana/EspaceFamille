@@ -3,6 +3,7 @@ import 'package:espace_famille/profile/page_profile.dart';
 import 'package:espace_famille/services/widget_service.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import 'notification_page.dart';
 
 class AppOptions extends StatefulWidget {
@@ -32,7 +33,7 @@ class _AppOptionsState extends State<AppOptions> {
                   fit: BoxFit.cover,),
               ),
             ),
-            'Mon Profil',
+            S.of(context).appOptionProfile,
             Colors.cyan,
                 () {
               Navigator.push(
@@ -54,7 +55,7 @@ class _AppOptionsState extends State<AppOptions> {
                   fit: BoxFit.cover,),
               ),
             ),
-            'Ma famille',
+            S.of(context).appOptionFamily,
             Colors.cyan,
                 () async {
 
@@ -79,7 +80,7 @@ class _AppOptionsState extends State<AppOptions> {
           _buildListTile(
             context,
             Icon(Icons.notifications, color: Colors.green),
-            'Notifications',
+            S.of(context).appOptionNotifications,
             Colors.green,
                 () {
 
@@ -92,7 +93,7 @@ class _AppOptionsState extends State<AppOptions> {
           _buildListTile(
             context,
             Icon(Icons.settings, color: Colors.cyan),
-            'Modifier mon profil',
+            S.of(context).appOptionEditProfile,
             Colors.cyan,
                 () {
 
@@ -108,7 +109,7 @@ class _AppOptionsState extends State<AppOptions> {
           _buildListTile(
             context,
             Icon(Icons.exit_to_app, color: Colors.redAccent),
-            'Deconnexion',
+            S.of(context).appOptionDeconnexion,
             Colors.redAccent,
                 () {
               _showLogoutDialog(context);
@@ -117,7 +118,7 @@ class _AppOptionsState extends State<AppOptions> {
           _buildListTile(
             context,
             Icon(Icons.info, color: Colors.blueAccent),
-            'À propos',
+            S.of(context).appOptionAboutUs,
             Colors.blueAccent,
                 () {
               Navigator.push(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../services/widget_service.dart';
 
 class Inscription extends StatefulWidget {
@@ -20,7 +21,7 @@ class _InscriptionState extends State<Inscription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Inscription', true),
+      appBar: _designService.appBar(context,S.of(context).labelRegisterPageTitle, true),
       body: buildBody(),
     );
   }
@@ -33,17 +34,17 @@ class _InscriptionState extends State<Inscription> {
               padding: const EdgeInsets.all(48.0),
               child: Column(
                 children: [
-                  Text('S\'inscrire', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+                  Text(S.of(context).labelRegisterPageTitle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
                   const SizedBox(height: 24),
                   TextField(
                     controller: username_controller,
                     keyboardType: TextInputType.name,
                     cursorColor: Colors.cyan,
                     maxLength: 16,
-                    decoration:  const InputDecoration(
-                        hintText:'username',
-                        hintStyle: TextStyle(color: Colors.black38),
-                        focusedBorder: UnderlineInputBorder(
+                    decoration:  InputDecoration(
+                        hintText:S.of(context).labelUsername,
+                        hintStyle: const TextStyle(color: Colors.black38),
+                        focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.cyan, // Change border color here
                               width: 2.0, // Border width
@@ -55,10 +56,10 @@ class _InscriptionState extends State<Inscription> {
                     controller: _dateController,
                     readOnly: true,
                     cursorColor: Colors.cyan,
-                    decoration: const InputDecoration(
-                      hintText: "Date de naissance",
-                      suffixIcon: Icon(Icons.calendar_today, color: Colors.cyan),
-                      focusedBorder: UnderlineInputBorder(
+                    decoration: InputDecoration(
+                      hintText: S.of(context).labelRegisterPageBirthDate,
+                      suffixIcon: const Icon(Icons.calendar_today, color: Colors.cyan),
+                      focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan),
                       ),
                     ),
@@ -70,10 +71,10 @@ class _InscriptionState extends State<Inscription> {
                     obscureText: true,
                     cursorColor: Colors.cyan,
                     keyboardType: TextInputType.visiblePassword,
-                    decoration: const InputDecoration(
-                        hintText: 'Mot de passe',
-                        hintStyle: TextStyle(color: Colors.black38),
-                        focusedBorder: UnderlineInputBorder(
+                    decoration: InputDecoration(
+                        hintText: S.of(context).labelPassword,
+                        hintStyle: const TextStyle(color: Colors.black38),
+                        focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.cyan, // Change border color here
                               width: 2.0, // Border width
@@ -87,10 +88,10 @@ class _InscriptionState extends State<Inscription> {
                     obscureText: true,
                     cursorColor: Colors.cyan,
                     keyboardType: TextInputType.visiblePassword,
-                    decoration: const InputDecoration(
-                        hintText: 'Confirmer le mot de passe',
-                        hintStyle: TextStyle(color: Colors.black38),
-                        focusedBorder: UnderlineInputBorder(
+                    decoration: InputDecoration(
+                        hintText: S.of(context).labelPasswordConfirm,
+                        hintStyle: const TextStyle(color: Colors.black38),
+                        focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.cyan, // Change border color here
                               width: 2.0, // Border width
@@ -111,7 +112,7 @@ class _InscriptionState extends State<Inscription> {
                             backgroundColor: Colors.cyan,
                             foregroundColor: Colors.white
                         ),
-                        child: Text('S\'inscrire'),
+                        child: Text(S.of(context).buttonCreateAccont),
                       ),
                       const SizedBox(height: 12,),
                       ElevatedButton(
@@ -124,7 +125,7 @@ class _InscriptionState extends State<Inscription> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('S\'inscrire avec'),
+                              Text(S.of(context).labelRegisterWith),
                               const SizedBox(width: 16),
                               SizedBox(height: 20, child: Image.asset('assets/images/google_image_logo.png',)),
                             ],
@@ -134,11 +135,11 @@ class _InscriptionState extends State<Inscription> {
                         margin: EdgeInsets.symmetric(vertical: 12),
                         child: Row(
                           children: [
-                            Expanded(child: const Divider(thickness: 1, color: Colors.grey)),
+                            const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
                             const SizedBox(width: 16),
-                            Text('Ou'),
+                            Text(S.of(context).labelOr),
                             const SizedBox(width: 16),
-                            Expanded(child: const Divider(thickness: 1, color: Colors.grey)),
+                            const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
                           ],
                         ),
                       ),
@@ -156,7 +157,7 @@ class _InscriptionState extends State<Inscription> {
                             )
                         ),
 
-                        child: Text('Se Connecter'),
+                        child: Text(S.of(context).buttonConnexion),
                       ),
 
                     ],

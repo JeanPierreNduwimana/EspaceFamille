@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../generated/l10n.dart';
 import '../nav_menu.dart';
 import '../services/widget_service.dart';
 import 'model_aliment.dart';
@@ -62,10 +63,10 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
+            Expanded(
               child: Text(
-                'Épicerie',
-                style: TextStyle(
+                S.of(context).appBarGroceriePageTitle,
+                style: const TextStyle(
                   color: Colors.redAccent,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -110,22 +111,21 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                         }
                       }
                     },
-                    enabled: isloading,
                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                      const PopupMenuItem(enabled: false, child: Text('Trier Par:', style: TextStyle(color: Colors.redAccent),)),
+                      PopupMenuItem(enabled: false, child: Text(S.of(context).labelSortBy, style: const TextStyle(color: Colors.redAccent),)),
                       //const PopupMenuDivider(),
                       const PopupMenuItem<String>(
                         value: 'Date',
                         child: Text('Date', style: TextStyle(fontWeight: FontWeight.bold),),
                       ),
-                      const PopupMenuItem<String>(
+                      PopupMenuItem<String>(
                         value: 'Achat',
-                        child: Text('Achat', style: TextStyle(fontWeight: FontWeight.bold)),
+                        child: Text(S.of(context).labelAchat, style: const TextStyle(fontWeight: FontWeight.bold)),
                       ),
                     ],
                     icon: Row(
                       children: [
-                        Text('Trier  ', style: TextStyle(fontSize: 14, color: isloading ? Colors.grey : Colors.redAccent, fontWeight: FontWeight.bold),),
+                        Text(S.of(context).labelSort, style: TextStyle(fontSize: 14, color: isloading ? Colors.grey : Colors.redAccent, fontWeight: FontWeight.bold),),
                         Icon(Icons.sort, color: isloading ? Colors.grey : Colors.redAccent),
                       ],
                     ) // Icône à trois points
@@ -174,14 +174,14 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
            Container(
             margin: const EdgeInsets.all(8),
             padding: const EdgeInsets.all(8),
-            child: const Column(
+            child: Column(
               children: [
-                SizedBox(height: 32),
-                Icon(Icons.dinner_dining, color: Colors.redAccent, size: 54,),
-                SizedBox(height: 32),
-                Text('Que ce qui manque dans le frigo?', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                Text('Ajoutez ici tout aliment qui manquent',textAlign: TextAlign.center, style: TextStyle(fontSize: 12)),
-                SizedBox(height: 24),
+                const SizedBox(height: 32),
+                const Icon(Icons.dinner_dining, color: Colors.redAccent, size: 54,),
+                const SizedBox(height: 32),
+                Text(S.of(context).groceriePageTitle, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                Text(S.of(context).groceriePageSubTitle,textAlign: TextAlign.center, style: const TextStyle(fontSize: 12)),
+                const SizedBox(height: 24),
               ],
             ),
           )
@@ -271,7 +271,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                                      ),
                                    ),
                                    const SizedBox(width: 8),
-                                   const Text('il y a 2 mins'),
+                                   Text(S.of(context).labelMinutesPassed(2)),
                                  ],
                                ),
                              ],
@@ -292,41 +292,14 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                                 aliments[index].quantite.toString(),
                                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
                               ),
-                              const Text(
-                                "Qté",
-                                style: TextStyle(fontSize: 10, color: Colors.white),
+                              Text(
+                                S.of(context).labelQuantityShorted,
+                                style: const TextStyle(fontSize: 10, color: Colors.white),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      /*ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: aliments[index].validerAchat ? Colors.green : Colors.white,
-                          foregroundColor: aliments[index].validerAchat ? Colors.white : Colors.green,
-                        ),
-                        child: Icon(Icons.check,),
-                        onPressed: () {
-                          setState(() {
-                            aliments[index].validerAchat = !aliments[index].validerAchat;
-                          });
-                        },
-                      ),*/
-                      /*Container(
-                        decoration: BoxDecoration(
-                          color: aliments[index].validerAchat ? Colors.red.withOpacity(0.6) : null, // Background color
-                          shape: BoxShape.circle, // Optional: To make it circular
-                        ),
-                        child: IconButton(
-                          icon: Icon(Icons.check),
-                          color: aliments[index].validerAchat ? Colors.white : Colors.red,
-                          onPressed: () {
-                            setState(() {
-                              aliments[index].validerAchat = !aliments[index].validerAchat;
-                            });
-                          },
-                        ),
-                      ),*/
                     ],
                   ),
                 ),

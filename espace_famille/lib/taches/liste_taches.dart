@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../generated/l10n.dart';
 import '../nav_menu.dart';
 import '../services/widget_service.dart';
 import 'model_tache.dart';
@@ -56,7 +57,7 @@ class _ListeTachesState extends State<ListeTaches> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Tâches disponibles', false),
+      appBar: _designService.appBar(context,S.of(context).appBarTaskPageTitle, false),
       body: isloading ? _designService.shimmerTaches() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),
       floatingActionButton: FloatingActionButton(
@@ -89,7 +90,7 @@ class _ListeTachesState extends State<ListeTaches> {
                     const SizedBox(height: 32),
                     Image.asset('assets/images/task_list.png'),
                     const SizedBox(height: 32),
-                    const Text('Selectionner la taches qui vous convient avec votre disponibilité', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text(S.of(context).taskPageTitle, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                     const SizedBox(height: 24),
                   ],
                 ),
@@ -235,12 +236,13 @@ class _ListeTachesState extends State<ListeTaches> {
                       color: Colors.cyan[200],
                       height: 20,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Icon(Icons.restart_alt, color: Colors.cyan,),
-                        SizedBox(width: 8),
-                        Text('Quotidien', style: TextStyle(fontStyle: FontStyle.italic),)
+                        const Icon(Icons.restart_alt, color: Colors.cyan,),
+                        const SizedBox(width: 8),
+                        Text(S.of(context).labelDaily, style: const TextStyle(fontStyle: FontStyle.italic),),
+                        const SizedBox(width: 4),
                       ],
                     ),
 

@@ -20,6 +20,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_localizations:
+    sdk: flutter
 
 flutter:
   uses-material-design: true
@@ -35,3 +37,5 @@ flutter:
     - assets/images/trophy_icon.png
     - assets/images/task_icon.png
     - assets/images/family_jump.jpg
+flutter_intl:
+  enabled: true
