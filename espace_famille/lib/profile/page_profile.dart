@@ -57,7 +57,7 @@ class _PageProfileState extends State<PageProfile> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _designService.appBar(context,S.of(context).appBarProfileTitle, true),
+      appBar: _designService.appBar(context,S.of(context).appBarProfileTitle, true,Colors.cyan),
       resizeToAvoidBottomInset: true, // Permet d'éviter que le clavier cache le contenu
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
       body: isloading? _designService.shimmerProfil() : buildBody()

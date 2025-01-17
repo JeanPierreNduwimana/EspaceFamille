@@ -56,14 +56,14 @@ class _ListeTachesState extends State<ListeTaches> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,S.of(context).appBarTaskPageTitle, false),
+      appBar: _designService.appBar(context,S.of(context).appBarTaskPageTitle, false,Colors.green),
       body: isloading ? _designService.shimmerTaches() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: isloading ? Colors.grey : Colors.cyan.shade400,
+        backgroundColor: isloading ? Colors.grey : Colors.green.shade400,
         foregroundColor: Colors.white,
         onPressed: (){
-          _designService.dialogCreerTache(context);
+          _designService.dialogCreateTask(context);
         },
         tooltip: 'Ajouter une tâche',
         child: const Icon(Icons.add),
@@ -74,7 +74,7 @@ class _ListeTachesState extends State<ListeTaches> {
   Widget buildBody() {
     return RefreshIndicator(
       onRefresh: _onRefresh,
-      color: Colors.cyan,
+      color: Colors.green,
       child: ListView.builder(
           itemCount: taches.length,
           itemBuilder: (BuildContext context, int index) {
@@ -150,7 +150,7 @@ class _ListeTachesState extends State<ListeTaches> {
                                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                                   child: Row(
                                     children: [
-                                      const Icon(Icons.check_circle_outline, color: Colors.cyan),
+                                      const Icon(Icons.check_circle_outline, color: Colors.green),
                                       const SizedBox(width: 8),
                                       Expanded(
                                         child: Text(
@@ -169,22 +169,22 @@ class _ListeTachesState extends State<ListeTaches> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 2,
-                                backgroundColor: Colors.cyan,
+                                backgroundColor: Colors.green,
                                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              child: const Text(
-                                'Je m\'en occupe 😌',
-                                style: TextStyle(
+                              child: Text(
+                                S.of(context).buttonOwnAtask,
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
                               onPressed: () async {
-                                String message = 'Voulez-vous vraiment \n assumer cette tâche ?';
+                                String message = S.of(context).messageOwnAtask;
                                 bool? result = await _designService.dialogYesorNo(context, message);
 
                                 if (result != null) {
@@ -232,13 +232,13 @@ class _ListeTachesState extends State<ListeTaches> {
                     ),
                     Divider(
                       thickness: 1,
-                      color: Colors.cyan[200],
+                      color: Colors.green[200],
                       height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        const Icon(Icons.restart_alt, color: Colors.cyan,),
+                        const Icon(Icons.restart_alt, color: Colors.green,),
                         const SizedBox(width: 8),
                         Text(S.of(context).labelDaily, style: const TextStyle(fontStyle: FontStyle.italic),),
                         const SizedBox(width: 4),

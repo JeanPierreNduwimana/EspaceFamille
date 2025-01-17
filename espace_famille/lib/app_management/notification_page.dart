@@ -57,7 +57,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context, 'Notifications', false),
+      appBar: _designService.appBar(context, 'Notifications', false,Colors.cyan),
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
       body: notifications.isEmpty
           ? const Center(

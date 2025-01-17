@@ -55,7 +55,7 @@ class _AccueilState extends State<Accueil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,S.of(context).appBarHomePageTitle, false),
+      appBar: _designService.appBar(context,S.of(context).appBarHomePageTitle, false,Colors.cyan),
       body: RefreshIndicator(
         onRefresh: pageRefresh,
         color: Colors.cyan,
@@ -204,13 +204,19 @@ class _AccueilState extends State<Accueil> {
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text(
-                                S.of(context).labelNew,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    S.of(context).labelNew,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  const Icon(Icons.star_outlined, size: 16, color: Colors.white)
+                                ],
                               ),
                             ),
                           ),

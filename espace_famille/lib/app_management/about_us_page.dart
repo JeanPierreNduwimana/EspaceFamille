@@ -71,7 +71,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context, S.of(context).appBaraboutUsPageTitle, false),
+      appBar: _designService.appBar(context, S.of(context).appBaraboutUsPageTitle, false, Colors.cyan),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

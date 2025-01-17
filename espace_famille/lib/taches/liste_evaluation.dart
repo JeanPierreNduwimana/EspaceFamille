@@ -125,7 +125,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,S.of(context).evaluationProfilePageTitle('JeanPierre'), false),
+      appBar: _designService.appBar(context,S.of(context).evaluationProfilePageTitle('JeanPierre'), false,Colors.cyan),
       body: isloading ? _designService.shimmerListeEvaluation() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       floatingActionButton: FloatingActionButton(

@@ -58,8 +58,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "buttonConnexionWith":
             MessageLookupByLibrary.simpleMessage("Log In with"),
         "buttonCreateAccont": MessageLookupByLibrary.simpleMessage("Register"),
+        "buttonDeleteImage":
+            MessageLookupByLibrary.simpleMessage("Delete image"),
         "buttonJoinSpace":
             MessageLookupByLibrary.simpleMessage("Join family space"),
+        "buttonOwnAtask":
+            MessageLookupByLibrary.simpleMessage("I\'ll take care of it 😌"),
         "buttonSave": MessageLookupByLibrary.simpleMessage("Save"),
         "buttonSeeMore": MessageLookupByLibrary.simpleMessage("See More"),
         "buttonSend": MessageLookupByLibrary.simpleMessage("Send"),
@@ -106,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Description (optional)"),
         "labelDone": MessageLookupByLibrary.simpleMessage("Done"),
         "labelError": MessageLookupByLibrary.simpleMessage("Error"),
+        "labelErrorFieldEmpty": MessageLookupByLibrary.simpleMessage(
+            "This field can\'t be empty 😠"),
         "labelFoodName": MessageLookupByLibrary.simpleMessage("Food Name"),
         "labelHintMessage":
             MessageLookupByLibrary.simpleMessage("Your message..."),
@@ -115,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("What\'s new?"),
         "labelMinutesPassed": m2,
         "labelNew": MessageLookupByLibrary.simpleMessage("New"),
+        "labelNon": MessageLookupByLibrary.simpleMessage("No"),
         "labelOneTime": MessageLookupByLibrary.simpleMessage("One Time"),
         "labelOr": MessageLookupByLibrary.simpleMessage("Or"),
         "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
@@ -141,6 +148,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelWeek": MessageLookupByLibrary.simpleMessage("Week"),
         "labelWeekly": MessageLookupByLibrary.simpleMessage("Weekly"),
         "labelYear": MessageLookupByLibrary.simpleMessage("Year"),
+        "labelYes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "labelYourAnswer":
+            MessageLookupByLibrary.simpleMessage("Your answer..."),
+        "messageOwnAtask": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to \n take on this task ?"),
         "messageSubTaskError": MessageLookupByLibrary.simpleMessage(
             "Sub-task name cannot be empty"),
         "taskPageTitle": MessageLookupByLibrary.simpleMessage(

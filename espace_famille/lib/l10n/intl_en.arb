@@ -74,6 +74,11 @@
   "labelSubTaskHint": "What is your subtask ?",
   "labelError": "Error",
   "labelHintMessage": "Your message...",
+  "labelYes": "Yes",
+  "labelNon": "No",
+  "labelErrorFieldEmpty": "This field can't be empty 😠",
+  "labelYourAnswer": "Your answer...",
+  "buttonDeleteImage": "Delete image",
 
   "buttonConnexion": "Log In",
   "buttonConnexionWith": "Log In with",
@@ -88,8 +93,10 @@
   "buttonCreateAccont": "Register",
   "buttonSave": "Save",
   "buttonSendCommentOrSuggestions": "Send your comments or suggestions",
+  "buttonOwnAtask": "I'll take care of it 😌",
 
   "messageSubTaskError": "Sub-task name cannot be empty",
+  "messageOwnAtask": "Do you really want to \n take on this task ?",
 
   "AboutUsText": "The Space Family app was designed and developed by Jean Pierre Nduwimana, a computer engineering student passionate about the world of mobile applications. The application was created in 2025 as part of his personal learning and his desire to acquire new skills. \n Jean Pierre put all his know-how and enthusiasm into the creation of this application, with the aim of offering a smooth and intuitive user experience. This application reflects his commitment to learning, experimenting and creating practical solutions that meet the needs of users. \n As a constantly evolving developer, Jean Pierre would be delighted to receive your comments and suggestions which will be essential for the continuous improvement of the application. Thank you for using the Espace Famille application and being part of this growing project!"
 }

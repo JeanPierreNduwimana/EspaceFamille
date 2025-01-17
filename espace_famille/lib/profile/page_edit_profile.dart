@@ -22,7 +22,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _usernameController.text = 'Jean Pierre';
     _descriptionController.text = 'ceci est la descruption de mon profil';
     return Scaffold(
-      appBar: _designService.appBar(context, S.of(context).appOptionEditProfile, true),
+      appBar: _designService.appBar(context, S.of(context).appOptionEditProfile, true,Colors.cyan),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

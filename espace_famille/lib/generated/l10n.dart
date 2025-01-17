@@ -700,6 +700,56 @@ class S {
     );
   }
 
+  /// `Yes`
+  String get labelYes {
+    return Intl.message(
+      'Yes',
+      name: 'labelYes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get labelNon {
+    return Intl.message(
+      'No',
+      name: 'labelNon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This field can't be empty 😠`
+  String get labelErrorFieldEmpty {
+    return Intl.message(
+      'This field can\'t be empty 😠',
+      name: 'labelErrorFieldEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your answer...`
+  String get labelYourAnswer {
+    return Intl.message(
+      'Your answer...',
+      name: 'labelYourAnswer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete image`
+  String get buttonDeleteImage {
+    return Intl.message(
+      'Delete image',
+      name: 'buttonDeleteImage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Log In`
   String get buttonConnexion {
     return Intl.message(
@@ -830,11 +880,31 @@ class S {
     );
   }
 
+  /// `I'll take care of it 😌`
+  String get buttonOwnAtask {
+    return Intl.message(
+      'I\'ll take care of it 😌',
+      name: 'buttonOwnAtask',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sub-task name cannot be empty`
   String get messageSubTaskError {
     return Intl.message(
       'Sub-task name cannot be empty',
       name: 'messageSubTaskError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to \n take on this task ?`
+  String get messageOwnAtask {
+    return Intl.message(
+      'Do you really want to \n take on this task ?',
+      name: 'messageOwnAtask',
       desc: '',
       args: [],
     );

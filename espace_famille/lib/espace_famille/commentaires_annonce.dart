@@ -45,7 +45,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Commentaires', false),
+      appBar: _designService.appBar(context,'Commentaires', false,Colors.cyan),
       body: isloading ? _designService.shimmerCommentairesAnnonce() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
     );

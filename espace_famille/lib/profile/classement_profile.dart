@@ -37,7 +37,7 @@ class _ClassementProfilesState extends State<ClassementProfiles> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Meilleurs membres', false),
+      appBar: _designService.appBar(context,'Meilleurs membres', false, Colors.yellow.shade800),
       body: buildBody(),
       backgroundColor: Colors.white,
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),

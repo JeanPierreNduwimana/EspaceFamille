@@ -16,7 +16,7 @@ class _ConnectionState extends State<Connection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,S.of(context).buttonConnexion, true),
+      appBar: _designService.appBar(context,S.of(context).buttonConnexion, true,Colors.cyan),
       body: buildBody(),
     );
   }

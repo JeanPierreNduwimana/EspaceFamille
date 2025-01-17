@@ -22,20 +22,19 @@ class WidgetService {
   int currentPage = -1;
   bool orgExist = true;
 
-  AppBar appBar(BuildContext context,String title, bool onProfilePage){
+  AppBar appBar(BuildContext context,String title, bool onProfilePage, Color titleColor){
     return AppBar(
       leading: null,
       automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       elevation: 0,
       title: Row(
-        //mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Expanded(child: SizedBox()),
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.cyan,
+            style: TextStyle(
+              color: titleColor,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -118,7 +117,7 @@ class WidgetService {
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
-                      child: const Text('Oui', style: TextStyle(fontSize: 16)),
+                      child: Text(S.of(context).labelYes, style: const TextStyle(fontSize: 16)),
                     ),
                     ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(false),
@@ -130,7 +129,7 @@ class WidgetService {
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
-                      child: const Text('Non', style: TextStyle(fontSize: 16)),
+                      child: Text(S.of(context).labelNon, style: const TextStyle(fontSize: 16)),
                     ),
                   ],
                 ),
@@ -561,7 +560,7 @@ class WidgetService {
                                 ),
                                 onPressed: (){
                                   if(controllerContenuAnnonce.text.trim() == ''){
-                                    afficheMessage(context, 'Le champs ne peut pas être vide 😠');
+                                    afficheMessage(context, S.of(context).labelErrorFieldEmpty);
                                   }
                                 },
                                 child: isEditMessage ? const Icon(Icons.mode_edit_outlined) : const Icon(Icons.send)),
@@ -584,6 +583,7 @@ class WidgetService {
                         height: 200,
                         child: TextField(
                           controller: controllerContenuAnnonce,
+                          cursorColor: Colors.cyan,
                           maxLines: null,
                           keyboardType: TextInputType.text,
                           expands: true,
@@ -623,21 +623,37 @@ class WidgetService {
                               Text(S.of(context).buttonUploadImage)
                             ],
                           )),
-                      const SizedBox(height: 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 12),
                               height: 200, width: 200,
                               child: uploadedImage != null? uploadedImage! : const SizedBox())
                         ],
-                      )
+                      ),
+                      uploadedImage != null ?
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.redAccent,
+                              backgroundColor: Colors.red.shade50
+                          ),
+                          onPressed: (){
+                            removeImage(setState);
+                          },
+                          child: Row(
+                            children: [
+                              const Icon(Icons.delete_outlined),
+                              const SizedBox(width: 5,),
+                              Text(S.of(context).buttonDeleteImage),
+                            ],
+                          )) : const SizedBox(),
                     ],
                   ),
                 )),
             ); },);},);
   }
-  void dialogCreerTache(BuildContext context){
+  void dialogCreateTask(BuildContext context){
 
     final TextEditingController controllerTaskName = TextEditingController();
     final TextEditingController controllerSubTaskName = TextEditingController();
@@ -687,7 +703,7 @@ class WidgetService {
                                   controllerTaskName.text.trim() == '' ? afficheMessage(context, 'La description de la tâche ne peut être vide') : null;
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white, backgroundColor: Colors.cyan.shade400, // Color of the icon
+                                  foregroundColor: Colors.white, backgroundColor: Colors.green.shade400, // Color of the icon
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12), // Rounded corners
                                   ),
@@ -700,15 +716,16 @@ class WidgetService {
                         ),
                         TextField(
                           controller: controllerTaskName,
+                          cursorColor: Colors.green.shade700,
                           keyboardType: TextInputType.text,
                           autofocus: true,
                           minLines: 1,
                           maxLength: 64,
                           decoration: InputDecoration(
                             hintText: S.of(context).labelHintTaskName,
-                            focusedBorder: const UnderlineInputBorder(
+                            focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                                color: Colors.cyan, // Change border color here
+                                color: Colors.green.shade700, // Change border color here
                                 width: 2.0, // Border width
                               ),
                             ),
@@ -722,7 +739,7 @@ class WidgetService {
                                 children: [
                                   Text(
                                     '${S.of(context).labelSubTaskAdded} (${subTaskAdded.length}/3)',
-                                    style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.cyan),
+                                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green.shade700),
                                   ),
                                   const SizedBox(width: 8),
                                   GestureDetector(
@@ -781,15 +798,16 @@ class WidgetService {
                                     flex: 4,
                                     child: TextField(
                                       controller: controllerSubTaskName,
+                                      cursorColor: Colors.green.shade700,
                                       keyboardType: TextInputType.text,
                                       minLines: 1,
                                       maxLength: 64,
                                       decoration: InputDecoration(
                                           hintText: S.of(context).labelSubTaskHint,
                                           hintStyle: const TextStyle(color: Colors.grey),
-                                          focusedBorder: const UnderlineInputBorder(
+                                          focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Colors.cyan, // Change border color here
+                                              color: Colors.green.shade700, // Change border color here
                                               width: 2.0, // Border width
                                             ),
                                           ),
@@ -811,7 +829,7 @@ class WidgetService {
                                               curve: Curves.easeInOut, // Animation curve
                                             );
                                           },
-                                          child: const Icon(Icons.add, size: 32, color: Colors.cyan,)
+                                          child: Icon(Icons.add, size: 32, color: Colors.green.shade700,)
                                       )
                                   )
                                 ],
@@ -824,7 +842,7 @@ class WidgetService {
                             padding: const EdgeInsets.only(left:16,right: 16),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.cyan.shade400, backgroundColor: Colors.white,
+                                  foregroundColor: Colors.green.shade700, backgroundColor: Colors.white,
                                 ),
                                 onPressed: (){
                               setState((){
@@ -837,7 +855,7 @@ class WidgetService {
                           margin: const EdgeInsets.only(top: 12, bottom: 12),
                           child: Text(
                             S.of(context).labelChooseRecurrence,
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade700),
                           ),
                         ),
                         SizedBox(
@@ -854,17 +872,17 @@ class WidgetService {
                                 return GestureDetector(
                                   onTap: ((){
                                     _selectedOption = taskTypeOptions[index];
-                                    periodique = taskTypeOptions[index] == 'Periodique';
+                                    periodique = taskTypeOptions[index] == S.of(context).labelPeriodic;
                                     setState((){});
                                   }),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: _selectedOption == taskTypeOptions[index]
-                                          ? Colors.cyan.shade50
+                                          ? Colors.green.shade50
                                           : Colors.white,
                                       border: Border.all(
                                         color: _selectedOption == taskTypeOptions[index]
-                                            ? Colors.cyan.shade200
+                                            ? Colors.green.shade200
                                             : Colors.grey,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
@@ -875,10 +893,10 @@ class WidgetService {
                                         Radio<String>(
                                           value: taskTypeOptions[index],
                                           groupValue: _selectedOption,
-                                          activeColor: Colors.cyan,
+                                          activeColor: Colors.green.shade700,
                                           onChanged: (value){
                                             _selectedOption = value;
-                                            periodique = taskTypeOptions[index] == 'Periodique';
+                                            periodique = taskTypeOptions[index] == S.of(context).labelPeriodic;
                                             setState((){});
                                           },
                                         ),
@@ -887,7 +905,7 @@ class WidgetService {
                                               taskTypeOptions[index],
                                               style: TextStyle(
                                                 fontSize: 14,
-                                                color: _selectedOption == taskTypeOptions[index] ? Colors.cyan : Colors.black,
+                                                color: _selectedOption == taskTypeOptions[index] ? Colors.green.shade700 : Colors.black,
                                                 fontWeight: _selectedOption == taskTypeOptions[index] ? FontWeight.bold : FontWeight.normal
                                               ),
                                               overflow: TextOverflow.ellipsis,))
@@ -906,9 +924,9 @@ class WidgetService {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
+                                  Text(
                                     'Configurer la periodique',
-                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade700),
                                   ),
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -969,8 +987,8 @@ class WidgetService {
                                     child: uploadedImage!) : const SizedBox(),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.cyan,
-                                        backgroundColor: Colors.cyan.shade50
+                                        foregroundColor: Colors.green.shade700,
+                                        backgroundColor: Colors.green.shade50
                                     ),
                                     onPressed: ()async{
                                       Image? result = await getImage();
@@ -996,11 +1014,11 @@ class WidgetService {
                                     onPressed: (){
                                       removeImage(setState);
                                     },
-                                    child: const Row(
+                                    child: Row(
                                       children: [
-                                        Icon(Icons.delete_outlined),
-                                        SizedBox(width: 5,),
-                                        Text('Supprimer l\'image'),
+                                        const Icon(Icons.delete_outlined),
+                                        const SizedBox(width: 5,),
+                                        Text(S.of(context).buttonDeleteImage),
                                       ],
                                     )) : const SizedBox(),
 
@@ -1093,9 +1111,9 @@ class WidgetService {
                             maxLines: null,  // Makes the TextField multiline
                             keyboardType: TextInputType.multiline,
                             autofocus: true,
-                            decoration: const InputDecoration(
-                              hintText: 'Votre réponse...',
-                              focusedBorder: OutlineInputBorder(
+                            decoration: InputDecoration(
+                              hintText: S.of(context).labelYourAnswer,
+                              focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.cyan,
                                   width: 1.0
@@ -1106,11 +1124,14 @@ class WidgetService {
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.cyan
+                          ),
                           onPressed: () {
-                            // Action lorsque le bouton "Rep" est pressé
                             Navigator.pop(context);
                           },
-                          child: const Text('Rep'),
+                          child: const Icon(Icons.send),
                         ),
                       ],
                     ),
@@ -1378,6 +1399,7 @@ class WidgetService {
                                       children: [
                                         TextField(
                                           controller: nom_aliment_controller,
+                                          cursorColor: Colors.redAccent,
                                           keyboardType: TextInputType.name,
                                           maxLength: 16,
                                           decoration: InputDecoration(
@@ -1393,6 +1415,7 @@ class WidgetService {
                                         ),
                                         TextField(
                                           controller: quantite_aliment_controller,
+                                          cursorColor: Colors.redAccent,
                                           keyboardType: TextInputType.number,
                                           maxLength: 2,
                                           decoration:  InputDecoration(
@@ -1408,6 +1431,7 @@ class WidgetService {
                                         ),
                                         TextField(
                                           controller: descr_aliment_controller,
+                                          cursorColor: Colors.redAccent,
                                           keyboardType: TextInputType.name,
                                           maxLength: 16,
                                           decoration: InputDecoration(
@@ -1453,6 +1477,22 @@ class WidgetService {
                                               ],
                                             )
                                         ),
+                                        uploadedImage != null ?
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                foregroundColor: Colors.redAccent,
+                                                backgroundColor: Colors.red.shade50
+                                            ),
+                                            onPressed: (){
+                                              removeImage(setState);
+                                            },
+                                            child: Row(
+                                              children: [
+                                                const Icon(Icons.delete_outlined),
+                                                const SizedBox(width: 5,),
+                                                Text(S.of(context).buttonDeleteImage),
+                                              ],
+                                            )) : const SizedBox(),
                                         const SizedBox(height: 12),
                                         ElevatedButton(
                                             style: ElevatedButton.styleFrom(
@@ -1639,31 +1679,31 @@ class WidgetService {
             break;
         }
       },
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.dashboard_outlined), // Icône représentative pour Accueil
-          activeIcon: Icon(Icons.dashboard,color: Colors.cyan), // Icône pour l'état actif
-          label: 'Accueil',
+          icon: const Icon(Icons.dashboard_outlined), // Icône représentative pour Accueil
+          activeIcon: const Icon(Icons.dashboard,color: Colors.cyan), // Icône pour l'état actif
+          label: S.of(context).bottomNavHome,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart_outlined), // Icône représentative pour Accueil
-          activeIcon: Icon(Icons.shopping_cart, color: Colors.redAccent), // Icône pour l'état actif
-          label: 'Épicerie',
+          icon: const Icon(Icons.shopping_cart_outlined), // Icône représentative pour Accueil
+          activeIcon: const Icon(Icons.shopping_cart, color: Colors.redAccent), // Icône pour l'état actif
+          label: S.of(context).appBarGroceriePageTitle,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.people_alt_outlined), // Icône plus moderne pour un espace famille
-          activeIcon: Icon(Icons.people_alt, color: Colors.cyan,), // Icône pour l'état actif
-          label: 'Espace',
+          icon: const Icon(Icons.people_alt_outlined), // Icône plus moderne pour un espace famille
+          activeIcon: const Icon(Icons.people_alt, color: Colors.cyan,), // Icône pour l'état actif
+          label: S.of(context).bottomNavSpaceFamily,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.task_alt_outlined), // Icône plus moderne pour Profil
-          activeIcon: Icon(Icons.task_alt, color: Colors.green), // Icône pour l'état actif
-          label: 'Taches',
+          icon: const Icon(Icons.task_alt_outlined), // Icône plus moderne pour Profil
+          activeIcon: const Icon(Icons.task_alt, color: Colors.green), // Icône pour l'état actif
+          label: S.of(context).homePageTitleTask,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_month_outlined), // Icône plus moderne pour Profil
-          activeIcon: Icon(Icons.calendar_month, color: Colors.purple), // Icône pour l'état actif
-          label: 'Evenements',
+          icon: const Icon(Icons.calendar_month_outlined), // Icône plus moderne pour Profil
+          activeIcon: const Icon(Icons.calendar_month, color: Colors.purple), // Icône pour l'état actif
+          label: S.of(context).homePageTitleEvents,
         ),
       ],
       selectedItemColor: (

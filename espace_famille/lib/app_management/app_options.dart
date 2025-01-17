@@ -18,7 +18,7 @@ class _AppOptionsState extends State<AppOptions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context, 'Profile', true),
+      appBar: _designService.appBar(context, 'Profile', true,Colors.cyan),
       body: ListView(
         children: [
           _buildListTile(

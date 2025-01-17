@@ -20,7 +20,7 @@ class _InscriptionState extends State<Inscription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,S.of(context).labelRegisterPageTitle, true),
+      appBar: _designService.appBar(context,S.of(context).labelRegisterPageTitle, true,Colors.cyan),
       body: buildBody(),
     );
   }

@@ -81,7 +81,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _designService.appBar(context,S.of(context).appBarHomePageTitle, false),
+      appBar: _designService.appBar(context,S.of(context).appBarHomePageTitle, false,Colors.cyan),
       body: isloading ? _designService.shimmerEspaceFamille() : buildBody(),
 
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
