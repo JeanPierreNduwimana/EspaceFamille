@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../app_management/accueil.dart';
+import '../generated/l10n.dart';
 import 'model_annonce.dart';
 
 const String image = 'assets/images/naruto.jpg';
@@ -73,7 +74,6 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp // Optional
@@ -85,7 +85,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _designService.appBar(context,'Espace Famille', false),
+      appBar: _designService.appBar(context,S.of(context).appBarHomePageTitle, false),
       body: isloading ? _designService.shimmerEspaceFamille() : buildBody(),
 
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
@@ -257,7 +257,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                                     color: Colors.cyan.shade400,
                                                     borderRadius: BorderRadius.circular(12)
                                                 ),
-                                                child: const Text('Message automatique', textAlign: TextAlign.center, style: TextStyle(color: Colors.white,),)
+                                                child: Text(S.of(context).labeAutomaticMessage, textAlign: TextAlign.center, style: TextStyle(color: Colors.white,),)
                                             )) : const SizedBox(),
                                         Align(alignment: Alignment.centerRight, child: Text(annonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)),
                                       ],

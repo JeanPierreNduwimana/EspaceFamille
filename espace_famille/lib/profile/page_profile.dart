@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
+import '../generated/l10n.dart';
 import '../nav_menu.dart';
 import '../services/widget_service.dart';
 import '../taches/model_tache.dart';
@@ -59,7 +60,7 @@ class _PageProfileState extends State<PageProfile> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _designService.appBar(context,'Mon profil', true),
+      appBar: _designService.appBar(context,S.of(context).appBarProfileTitle, true),
       resizeToAvoidBottomInset: true, // Permet d'éviter que le clavier cache le contenu
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
       body: isloading? _designService.shimmerProfil() : buildBody()
@@ -151,10 +152,10 @@ class _PageProfileState extends State<PageProfile> {
               ],
             ),
           ),
-          const Row( // Titre Taches attribuées
+          Row( // Titre Taches attribuées
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Taches attribuées', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.cyan),),
+              Text(S.of(context).labelTaskOwned, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.cyan),),
             ],
           ),
           Expanded( //Bloc complet des listes des taches
@@ -206,7 +207,7 @@ class _PageProfileState extends State<PageProfile> {
                                     Icon(Icons.check_circle, color: Colors.cyan, size: 16),
                                     SizedBox(width: 4),
                                     Text(
-                                      'Fait',
+                                      S.of(context).labelDone,
                                       style: TextStyle(
                                         fontStyle: FontStyle.italic,
                                         color: Colors.cyan,

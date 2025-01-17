@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../services/widget_service.dart';
 
 class AboutUsPage extends StatefulWidget {
@@ -20,23 +21,23 @@ class _AboutUsPageState extends State<AboutUsPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          title: const Text('Nous aimerions avoir votre avis'),
+          title: Text(S.of(context).dialogUserSuggestionsTitle),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Veuillez nous faire part de vos commentaires ou suggestions.',
-                style: TextStyle(fontSize: 14),
+              Text(
+                S.of(context).dialogUserSuggestionsSubTitle,
+                style: const TextStyle(fontSize: 14),
               ),
               const SizedBox(height: 12),
               TextField(
                 controller: _messageController,
                 cursorColor: Colors.cyan,
                 maxLines: 5,
-                decoration: const InputDecoration(
-                  hintText: 'Votre message...',
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
+                decoration: InputDecoration(
+                  hintText: S.of(context).labelHintMessage,
+                  border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                           color: Colors.cyan,
                           width: 1.0
@@ -51,16 +52,15 @@ class _AboutUsPageState extends State<AboutUsPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Annuler', style: TextStyle(color: Colors.cyan)),
+              child: Text(S.of(context).buttonCancel, style: const TextStyle(color: Colors.cyan)),
             ),
             TextButton(
               onPressed: () {
                 // Logique pour envoyer le message (ici, on l'affiche dans la console)
-                print("Message envoyé: ${_messageController.text}");
                 _messageController.clear();
                 Navigator.of(context).pop();
               },
-              child: const Text('Envoyer', style: TextStyle(color: Colors.cyan)),
+              child: Text(S.of(context).buttonSend, style: const TextStyle(color: Colors.cyan)),
             ),
           ],
         );
@@ -71,7 +71,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context, 'À propos de l\'Espace Famille ', false),
+      appBar: _designService.appBar(context, S.of(context).appBaraboutUsPageTitle, false),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -89,16 +89,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                "L'application Espace Famille a été conçue et développée par Jean Pierre Nduwimana, "
-                "un étudiant en ingénierie informatique passionné par l'univers des applications mobiles."
-                "L'application a été créée en 2025 dans le cadre de son apprentissage personnel et de son "
-                "désir d'acquérir de nouvelles compétences. \n \n"
-                "Jean Pierre a mis tout son savoir-faire et son enthousiasme dans la création de cette application,"
-                "avec l'objectif de proposer une expérience utilisateur fluide et intuitive. Cette application reflète"
-                "son engagement à apprendre, à expérimenter et à créer des solutions pratiques qui répondent aux besoins des utilisateurs. \n \n"
-                "En tant que développeur en constante évolution, Jean Pierre serait ravi de recevoir vos commentaires et suggestions qui seront essentiels pour l'amélioration continue de l'application."
-                "Merci d'utiliser l'application Espace Famille et de faire partie de ce projet en pleine croissance !",
+              Text(S.of(context).AboutUsText,
                 style: TextStyle(fontSize: 16,),
                 textAlign: TextAlign.center,
               ),
@@ -110,8 +101,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                 ),
-                child: const Text(
-                  'Envoyer vos commentaires ou suggestions',
+                child: Text(
+                  S.of(context).buttonSendCommentOrSuggestions,
                   style: TextStyle(fontSize: 16),
                 ),
               ),

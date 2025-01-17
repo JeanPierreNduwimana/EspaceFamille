@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../generated/l10n.dart';
 import '../services/widget_service.dart';
 
 class Accueil extends StatefulWidget {
@@ -55,7 +56,7 @@ class _AccueilState extends State<Accueil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Espace Famille', false),
+      appBar: _designService.appBar(context,S.of(context).appBarHomePageTitle, false),
       body: RefreshIndicator(
         onRefresh: pageRefresh,
         color: Colors.cyan,
@@ -76,7 +77,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32,bottom: 4),
               padding: const EdgeInsets.all(12.0),
-              child: const Text('Connectez avec vos proches !', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle1, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             Container(
               height: postimageavailable ? 400 : 300,
@@ -177,9 +178,9 @@ class _AccueilState extends State<Accueil> {
                                             }
 
                                           },
-                                          child: const Row(
+                                          child: Row(
                                             children: [
-                                              Text("Joindre l'espace"),
+                                              Text(S.of(context).buttonJoinSpace),
                                               SizedBox(width: 8),
                                               Icon(Icons.arrow_right_alt)
                                             ],
@@ -204,9 +205,9 @@ class _AccueilState extends State<Accueil> {
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Text(
-                                'Nouveaux',
-                                style: TextStyle(
+                              child: Text(
+                                S.of(context).labelNew,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
@@ -273,10 +274,10 @@ class _AccueilState extends State<Accueil> {
                         bottom: Radius.circular(16),
                       ),
                     ),
-                    child: const Text(
-                      'Espace Famille',
+                    child: Text(
+                      S.of(context).appBarHomePageTitle,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -288,7 +289,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32),
               padding: const EdgeInsets.all(12.0),
-              child: const Text('Gestion facile d\'épicerie, Miam !', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle2, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             Container(
                 height: 400,
@@ -356,7 +357,7 @@ class _AccueilState extends State<Accueil> {
                                                         ),
                                                       ),
                                                       const SizedBox(width: 8),
-                                                      const Text('il y a 2 mins'),
+                                                      Text(S.of(context).labelMinutesPassed(2)),
                                                     ],
                                                   ),
                                                 ],
@@ -370,15 +371,15 @@ class _AccueilState extends State<Accueil> {
                                                 color: valideAchat1 ? Colors.grey.withOpacity(0.3) : Colors.red.withOpacity(0.6),
                                                 shape: BoxShape.circle,
                                               ),
-                                              child: const Column(
+                                              child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     "3",
                                                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
                                                   ),
                                                   Text(
-                                                    "Qté",
+                                                    S.of(context).labelQuantityShorted,
                                                     style: TextStyle(fontSize: 8, color: Colors.white),
                                                   ),
                                                 ],
@@ -409,7 +410,7 @@ class _AccueilState extends State<Accueil> {
                                   ),
                                   onPressed: (){
                                     Navigator.pushNamed(context, '/liste_epicerie');
-                                  }, child: const Text('Voir plus')),
+                                  }, child: Text(S.of(context).buttonSeeMore)),
                             ),
                           ],
                         ),
@@ -467,8 +468,8 @@ class _AccueilState extends State<Accueil> {
                         bottom: Radius.circular(16),
                       ),
                     ),
-                    child: const Text(
-                      "Liste d'épicerie",
+                    child: Text(
+                      S.of(context).homePageTitleGrocerieList,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -482,7 +483,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32),
               padding: const EdgeInsets.all(12.0),
-              child: const Text('Mieux s\'organiser en famille !', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle3, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             SizedBox(
               height: 200,
@@ -534,10 +535,10 @@ class _AccueilState extends State<Accueil> {
                                   bottom: Radius.circular(16),
                                 ),
                               ),
-                              child: const Text(
-                                'Taches',
+                              child: Text(
+                                S.of(context).homePageTitleTask,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -602,10 +603,10 @@ class _AccueilState extends State<Accueil> {
                                   bottom: Radius.circular(16),
                                 ),
                               ),
-                              child: const Text(
-                                'Classement',
+                              child: Text(
+                                S.of(context).homePageTitleRanking,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -622,7 +623,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32),
               padding: const EdgeInsets.all(12.0),
-              child: const Text('Se tenir à jour des évènements !', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle4, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             Container(
               height: 200,
@@ -666,10 +667,10 @@ class _AccueilState extends State<Accueil> {
                           bottom: Radius.circular(16),
                         ),
                       ),
-                      child: const Text(
-                        'Evenements',
+                      child: Text(
+                        S.of(context).homePageTitleEvents,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -682,7 +683,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32),
               padding: const EdgeInsets.all(12.0),
-              child: const Text('Apercu des membres de votre famille !', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle5, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             Container(
               height: 200,

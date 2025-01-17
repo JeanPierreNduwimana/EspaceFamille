@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/shimmer.dart';
+import '../generated/l10n.dart';
 import '../taches/model_tache.dart';
 
 class WidgetService {
@@ -275,7 +276,7 @@ class WidgetService {
                             onTap: (){
                               Navigator.of(context).pop();
                             },
-                            child: const Text('Annuler', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                            child: Text(S.of(context).buttonCancel, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                           ),
                           visitor? const Text('Evaluer JeanPierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),) :
                           const Text('Détails sur ma tâche', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -552,7 +553,7 @@ class WidgetService {
                               onTap: ((){
                                 Navigator.pop(context);
                               }),
-                              child: const Text('Annuler', style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+                              child: Text(S.of(context).buttonCancel, style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     foregroundColor: isEditMessage ? Colors.orangeAccent : Colors.cyan,
@@ -588,10 +589,10 @@ class WidgetService {
                           expands: true,
                           maxLength: 200,
                           autofocus: true,
-                          decoration: const InputDecoration(
-                            hintText: 'Quoi de neuf ?',
-                            contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                            focusedBorder: UnderlineInputBorder(
+                          decoration: InputDecoration(
+                            hintText: S.of(context).labelHintWhatsUp,
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.cyan, // Change border color here
                                 width: 2.0, // Border width
@@ -614,12 +615,12 @@ class WidgetService {
                              });
                            }
                           },
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.upload_outlined),
-                              SizedBox(width: 4),
-                              Text('Ajouter une image')
+                              const Icon(Icons.upload_outlined),
+                              const SizedBox(width: 4),
+                              Text(S.of(context).buttonUploadImage)
                             ],
                           )),
                       const SizedBox(height: 12),
@@ -640,7 +641,7 @@ class WidgetService {
 
     final TextEditingController controllerTaskName = TextEditingController();
     final TextEditingController controllerSubTaskName = TextEditingController();
-    final List<String> taskTypeOptions = ['une fois', 'Quotidien', 'Hebdo', 'Annuelle', 'Periodique'];
+    final List<String> taskTypeOptions = [S.of(context).labelOneTime, S.of(context).labelDaily, S.of(context).labelWeekly, S.of(context).labelAnnually,S.of(context).labelPeriodic];
     String? _selectedOption;
     List<String> subTaskAdded = [];
     bool periodique = false;
@@ -680,7 +681,7 @@ class WidgetService {
                                   onTap: ((){
                                     Navigator.pop(context);
                                   }),
-                                  child: const Text('Annuler', style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+                                  child: Text(S.of(context).buttonCancel, style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
                               ElevatedButton(
                                 onPressed: () {
                                   controllerTaskName.text.trim() == '' ? afficheMessage(context, 'La description de la tâche ne peut être vide') : null;
@@ -691,7 +692,7 @@ class WidgetService {
                                     borderRadius: BorderRadius.circular(12), // Rounded corners
                                   ),
                                 ),
-                                child: const Text('Ajouter', style: TextStyle(fontWeight: FontWeight.bold),)
+                                child: Text(S.of(context).buttonAdd, style: const TextStyle(fontWeight: FontWeight.bold),)
                               )
 
                             ],
@@ -703,9 +704,9 @@ class WidgetService {
                           autofocus: true,
                           minLines: 1,
                           maxLength: 64,
-                          decoration: const InputDecoration(
-                            hintText: 'Quel est votre tâche?',
-                            focusedBorder: UnderlineInputBorder(
+                          decoration: InputDecoration(
+                            hintText: S.of(context).labelHintTaskName,
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.cyan, // Change border color here
                                 width: 2.0, // Border width
@@ -720,7 +721,7 @@ class WidgetService {
                               child: Row(
                                 children: [
                                   Text(
-                                    'Ajouter des sous-tâches (${subTaskAdded.length}/3)',
+                                    '${S.of(context).labelSubTaskAdded} (${subTaskAdded.length}/3)',
                                     style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.cyan),
                                   ),
                                   const SizedBox(width: 8),
@@ -783,8 +784,8 @@ class WidgetService {
                                       keyboardType: TextInputType.text,
                                       minLines: 1,
                                       maxLength: 64,
-                                      decoration: const InputDecoration(
-                                          hintText: 'Quel est votre sous-tâche?',
+                                      decoration: InputDecoration(
+                                          hintText: S.of(context).labelSubTaskHint,
                                           hintStyle: TextStyle(color: Colors.grey),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -799,7 +800,7 @@ class WidgetService {
                                       child: GestureDetector(
                                           onTap: (){
                                             if(controllerSubTaskName.text.trim() == ''){
-                                              afficheMessage(context, 'Sub-task name cannot be empty!');
+                                              afficheMessage(context, S.of(context).messageSubTaskError);
                                               return;
                                             }
                                             setState((){subTaskAdded.add(controllerSubTaskName.text);});
@@ -830,13 +831,13 @@ class WidgetService {
                                 subTask = !subTask;
                               });
                               },
-                                child: const Text('Ajouter des sous-tâches')),
+                                child: Text(S.of(context).buttonAddSubTask)),
                           ),
                         Container(
                           margin: const EdgeInsets.only(top: 12, bottom: 12),
-                          child: const Text(
-                            "Choisissez la recurrence:",
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
+                          child: Text(
+                            S.of(context).labelChooseRecurrence,
+                            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
                           ),
                         ),
                         SizedBox(
@@ -979,11 +980,11 @@ class WidgetService {
                                         });
                                       }
                                     },
-                                    child: const Row(
+                                    child: Row(
                                       children: [
-                                        Icon(Icons.upload_outlined),
-                                        SizedBox(width: 5,),
-                                        Text('Ajouter une image'),
+                                        const Icon(Icons.upload_outlined),
+                                        const SizedBox(width: 5,),
+                                        Text(S.of(context).buttonUploadImage),
                                       ],
                                     )),
                                 uploadedImage != null ?
@@ -1171,9 +1172,9 @@ class WidgetService {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white, // Set background color to white
-          title: const Text(
-            'Erreur',
-            style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold), // Cyan text color for title
+          title: Text(
+            S.of(context).labelError,
+            style: const TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold), // Cyan text color for title
           ),
           content: Text(
             message,
@@ -1379,10 +1380,10 @@ class WidgetService {
                                           controller: nom_aliment_controller,
                                           keyboardType: TextInputType.name,
                                           maxLength: 16,
-                                          decoration:  const InputDecoration(
-                                              hintText:'Nom de l\'aliment',
+                                          decoration: InputDecoration(
+                                              hintText: S.of(context).labelFoodName,
                                               hintStyle: TextStyle(color: Colors.black38),
-                                              focusedBorder: UnderlineInputBorder(
+                                              focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
                                                     width: 2.0, // Border width
@@ -1394,10 +1395,10 @@ class WidgetService {
                                           controller: quantite_aliment_controller,
                                           keyboardType: TextInputType.number,
                                           maxLength: 2,
-                                          decoration:  const InputDecoration(
-                                              hintText:'Quantité',
-                                              hintStyle: TextStyle(color: Colors.black38),
-                                              focusedBorder: UnderlineInputBorder(
+                                          decoration:  InputDecoration(
+                                              hintText: S.of(context).labelQuantityLong,
+                                              hintStyle: const TextStyle(color: Colors.black38),
+                                              focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
                                                     width: 2.0, // Border width
@@ -1409,10 +1410,10 @@ class WidgetService {
                                           controller: descr_aliment_controller,
                                           keyboardType: TextInputType.name,
                                           maxLength: 16,
-                                          decoration:  const InputDecoration(
-                                              hintText:'Description (facultatif)',
-                                              hintStyle: TextStyle(color: Colors.black38),
-                                              focusedBorder: UnderlineInputBorder(
+                                          decoration: InputDecoration(
+                                              hintText: S.of(context).labelDescription,
+                                              hintStyle: const TextStyle(color: Colors.black38),
+                                              focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
                                                     width: 2.0, // Border width
@@ -1443,12 +1444,12 @@ class WidgetService {
                                                 });
                                               }
                                             },
-                                            child: const Row(
+                                            child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Icon(Icons.upload_outlined),
-                                                SizedBox(width: 4),
-                                                Text('Ajouter une image')
+                                                const Icon(Icons.upload_outlined),
+                                                const SizedBox(width: 4),
+                                                Text(S.of(context).buttonUploadImage)
                                               ],
                                             )
                                         ),
@@ -1461,12 +1462,12 @@ class WidgetService {
                                             onPressed: () async{
                                               Navigator.of(context).pop();
                                             },
-                                            child: const Row(
+                                            child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Icon(Icons.add),
                                                 SizedBox(width: 4),
-                                                Text('Ajouter l\'aliment'),
+                                                Text(S.of(context).buttonAddFood),
                                               ],
                                             )
                                         ),
@@ -1567,7 +1568,7 @@ class WidgetService {
                                                       backgroundColor: Colors.redAccent,
                                                       foregroundColor: Colors.white,
                                                     ),
-                                                    child: const Text('Ajouter'),
+                                                    child: Text(S.of(context).buttonAdd),
                                                   ),
                                                 ],
                                               ),
