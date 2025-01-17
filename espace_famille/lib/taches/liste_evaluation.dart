@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
@@ -158,7 +157,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 80,
                       width: 80,
                       child: ClipOval(

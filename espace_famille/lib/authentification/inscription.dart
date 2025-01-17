@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
@@ -29,142 +28,140 @@ class _InscriptionState extends State<Inscription> {
   Widget buildBody(){
     return SingleChildScrollView(
       child: Center(
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(48.0),
-              child: Column(
-                children: [
-                  Text(S.of(context).labelRegisterPageTitle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
-                  const SizedBox(height: 24),
-                  TextField(
-                    controller: username_controller,
-                    keyboardType: TextInputType.name,
-                    cursorColor: Colors.cyan,
-                    maxLength: 16,
-                    decoration:  InputDecoration(
-                        hintText:S.of(context).labelUsername,
-                        hintStyle: const TextStyle(color: Colors.black38),
-                        focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.cyan, // Change border color here
-                              width: 2.0, // Border width
-                            )
-                        )
-                    ),
-                  ),
-                  TextField(
-                    controller: _dateController,
-                    readOnly: true,
-                    cursorColor: Colors.cyan,
-                    decoration: InputDecoration(
-                      hintText: S.of(context).labelRegisterPageBirthDate,
-                      suffixIcon: const Icon(Icons.calendar_today, color: Colors.cyan),
+          child: Padding(
+            padding: const EdgeInsets.all(48.0),
+            child: Column(
+              children: [
+                Text(S.of(context).labelRegisterPageTitle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+                const SizedBox(height: 24),
+                TextField(
+                  controller: username_controller,
+                  keyboardType: TextInputType.name,
+                  cursorColor: Colors.cyan,
+                  maxLength: 16,
+                  decoration:  InputDecoration(
+                      hintText:S.of(context).labelUsername,
+                      hintStyle: const TextStyle(color: Colors.black38),
                       focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.cyan),
-                      ),
-                    ),
-                    onTap: () => _selectDate(context),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: password_controller,
-                    obscureText: true,
-                    cursorColor: Colors.cyan,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                        hintText: S.of(context).labelPassword,
-                        hintStyle: const TextStyle(color: Colors.black38),
-                        focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.cyan, // Change border color here
-                              width: 2.0, // Border width
-                            )
-                        )
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: passwordConfirm_controller,
-                    obscureText: true,
-                    cursorColor: Colors.cyan,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                        hintText: S.of(context).labelPasswordConfirm,
-                        hintStyle: const TextStyle(color: Colors.black38),
-                        focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.cyan, // Change border color here
-                              width: 2.0, // Border width
-                            )
-                        )
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          Navigator.pushNamed(context, '/acceuil');
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.cyan,
-                            foregroundColor: Colors.white
-                        ),
-                        child: Text(S.of(context).buttonCreateAccont),
-                      ),
-                      const SizedBox(height: 12,),
-                      ElevatedButton(
-                          onPressed: () async {
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.cyan
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(S.of(context).labelRegisterWith),
-                              const SizedBox(width: 16),
-                              SizedBox(height: 20, child: Image.asset('assets/images/google_image_logo.png',)),
-                            ],
+                          borderSide: BorderSide(
+                            color: Colors.cyan, // Change border color here
+                            width: 2.0, // Border width
                           )
+                      )
+                  ),
+                ),
+                TextField(
+                  controller: _dateController,
+                  readOnly: true,
+                  cursorColor: Colors.cyan,
+                  decoration: InputDecoration(
+                    hintText: S.of(context).labelRegisterPageBirthDate,
+                    suffixIcon: const Icon(Icons.calendar_today, color: Colors.cyan),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.cyan),
+                    ),
+                  ),
+                  onTap: () => _selectDate(context),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: password_controller,
+                  obscureText: true,
+                  cursorColor: Colors.cyan,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                      hintText: S.of(context).labelPassword,
+                      hintStyle: const TextStyle(color: Colors.black38),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.cyan, // Change border color here
+                            width: 2.0, // Border width
+                          )
+                      )
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: passwordConfirm_controller,
+                  obscureText: true,
+                  cursorColor: Colors.cyan,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                      hintText: S.of(context).labelPasswordConfirm,
+                      hintStyle: const TextStyle(color: Colors.black38),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.cyan, // Change border color here
+                            width: 2.0, // Border width
+                          )
+                      )
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        Navigator.pushNamed(context, '/acceuil');
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.cyan,
+                          foregroundColor: Colors.white
                       ),
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 12),
-                        child: Row(
-                          children: [
-                            const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
-                            const SizedBox(width: 16),
-                            Text(S.of(context).labelOr),
-                            const SizedBox(width: 16),
-                            const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
+                      child: Text(S.of(context).buttonCreateAccont),
+                    ),
+                    const SizedBox(height: 12,),
+                    ElevatedButton(
                         onPressed: () async {
-                          Navigator.pushNamed(context, '/connexion');
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            foregroundColor: Colors.cyan,
-                            elevation: 0,
-                            side: BorderSide(
-                                width: 1,
-                                color: Colors.cyan.withOpacity(0.5)
-                            )
+                            foregroundColor: Colors.cyan
                         ),
-
-                        child: Text(S.of(context).buttonConnexion),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(S.of(context).labelRegisterWith),
+                            const SizedBox(width: 16),
+                            SizedBox(height: 20, child: Image.asset('assets/images/google_image_logo.png',)),
+                          ],
+                        )
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 12),
+                      child: Row(
+                        children: [
+                          const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
+                          const SizedBox(width: 16),
+                          Text(S.of(context).labelOr),
+                          const SizedBox(width: 16),
+                          const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        Navigator.pushNamed(context, '/connexion');
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.cyan,
+                          elevation: 0,
+                          side: BorderSide(
+                              width: 1,
+                              color: Colors.cyan.withOpacity(0.5)
+                          )
                       ),
 
-                    ],
-                  )
+                      child: Text(S.of(context).buttonConnexion),
+                    ),
 
-                ],
-              ),
+                  ],
+                )
+
+              ],
             ),
           )
       ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../generated/l10n.dart';
-import '../nav_menu.dart';
 import '../services/widget_service.dart';
 import 'model_aliment.dart';
 
@@ -93,7 +91,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                             color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
                             spreadRadius: 2, // Rayonnement de l'ombre
                             blurRadius: 3, // Rayon du flou de l'ombre
-                            offset: Offset(3, 3), // Décalage horizontal et vertical de l'ombre
+                            offset: const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
                           ),
                         ],
                       ),
@@ -137,7 +135,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                       Navigator.pushNamed(context, '/app_options');
                     }
                   },
-                  child: Container(
+                  child: SizedBox(
                     height: 32,
                     width: 32,
                     child: ClipOval(
@@ -192,15 +190,15 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
               margin: const EdgeInsets.symmetric(vertical: 18),
               color: Colors.greenAccent,
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 20.0),
-              child: Icon(Icons.check, color: Colors.white),
+              padding: const EdgeInsets.only(left: 20.0),
+              child: const Icon(Icons.check, color: Colors.white),
             ),
             secondaryBackground: Container(
               margin: const EdgeInsets.symmetric(vertical: 18),
               color: Colors.red.withOpacity(0.6),
               alignment: Alignment.centerRight,
-              padding: EdgeInsets.only(right: 20.0),
-              child: Icon(Icons.delete, color: Colors.white),
+              padding: const EdgeInsets.only(right: 20.0),
+              child: const Icon(Icons.delete, color: Colors.white),
             ),
             confirmDismiss: (direction) async {
               if (direction == DismissDirection.startToEnd) {

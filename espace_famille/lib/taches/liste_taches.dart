@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
-import '../nav_menu.dart';
 import '../services/widget_service.dart';
 import 'model_tache.dart';
 
@@ -90,7 +89,7 @@ class _ListeTachesState extends State<ListeTaches> {
                     const SizedBox(height: 32),
                     Image.asset('assets/images/task_list.png'),
                     const SizedBox(height: 32),
-                    Text(S.of(context).taskPageTitle, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text(S.of(context).taskPageTitle, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                     const SizedBox(height: 24),
                   ],
                 ),

@@ -8,14 +8,14 @@ class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
 
   @override
-  _EditProfilePageState createState() => _EditProfilePageState();
+  State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  WidgetService _designService = WidgetService();
-  Image? uploadedImage = null;
+  final WidgetService _designService = WidgetService();
+  Image? uploadedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -142,41 +142,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  void _showChangePhotoDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Changer la photo de profil'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Choisir depuis la galerie'),
-                onTap: () {
-                  setState(() {
-// Simule un changement
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Prendre une photo'),
-                onTap: () {
-                  // Simuler l'ajout d'une photo prise
-                  setState(() {
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
 
   void _saveProfile() {
     final String username = _usernameController.text;
@@ -185,11 +150,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
     // Simule la sauvegarde des informations (à remplacer par une logique réelle)
     if (username.isNotEmpty && description.isNotEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Profil mis à jour avec succès!')),
+        const SnackBar(content: Text('Profil mis à jour avec succès!')),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Veuillez remplir tous les champs')),
+        const SnackBar(content: Text('Veuillez remplir tous les champs')),
       );
     }
   }

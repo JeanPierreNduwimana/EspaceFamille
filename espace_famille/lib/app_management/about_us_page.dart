@@ -90,7 +90,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
               ),
               const SizedBox(height: 16),
               Text(S.of(context).AboutUsText,
-                style: TextStyle(fontSize: 16,),
+                style: const TextStyle(fontSize: 16,),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
@@ -103,7 +103,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 ),
                 child: Text(
                   S.of(context).buttonSendCommentOrSuggestions,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ],

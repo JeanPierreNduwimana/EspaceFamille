@@ -553,7 +553,7 @@ class WidgetService {
                               onTap: ((){
                                 Navigator.pop(context);
                               }),
-                              child: Text(S.of(context).buttonCancel, style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+                              child: Text(S.of(context).buttonCancel, style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     foregroundColor: isEditMessage ? Colors.orangeAccent : Colors.cyan,
@@ -681,7 +681,7 @@ class WidgetService {
                                   onTap: ((){
                                     Navigator.pop(context);
                                   }),
-                                  child: Text(S.of(context).buttonCancel, style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+                                  child: Text(S.of(context).buttonCancel, style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
                               ElevatedButton(
                                 onPressed: () {
                                   controllerTaskName.text.trim() == '' ? afficheMessage(context, 'La description de la tâche ne peut être vide') : null;
@@ -786,8 +786,8 @@ class WidgetService {
                                       maxLength: 64,
                                       decoration: InputDecoration(
                                           hintText: S.of(context).labelSubTaskHint,
-                                          hintStyle: TextStyle(color: Colors.grey),
-                                          focusedBorder: UnderlineInputBorder(
+                                          hintStyle: const TextStyle(color: Colors.grey),
+                                          focusedBorder: const UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Colors.cyan, // Change border color here
                                               width: 2.0, // Border width
@@ -1382,7 +1382,7 @@ class WidgetService {
                                           maxLength: 16,
                                           decoration: InputDecoration(
                                               hintText: S.of(context).labelFoodName,
-                                              hintStyle: TextStyle(color: Colors.black38),
+                                              hintStyle: const TextStyle(color: Colors.black38),
                                               focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
@@ -1465,8 +1465,8 @@ class WidgetService {
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Icon(Icons.add),
-                                                SizedBox(width: 4),
+                                                const Icon(Icons.add),
+                                                const SizedBox(width: 4),
                                                 Text(S.of(context).buttonAddFood),
                                               ],
                                             )
@@ -1807,8 +1807,6 @@ class WidgetService {
               onPressed: () {
                 String organizationName = orgNameController.text.trim();
                 if (organizationName.isNotEmpty) {
-                  // Handle organization creation logic here
-                  print('Organization Created: $organizationName');
                   Navigator.pop(context);
                 }
               },
@@ -1864,8 +1862,6 @@ class WidgetService {
               onPressed: () {
                 String organizationCode = orgCodeController.text.trim();
                 if (organizationCode.isNotEmpty) {
-                  // Handle joining organization logic here
-                  print('Joined Organization with Code: $organizationCode');
                   Navigator.pop(context);
                 }
               },

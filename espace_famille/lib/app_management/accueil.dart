@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../generated/l10n.dart';
 import '../services/widget_service.dart';
@@ -77,7 +76,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32,bottom: 4),
               padding: const EdgeInsets.all(12.0),
-              child: Text(S.of(context).homePageSectionTitle1, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle1, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             Container(
               height: postimageavailable ? 400 : 300,
@@ -181,8 +180,8 @@ class _AccueilState extends State<Accueil> {
                                           child: Row(
                                             children: [
                                               Text(S.of(context).buttonJoinSpace),
-                                              SizedBox(width: 8),
-                                              Icon(Icons.arrow_right_alt)
+                                              const SizedBox(width: 8),
+                                              const Icon(Icons.arrow_right_alt)
                                             ],
                                       )
                                       ),
@@ -289,7 +288,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32),
               padding: const EdgeInsets.all(12.0),
-              child: Text(S.of(context).homePageSectionTitle2, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle2, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             Container(
                 height: 400,
@@ -380,7 +379,7 @@ class _AccueilState extends State<Accueil> {
                                                   ),
                                                   Text(
                                                     S.of(context).labelQuantityShorted,
-                                                    style: TextStyle(fontSize: 8, color: Colors.white),
+                                                    style: const TextStyle(fontSize: 8, color: Colors.white),
                                                   ),
                                                 ],
                                               ),
@@ -471,7 +470,7 @@ class _AccueilState extends State<Accueil> {
                     child: Text(
                       S.of(context).homePageTitleGrocerieList,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -483,7 +482,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32),
               padding: const EdgeInsets.all(12.0),
-              child: Text(S.of(context).homePageSectionTitle3, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle3, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             SizedBox(
               height: 200,
@@ -623,7 +622,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32),
               padding: const EdgeInsets.all(12.0),
-              child: Text(S.of(context).homePageSectionTitle4, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle4, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             Container(
               height: 200,
@@ -683,7 +682,7 @@ class _AccueilState extends State<Accueil> {
             Container(
               margin: const EdgeInsets.only(top: 32),
               padding: const EdgeInsets.all(12.0),
-              child: Text(S.of(context).homePageSectionTitle5, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+              child: Text(S.of(context).homePageSectionTitle5, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
             ),
             Container(
               height: 200,

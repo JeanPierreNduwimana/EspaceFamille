@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../nav_menu.dart';
 import '../services/widget_service.dart';
 import 'model_profile.dart';
 
@@ -225,7 +223,7 @@ Widget buildBody(){
                   alignment: Alignment.center,
                   child: Text(
                     '$index',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -261,7 +259,7 @@ Widget buildBody(){
                       const SizedBox(height: 4),
                       Text(
                         profiles[index].date,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black54,
                           fontStyle: FontStyle.italic,
                           fontSize: 14,

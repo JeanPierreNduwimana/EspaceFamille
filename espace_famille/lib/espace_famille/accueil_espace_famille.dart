@@ -1,13 +1,9 @@
 import 'package:espace_famille/espace_famille/commentaires_annonce.dart';
 import 'package:espace_famille/espace_famille/model_commentaire.dart';
-import 'package:espace_famille/nav_menu.dart';
 import 'package:espace_famille/services/widget_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../app_management/accueil.dart';
 import '../generated/l10n.dart';
 import 'model_annonce.dart';
 
@@ -129,7 +125,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                             color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
                             spreadRadius: 2, // Rayonnement de l'ombre
                             blurRadius: 3, // Rayon du flou de l'ombre
-                            offset: Offset(2, 2), // Décalage horizontal et vertical de l'ombre
+                            offset: const Offset(2, 2), // Décalage horizontal et vertical de l'ombre
                           ),
                         ],
                        border: Border.all(color: Colors.grey.shade300, width: 1)),
@@ -141,7 +137,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                             Row(
                               children: [
                                 GestureDetector(
-                                  child:Container(
+                                  child:SizedBox(
                                     height: 40,
                                     width: 40,
                                     child: ClipOval(
@@ -173,9 +169,9 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                         result ? _designService.dialogCreerAnnonce(context, annonces[index].description, currentImage) : null;
                                       }
                                     },
-                                    child: Icon(Icons.edit, color: Colors.orangeAccent,)
+                                    child: const Icon(Icons.edit, color: Colors.orangeAccent,)
                                 ),
-                                SizedBox(width: 12),
+                                const SizedBox(width: 12),
                                 GestureDetector(
                                     onTap: ()async{
                                       String message = 'Voulez-vous vraiment \n supprimer cette annonce ?';
@@ -185,23 +181,23 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                       }
                                       //_designService.dialogYesorNo(context, modalRouteName);
                                     },
-                                    child: Icon(Icons.delete_outlined, color: Colors.redAccent,)
+                                    child: const Icon(Icons.delete_outlined, color: Colors.redAccent,)
                                 )
                               ],
                             )
                           ],
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(child: Text(annonces[index].description)),
-                            SizedBox(height: 4,),
+                            const SizedBox(height: 4,),
                             GestureDetector(
                               onTap: (){
                                 _designService.dialogAfficherImage(context, annonces[index].url);
                               },
-                              child: Container(
+                              child: SizedBox(
                                   height: 60,
                                   width: 60,
                                   child:  getImage(annonces[index].url)
@@ -226,9 +222,9 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                   }),
                                   child: annonces[index].liked ? Icon(Icons.favorite, color: Colors.deepOrange[400],size: 20,) : Icon(Icons.favorite_border, color: Colors.deepOrange[400],size: 20),
                                 ),
-                                SizedBox(width: 2),
+                                const SizedBox(width: 2),
                                 Text(annonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400], fontSize: 16),),
-                                SizedBox(width: 24),
+                                const SizedBox(width: 24),
                                 GestureDetector(
                                   onTap: (){
                                     _designService.controllercommentRepondre.text = '';
@@ -237,7 +233,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                   child: Row(
                                     children: [
                                       Icon(Icons.comment, color: Colors.cyan[600],size: 20),
-                                      SizedBox(width: 2),
+                                      const SizedBox(width: 2),
                                       Text(annonces[index].Comments.toString(), style: TextStyle(color: Colors.cyan[600], fontSize: 16),),
                                     ]
                                   ),
@@ -252,12 +248,12 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                             flex: 2,
                                             child: Container(
                                                 margin: const EdgeInsets.symmetric(horizontal: 24),
-                                                padding: EdgeInsets.symmetric(vertical: 2),
+                                                padding: const EdgeInsets.symmetric(vertical: 2),
                                                 decoration: BoxDecoration(
                                                     color: Colors.cyan.shade400,
                                                     borderRadius: BorderRadius.circular(12)
                                                 ),
-                                                child: Text(S.of(context).labeAutomaticMessage, textAlign: TextAlign.center, style: TextStyle(color: Colors.white,),)
+                                                child: Text(S.of(context).labeAutomaticMessage, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white,),)
                                             )) : const SizedBox(),
                                         Align(alignment: Alignment.centerRight, child: Text(annonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)),
                                       ],

@@ -23,7 +23,7 @@ class _AppOptionsState extends State<AppOptions> {
         children: [
           _buildListTile(
             context,
-            Container(
+            SizedBox(
               height: 38,
               width: 38,
               child: ClipOval(
@@ -44,7 +44,7 @@ class _AppOptionsState extends State<AppOptions> {
           ),
           _buildListTile(
             context,
-            Container(
+            SizedBox(
               height: 36,
               width: 36,
               child: ClipRRect(
@@ -79,7 +79,7 @@ class _AppOptionsState extends State<AppOptions> {
           ),
           _buildListTile(
             context,
-            Icon(Icons.notifications, color: Colors.green),
+            const Icon(Icons.notifications, color: Colors.green),
             S.of(context).appOptionNotifications,
             Colors.green,
                 () {
@@ -92,7 +92,7 @@ class _AppOptionsState extends State<AppOptions> {
           ),
           _buildListTile(
             context,
-            Icon(Icons.settings, color: Colors.cyan),
+            const Icon(Icons.settings, color: Colors.cyan),
             S.of(context).appOptionEditProfile,
             Colors.cyan,
                 () {
@@ -108,7 +108,7 @@ class _AppOptionsState extends State<AppOptions> {
 
           _buildListTile(
             context,
-            Icon(Icons.exit_to_app, color: Colors.redAccent),
+            const Icon(Icons.exit_to_app, color: Colors.redAccent),
             S.of(context).appOptionDeconnexion,
             Colors.redAccent,
                 () {
@@ -117,7 +117,7 @@ class _AppOptionsState extends State<AppOptions> {
           ),
           _buildListTile(
             context,
-            Icon(Icons.info, color: Colors.blueAccent),
+            const Icon(Icons.info, color: Colors.blueAccent),
             S.of(context).appOptionAboutUs,
             Colors.blueAccent,
                 () {
@@ -141,7 +141,7 @@ class _AppOptionsState extends State<AppOptions> {
       child: Column(
         children: [
           ListTile(
-            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             leading: CircleAvatar(
               radius: 20,
               backgroundColor: iconColor.withOpacity(0.2),
@@ -149,9 +149,9 @@ class _AppOptionsState extends State<AppOptions> {
             ),
             title: Text(
               title,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            trailing: Icon(Icons.arrow_forward_ios, size: 20),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 20),
             onTap: onTap,
           ),
           Divider(thickness: 1, color: Colors.grey.shade400),
@@ -167,14 +167,14 @@ class _AppOptionsState extends State<AppOptions> {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          title: Text('Logout'),
-          content: Text('Are you sure you want to log out?'),
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to log out?'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context); // Close dialog
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -182,7 +182,7 @@ class _AppOptionsState extends State<AppOptions> {
                 Navigator.pushNamed(context, '/connexion'); // Close dialog
                 // Navigate to login page or perform logout action
               },
-              child: Text('Logout'),
+              child: const Text('Logout'),
             ),
           ],
         );

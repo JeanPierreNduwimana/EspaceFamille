@@ -1,12 +1,9 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
 import '../generated/l10n.dart';
-import '../nav_menu.dart';
 import '../services/widget_service.dart';
 import '../taches/model_tache.dart';
 
@@ -82,7 +79,7 @@ class _PageProfileState extends State<PageProfile> {
                     color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
                     spreadRadius: 2, // Rayonnement de l'ombre
                     blurRadius: 2, // Rayon du flou de l'ombre
-                    offset: Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+                    offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
                   ),
                 ]),
             child: Column( //Informations d'utilisateur
@@ -171,7 +168,7 @@ class _PageProfileState extends State<PageProfile> {
                               color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
                               spreadRadius: 2, // Rayonnement de l'ombre
                               blurRadius: 2, // Rayon du flou de l'ombre
-                              offset: Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+                              offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
                             ),
                           ]),
                       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -189,7 +186,7 @@ class _PageProfileState extends State<PageProfile> {
                         ),
                         title: Text(
                           _designService.maximumString(taches[index].descr, 28),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Colors.black,
@@ -204,11 +201,11 @@ class _PageProfileState extends State<PageProfile> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(Icons.check_circle, color: Colors.cyan, size: 16),
-                                    SizedBox(width: 4),
+                                    const Icon(Icons.check_circle, color: Colors.cyan, size: 16),
+                                    const SizedBox(width: 4),
                                     Text(
                                       S.of(context).labelDone,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontStyle: FontStyle.italic,
                                         color: Colors.cyan,
                                       ),
@@ -217,8 +214,8 @@ class _PageProfileState extends State<PageProfile> {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(Icons.calendar_today, color: Colors.grey, size: 16),
-                                    SizedBox(width: 4),
+                                    const Icon(Icons.calendar_today, color: Colors.grey, size: 16),
+                                    const SizedBox(width: 4),
                                     Text(
                                       'Chaque lundi',
                                       style: TextStyle(
@@ -233,12 +230,12 @@ class _PageProfileState extends State<PageProfile> {
 
                           ],
                         ),
-                        trailing: Icon(
+                        trailing: const Icon(
                           Icons.arrow_forward_ios,
                           color: Colors.cyan,
                           size: 18,
                         ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         tileColor: Colors.grey[100],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
