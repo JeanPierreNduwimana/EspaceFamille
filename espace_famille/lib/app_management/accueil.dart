@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shimmer/shimmer.dart';
 
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({super.key});
@@ -9,7 +10,7 @@ class Accueil extends StatefulWidget {
   @override
   State<Accueil> createState() => _AccueilState();
 }
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 final List<Map<String, String>> categories = [
   {"title": "Espace Famille", "image": "assets/images/naruto.jpg"},
   {"title": "Liste d'Épicerie", "image": "assets/images/naruto.jpg"},
@@ -22,30 +23,43 @@ bool containposts = true;
 bool postimageavailable = true;
 bool valideAchat1 = false;
 bool orgExist = true;
-
+bool isloading = true;
 class _AccueilState extends State<Accueil> {
 
+  void loadPage()async{
+    await fetchData();
+  }
+
+  Future<void> fetchData() async {
+    setState(() {
+      isloading = true;
+    });
+    await Future.delayed(const Duration(seconds: 1)); // Simule un délai de chargement
+    setState(() {
+      isloading = false;
+    });
+  }
+  Future<void> pageRefresh() async {
+    await fetchData();
+  }
   @override
-  void initState() {
+  void initState(){
     // TODO: implement initState
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp // Optional
     ]);
+    loadPage();
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<void> pageRefresh() async {
-      setState(() {
-      });
-    }
     return Scaffold(
       appBar: _designService.appBar(context,'Espace Famille', false),
       body: RefreshIndicator(
         onRefresh: pageRefresh,
         color: Colors.cyan,
-        child: buildBody()
+        child: isloading ? _designService.shimmerAcceuil() : buildBody(),
       ),
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
       //drawer: const NavMenu(),

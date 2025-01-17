@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../nav_menu.dart';
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 
 class Horaire extends StatefulWidget {
   const Horaire({super.key});
@@ -11,7 +11,7 @@ class Horaire extends StatefulWidget {
   @override
   State<Horaire> createState() => _HoraireState();
 }
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 
 class _HoraireState extends State<Horaire> {
 

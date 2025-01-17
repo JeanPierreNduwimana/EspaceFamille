@@ -2,10 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../nav_menu.dart';
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 import 'model_tache.dart';
 
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 List<Tache> taches = [
   Tache('Organiser le bureau et trier les documents important',getImage(),true),
   Tache('Préparer un repas équilibré pour le déjeuner',getImage(),false),
@@ -19,6 +19,8 @@ List<Tache> taches = [
   Tache('Créer une playlist de musique motivante pour la journée.',getImage(),false)
 ];
 
+bool isloading = true;
+
 class ListeTaches extends StatefulWidget {
   const ListeTaches({super.key});
 
@@ -30,22 +32,35 @@ class _ListeTachesState extends State<ListeTaches> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp // Optional
     ]);
+    loadPage();
+  }
+
+  void loadPage()async{
+    await fetchData();
+  }
+
+  Future<void> fetchData() async {
+    setState(() { isloading = true;});
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() {isloading = false;});
+  }
+
+  Future<void> _onRefresh() async {
+    await fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _designService.appBar(context,'Tâches disponibles', false),
-      body: buildBody(),
-      //drawer: const NavMenu(),
+      body: isloading ? _designService.shimmerTaches() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan.shade400,
+        backgroundColor: isloading ? Colors.grey : Colors.cyan.shade400,
         foregroundColor: Colors.white,
         onPressed: (){
           _designService.dialogCreerTache(context);
@@ -57,10 +72,6 @@ class _ListeTachesState extends State<ListeTaches> {
   }
 
   Widget buildBody() {
-
-    Future<void> _onRefresh() async {
-    }
-
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.cyan,
@@ -68,7 +79,8 @@ class _ListeTachesState extends State<ListeTaches> {
           itemCount: taches.length,
           itemBuilder: (BuildContext context, int index) {
 
-            if(index == 0){ // À l'index 0, on affiche les infos du profil
+            // À l'index 0, on affiche les infos du profil
+            if(index == 0){
               return Container(
                 margin: const EdgeInsets.all(8),
                 padding: const EdgeInsets.all(8),

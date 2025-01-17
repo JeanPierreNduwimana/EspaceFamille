@@ -1,6 +1,6 @@
 import 'package:espace_famille/app_management/about_us_page.dart';
 import 'package:espace_famille/profile/page_profile.dart';
-import 'package:espace_famille/services/design_service.dart';
+import 'package:espace_famille/services/widget_service.dart';
 import 'package:flutter/material.dart';
 
 import 'notification_page.dart';
@@ -11,7 +11,7 @@ class AppOptions extends StatefulWidget {
   @override
   State<AppOptions> createState() => _AppOptionsState();
 }
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 bool orgExist = false;
 class _AppOptionsState extends State<AppOptions> {
   @override

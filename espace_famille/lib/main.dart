@@ -9,7 +9,7 @@ import 'package:espace_famille/taches/horaire.dart';
 import 'package:espace_famille/taches/liste_evaluation.dart';
 import 'package:espace_famille/taches/liste_taches.dart';
 import 'package:flutter/material.dart';
-import 'accueil/accueil.dart';
+import 'app_management/accueil.dart';
 import 'app_management/notification_page.dart';
 import 'espace_famille/accueil_espace_famille.dart';
 

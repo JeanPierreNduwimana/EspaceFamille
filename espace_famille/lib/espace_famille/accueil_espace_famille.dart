@@ -1,15 +1,17 @@
 import 'package:espace_famille/espace_famille/commentaires_annonce.dart';
 import 'package:espace_famille/espace_famille/model_commentaire.dart';
 import 'package:espace_famille/nav_menu.dart';
-import 'package:espace_famille/services/design_service.dart';
+import 'package:espace_famille/services/widget_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../app_management/accueil.dart';
 import 'model_annonce.dart';
 
 const String image = 'assets/images/naruto.jpg';
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 
 class AccueilEspaceFammille extends StatefulWidget {
   const AccueilEspaceFammille({super.key});
@@ -18,6 +20,7 @@ class AccueilEspaceFammille extends StatefulWidget {
   State<AccueilEspaceFammille> createState() => _AccueilEspaceFammilleState();
 }
 String testmessage = 'String message = Voulez-vous vraiment modifier cette annonce ?; String message = Voulez-vous vraiment modifier cette annonce ?;String message = Voulez-vous vraiment modifier cette annonce ?;Stri';
+bool isloading = true;
 
 class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
 
@@ -34,13 +37,15 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
     Annonce(9,'Henry','Qui veut regarder les magas avec moi ce soir????', '7 mins',3,0,image)
   ];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp // Optional
-    ]);
+  void loadPage()async{
+    await fetchData();
+  }
+
+  Future<void> fetchData() async {
+    setState(() {
+      isloading = true;
+    });
+    await Future.delayed(const Duration(seconds: 1)); // Simule un délai de chargement
 
     annonces.forEach((a) {
       if(a.Comments > 0){
@@ -61,6 +66,19 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
         });
       }
     });
+
+    setState(() {
+      isloading = false;
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp // Optional
+    ]);
+    loadPage();
   }
 
   @override
@@ -68,15 +86,16 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
 
     return Scaffold(
       appBar: _designService.appBar(context,'Espace Famille', false),
-      body: buildBody(),
-      //drawer: const NavMenu(),
+      body: isloading ? _designService.shimmerEspaceFamille() : buildBody(),
+
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan.shade400,
+        backgroundColor: isloading ? Colors.grey : Colors.cyan.shade400,
         foregroundColor: Colors.white,
         onPressed: (){
-          //Navigator.pushNamed(context, '/pageprofile');
-          _designService.dialogCreerAnnonce(context,'', null);
+          if(!isloading){
+            _designService.dialogCreerAnnonce(context,'', null);
+          }
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -86,157 +105,157 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
 
   Widget buildBody(){
     Future<void> _onRefresh() async {
+      await fetchData();
     }
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.cyan,
       child: ListView.builder(
-          itemBuilder: (BuildContext context, int index){
-            if(index < annonces.length){
-              return GestureDetector(
-                onTap: () => {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => CommentairesAnnonce(annonce: annonces[index])))
-                },
-                child: Column(
-                  children: [
-                    const SizedBox(height: 12,),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                      padding: const EdgeInsets.only(top:16, bottom: 10, right: 16,left: 16),
-                      decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
-                              spreadRadius: 2, // Rayonnement de l'ombre
-                              blurRadius: 3, // Rayon du flou de l'ombre
-                              offset: Offset(2, 2), // Décalage horizontal et vertical de l'ombre
+        itemCount: annonces.length,
+        itemBuilder: (BuildContext context, int index){
+            return GestureDetector(
+              onTap: () => {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => CommentairesAnnonce(annonce: annonces[index])))
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 12,),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                    padding: const EdgeInsets.only(top:16, bottom: 10, right: 16,left: 16),
+                    decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
+                            spreadRadius: 2, // Rayonnement de l'ombre
+                            blurRadius: 3, // Rayon du flou de l'ombre
+                            offset: Offset(2, 2), // Décalage horizontal et vertical de l'ombre
+                          ),
+                        ],
+                       border: Border.all(color: Colors.grey.shade300, width: 1)),
+                    child: Column(
+                      children : [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  child:Container(
+                                    height: 40,
+                                    width: 40,
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        'assets/images/cat_profile_img.jpg',
+                                        semanticLabel: 'Image du profil',
+                                        fit: BoxFit.cover,),
+                                    ),
+                                  ),
+                                  onTap: (){
+                                    Navigator.pushNamed(context, '/pageprofile');
+                                  },
+                                ),
+                                const SizedBox(width: 12,),
+                                Text(annonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                    onTap: ()async{
+                                      String message = 'Voulez-vous vraiment \n modifier cette annonce ?';
+                                      bool? result = await _designService.dialogYesorNo(context, message );
+
+                                      if(result !=null){
+                                        Image? currentImage;
+
+                                        annonces[index].url == '' ? currentImage = null : currentImage = Image.asset(annonces[index].url);
+                                        result ? _designService.dialogCreerAnnonce(context, annonces[index].description, currentImage) : null;
+                                      }
+                                    },
+                                    child: Icon(Icons.edit, color: Colors.orangeAccent,)
+                                ),
+                                SizedBox(width: 12),
+                                GestureDetector(
+                                    onTap: ()async{
+                                      String message = 'Voulez-vous vraiment \n supprimer cette annonce ?';
+                                      bool? result = await _designService.dialogYesorNo(context, message);
+                                      if(result !=null){
+                                        result ? null : null;
+                                      }
+                                      //_designService.dialogYesorNo(context, modalRouteName);
+                                    },
+                                    child: Icon(Icons.delete_outlined, color: Colors.redAccent,)
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(child: Text(annonces[index].description)),
+                            SizedBox(height: 4,),
+                            GestureDetector(
+                              onTap: (){
+                                _designService.dialogAfficherImage(context, annonces[index].url);
+                              },
+                              child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  child:  getImage(annonces[index].url)
+                              ),
                             ),
                           ],
-                         border: Border.all(color: Colors.grey.shade300, width: 1)),
-                      child: Column(
-                        children : [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    child:Container(
-                                      height: 40,
-                                      width: 40,
-                                      child: ClipOval(
-                                        child: Image.asset(
-                                          'assets/images/cat_profile_img.jpg',
-                                          semanticLabel: 'Image du profil',
-                                          fit: BoxFit.cover,),
-                                      ),
-                                    ),
-                                    onTap: (){
-                                      Navigator.pushNamed(context, '/pageprofile');
-                                    },
-                                  ),
-                                  const SizedBox(width: 12,),
-                                  Text(annonces[index].username, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                      onTap: ()async{
-                                        String message = 'Voulez-vous vraiment \n modifier cette annonce ?';
-                                        bool? result = await _designService.dialogYesorNo(context, message );
-
-                                        if(result !=null){
-                                          Image? currentImage;
-
-                                          annonces[index].url == '' ? currentImage = null : currentImage = Image.asset(annonces[index].url);
-                                          result ? _designService.dialogCreerAnnonce(context, annonces[index].description, currentImage) : null;
-                                        }
-                                      },
-                                      child: Icon(Icons.edit, color: Colors.orangeAccent,)
-                                  ),
-                                  SizedBox(width: 12),
-                                  GestureDetector(
-                                      onTap: ()async{
-                                        String message = 'Voulez-vous vraiment \n supprimer cette annonce ?';
-                                        bool? result = await _designService.dialogYesorNo(context, message);
-                                        if(result !=null){
-                                          result ? null : null;
-                                        }
-                                        //_designService.dialogYesorNo(context, modalRouteName);
-                                      },
-                                      child: Icon(Icons.delete_outlined, color: Colors.redAccent,)
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 8),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(child: Text(annonces[index].description)),
-                              SizedBox(height: 4,),
-                              GestureDetector(
-                                onTap: (){
-                                  _designService.dialogAfficherImage(context, annonces[index].url);
-                                },
-                                child: Container(
-                                    height: 60,
-                                    width: 60,
-                                    child:  getImage(annonces[index].url)
+                        ),
+                        Column(
+                          children: [
+                            Divider(
+                              thickness: 1,
+                              color: Colors.cyan[200],
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: ((){
+                                    setState(() {
+                                      annonces[index].liked = !annonces[index].liked;
+                                    });
+                                  }),
+                                  child: annonces[index].liked ? Icon(Icons.favorite, color: Colors.deepOrange[400],size: 20,) : Icon(Icons.favorite_border, color: Colors.deepOrange[400],),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Divider(
-                                thickness: 1,
-                                color: Colors.cyan[200],
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: ((){
-                                      setState(() {
-                                        annonces[index].liked = !annonces[index].liked;
-                                      });
-                                    }),
-                                    child: annonces[index].liked ? Icon(Icons.favorite, color: Colors.deepOrange[400],size: 20,) : Icon(Icons.favorite_border, color: Colors.deepOrange[400],),
+                                SizedBox(width: 2),
+                                Text(annonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400], fontSize: 16),),
+                                SizedBox(width: 24),
+                                GestureDetector(
+                                  onTap: (){
+                                    _designService.controllercommentRepondre.text = '';
+                                    _designService.dialogRepondreCommentaire(context);
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.comment, color: Colors.cyan[600],size: 20),
+                                      SizedBox(width: 2),
+                                      Text(annonces[index].Comments.toString(), style: TextStyle(color: Colors.cyan[600], fontSize: 16),),
+                                    ]
                                   ),
-                                  SizedBox(width: 2),
-                                  Text(annonces[index].Favs.toString(), style: TextStyle(color: Colors.deepOrange[400], fontSize: 16),),
-                                  SizedBox(width: 24),
-                                  GestureDetector(
-                                    onTap: (){
-                                      _designService.controllercommentRepondre.text = '';
-                                      _designService.dialogRepondreCommentaire(context);
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.comment, color: Colors.cyan[600],size: 20),
-                                        SizedBox(width: 2),
-                                        Text(annonces[index].Comments.toString(), style: TextStyle(color: Colors.cyan[600], fontSize: 16),),
-                                      ]
-                                    ),
-                                  ),
+                                ),
 
-                                  Expanded(child: Align(alignment: Alignment.centerRight, child: Text(annonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)))
-                                ],
-                              ),
-                            ],
-                          )
-                        ]
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }
+                                Expanded(child: Align(alignment: Alignment.centerRight, child: Text(annonces[index].date.toString(), style: const TextStyle(fontStyle: FontStyle.italic),)))
+                              ],
+                            ),
+                          ],
+                        )
+                      ]
+                    ),
+                  )
+                ],
+              ),
+            );
 
-          }),
+        }),
     );
 
   }

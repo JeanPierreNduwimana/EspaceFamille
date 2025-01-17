@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_stars/flutter_rating_stars.dart';
-import '../services/design_service.dart';
+import 'package:flutter/services.dart';
+import '../services/widget_service.dart';
 
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 bool test = false;
+bool isloading = true;
 class ListeEvaluation extends StatefulWidget {
   const ListeEvaluation({super.key});
 
@@ -14,15 +15,41 @@ class ListeEvaluation extends StatefulWidget {
 double value = 3.0;
 class _ListeEvaluationState extends State<ListeEvaluation> {
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp // Optional
+    ]);
+    loadPage();
+  }
+
+  void loadPage()async{
+    await fetchData();
+  }
+
+  Future<void> fetchData() async {
+    setState(() { isloading = true;});
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() {isloading = false;});
+  }
+  Future<void> _onRefresh() async {
+    await fetchData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _designService.appBar(context,'Evaluations de Jean Pierre', false),
-      body: buildBody(),
+      body: isloading ? _designService.shimmerListeEvaluation() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan,
+        backgroundColor: isloading ? Colors.grey : Colors.cyan,
+        foregroundColor: Colors.white,
         onPressed: (){
-          Navigator.pushNamed(context, '/pageprofile');
+          // TODO: Ajouter un dialog qui permet de faire un commentaire instanté à un profil
+          if(!isloading){
+
+          }
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -31,26 +58,22 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   }
 
   Widget buildBody() {
-    Future<void> _onRefresh() async {
-    }
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.cyan,
       child: ListView.builder(
           itemCount: 6,
           itemBuilder: (BuildContext context, int index) {
-
-            if(index == 0){ //au premier index on affiche les info du profil
+            //au premier index on affiche les info du profil
+            if(index == 0){
               return Container(
                 margin: const EdgeInsets.all(8),
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    const SizedBox(height: 32),
                     Container(
-                      height: 120,
-                      width: 120,
-                      margin: const EdgeInsets.only(top: 20),
+                      height: 80,
+                      width: 80,
                       child: ClipOval(
                         child: Image.asset(
                           'assets/images/cat_profile_img.jpg',
@@ -58,10 +81,10 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                           fit: BoxFit.cover,),
                       ),
                     ),
-                    const SizedBox(height: 32),
-                    Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),),
+                    const SizedBox(height: 12),
+                    Text('Jean Pierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.cyan),),
                     _designService.getRatingStars(value, true),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 12),
                   ],
                 ),
               );

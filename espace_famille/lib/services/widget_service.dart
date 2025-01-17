@@ -2,11 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shimmer/shimmer.dart';
 import '../taches/model_tache.dart';
 
-class DesignService {
+class WidgetService {
 
-  DesignService();
+  WidgetService();
 
   final TextEditingController comment_controller = TextEditingController();
   final TextEditingController controllercommentRepondre = TextEditingController();
@@ -65,6 +66,8 @@ class DesignService {
       ),
     );
   }
+
+
   Future<bool?> dialogYesorNo(BuildContext context, String message) async {
 
     return showDialog<bool>(
@@ -1864,6 +1867,239 @@ class DesignService {
           ],
         );
       },
+    );
+  }
+
+  Widget shimmerAcceuil() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      enabled: true,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              // Exemple de titre shimmer
+              Container(
+                margin: const EdgeInsets.only(top: 32, bottom: 4),
+                height: 28,
+                width: double.infinity,
+                color: Colors.grey[300],
+              ),
+              // Exemple de bloc shimmer
+              Container(
+                height: 400,
+                margin: const EdgeInsets.only(top: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.grey[300],
+                ),
+              ),
+              // Un autre titre shimmer
+              Container(
+                margin: const EdgeInsets.only(top: 32, bottom: 16),
+                height: 28,
+                width: double.infinity,
+                color: Colors.grey[300],
+              ),
+              // Deux colonnes shimmer
+              SizedBox(
+                height: 200,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.grey[300],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.grey[300],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Exemple d'une autre section shimmer
+              Container(
+                height: 200,
+                margin: const EdgeInsets.only(top: 32, bottom: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.grey[300],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget shimmerEspaceFamille(){
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      enabled: true,
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context,index){
+          return Container(
+            height: 200,
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+          );
+
+        },
+      ),
+    );
+  }
+  Widget shimmerCommentairesAnnonce(){
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      enabled: true,
+      child: Column(
+        children: [
+          Container(
+          height: 200,
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          )
+
+        ],
+      ),
+    );
+  }
+  Widget shimmerEpiceire(){
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      enabled: true,
+      child: ListView.builder(
+        itemCount: 6,
+        itemBuilder: (context,index){
+
+          return index == 0 ?
+          const SizedBox(
+            height: 210,
+          ) : Container(
+                height: 90,
+                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              );
+
+        },
+      ),
+    );
+  }
+  Widget shimmerTaches(){
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      enabled: true,
+      child: ListView.builder(
+        itemCount: 6,
+        itemBuilder: (context,index){
+
+          return index == 0 ?
+          const SizedBox(
+            height: 210,
+          ) : Container(
+            height: 150,
+            margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+          );
+
+        },
+      ),
+    );
+  }
+  Widget shimmerProfil(){
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      enabled: true,
+      child: ListView.builder(
+        itemCount: 6,
+        itemBuilder: (context,index){
+
+          return index == 0 ?
+          Container(
+            height: 240,
+            margin: const EdgeInsets.only(top: 24,left: 8,right: 8,bottom: 40),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ) : Container(
+            height: 100,
+            margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+          );
+
+        },
+      ),
+    );
+  }
+  Widget shimmerListeEvaluation(){
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      enabled: true,
+      child: ListView.builder(
+        itemCount: 6,
+        itemBuilder: (context,index){
+
+          return index == 0 ?
+          const SizedBox(
+            height: 180,
+          ) : Container(
+            height: 150,
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+          );
+
+        },
+      ),
     );
   }
 }

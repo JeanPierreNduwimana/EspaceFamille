@@ -1,14 +1,16 @@
 import 'package:espace_famille/espace_famille/model_annonce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../nav_menu.dart';
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 String testmessage = 'String message = Voulez-vous vraiment modifier cette annonce ?; String message = Voulez-vous vraiment modifier cette annonce ?;String message = Voulez-vous vraiment modifier cette annonce ?;Stri';
 
-
+bool isloading = false;
 
 
 class CommentairesAnnonce extends StatefulWidget {
@@ -21,30 +23,39 @@ class CommentairesAnnonce extends StatefulWidget {
 
 class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
 
-  late ScrollController _scrollController;
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp // Optional
+    ]);
+    loadPage();
   }
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
+
+  void loadPage()async{
+    await fetchData();
   }
+
+  Future<void> fetchData() async {
+    setState(() { isloading = true;});
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() {isloading = false;});
+  }
+  Future<void> _onRefresh() async {
+    await fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _designService.appBar(context,'Commentaires', false),
-      body: buildBody(),
+      body: isloading ? _designService.shimmerCommentairesAnnonce() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
-      //drawer: NavMenu(),
     );
   }
 
   Widget buildBody(){
-    Future<void> _onRefresh() async {
-    }
+
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.cyan,
@@ -203,7 +214,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                     ],
                   ),
                   Expanded(
-                    child: ListView.builder(shrinkWrap: true,controller: _scrollController, itemCount: widget.annonce.commentaires.length, itemBuilder: (BuildContext context, int ii)
+                    child: ListView.builder(shrinkWrap: true, itemCount: widget.annonce.commentaires.length, itemBuilder: (BuildContext context, int ii)
                     {
                       return Column(
                         children: [
@@ -346,8 +357,5 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
     setState(() {
       widget.annonce.commentaires[index].afficheSousCommentaire = !widget.annonce.commentaires[index].afficheSousCommentaire;
     });
-
-
-
   }
 }

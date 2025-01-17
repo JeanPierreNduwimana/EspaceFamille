@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../nav_menu.dart';
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 import 'model_aliment.dart';
 
 class ListeEpicerie extends StatefulWidget {
@@ -11,7 +12,7 @@ class ListeEpicerie extends StatefulWidget {
   @override
   State<ListeEpicerie> createState() => _ListeEpicerieState();
 }
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 
 List<Aliment> aliments = [
   Aliment('banane', 7, false),
@@ -23,9 +24,24 @@ List<Aliment> aliments = [
   Aliment('L\'eau', 3, false),
   Aliment('Pomme de terre', 1, false)
 ];
-
+bool isloading = true;
 class _ListeEpicerieState extends State<ListeEpicerie> {
 
+  void loadPage()async{
+    await fetchData();
+  }
+
+  Future<void> fetchData() async {
+    setState(() {
+      isloading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 1)); // Simule un délai de chargement
+
+    setState(() {
+      isloading = false;
+    });
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -33,12 +49,12 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp // Optional
     ]);
+    loadPage();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: _designService.appBar('Gestion d\'epicerie'),
       appBar: AppBar(
         leading: null,
         automaticallyImplyLeading: false,
@@ -60,14 +76,15 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
               children: [
                 GestureDetector(
                   onTap: (){
-                    //dialog d'ajout d'un aliment
-                    _designService.dialogAjoutAliment(context);
+                    if(!isloading){
+                      _designService.dialogAjoutAliment(context);
+                    }
                   },
                   child: Container(
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.8),
+                        color: isloading ? Colors.grey : Colors.red.withOpacity(0.8),
                         border: Border.all(color: Colors.grey.shade50, width: 1),
                         borderRadius: BorderRadius.circular(8),
                         boxShadow: [
@@ -87,10 +104,13 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                     surfaceTintColor: Colors.white,
                     onSelected: (value) {
                       // Action à exécuter selon l'option sélectionnée
-                      if (value == 'Date') {
-                      } else if (value == 'Achat') {
+                      if (!isloading) {
+                        if (value == 'Date') {
+                        } else if (value == 'Achat') {
+                        }
                       }
                     },
+                    enabled: isloading,
                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                       const PopupMenuItem(enabled: false, child: Text('Trier Par:', style: TextStyle(color: Colors.redAccent),)),
                       //const PopupMenuDivider(),
@@ -103,17 +123,19 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                         child: Text('Achat', style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                     ],
-                    icon: const Row(
+                    icon: Row(
                       children: [
-                        Text('Trier  ', style: TextStyle(fontSize: 14, color: Colors.redAccent, fontWeight: FontWeight.bold),),
-                        Icon(Icons.sort, color: Colors.redAccent),
+                        Text('Trier  ', style: TextStyle(fontSize: 14, color: isloading ? Colors.grey : Colors.redAccent, fontWeight: FontWeight.bold),),
+                        Icon(Icons.sort, color: isloading ? Colors.grey : Colors.redAccent),
                       ],
                     ) // Icône à trois points
                 ),
                 const SizedBox(width: 32),
                 GestureDetector(
                   onTap: (){
-                    Navigator.pushNamed(context, '/pageprofile');
+                    if (!isloading) {
+                      Navigator.pushNamed(context, '/app_options');
+                    }
                   },
                   child: Container(
                     height: 32,
@@ -132,31 +154,21 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
           ],
         ),
       ),
-      body: buildBody(),
+      body: isloading ? _designService.shimmerEpiceire() : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 1, setState),
-      //drawer: const NavMenu(),
-      /* floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red.withOpacity(0.8),
-        foregroundColor: Colors.white,
-        onPressed: (){
-          //dialog d'ajout d'un aliment
-          _designService.dialogAjoutAliment(context);
-        },
-        tooltip: 'Ajout d\'un aliment',
-        child: const Icon(Icons.add),
-      ), */
     );
   }
 
   Widget buildBody(){
     Future<void> _onRefresh() async {
+      await fetchData();
     }
 
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.redAccent,
       child: ListView.builder(
-        itemCount: aliments.length, // Example number of items
+        itemCount: aliments.length,
         itemBuilder: (context, index) {
           return index == 0 ?
            Container(

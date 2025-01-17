@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 
 class Inscription extends StatefulWidget {
   const Inscription({super.key});
@@ -9,7 +9,7 @@ class Inscription extends StatefulWidget {
   @override
   State<Inscription> createState() => _InscriptionState();
 }
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 final TextEditingController username_controller = TextEditingController();
 final TextEditingController password_controller = TextEditingController();
 final TextEditingController passwordConfirm_controller = TextEditingController();

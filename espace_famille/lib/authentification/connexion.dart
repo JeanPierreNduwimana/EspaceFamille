@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 
 class Connection extends StatefulWidget {
   const Connection({super.key});
@@ -9,7 +9,7 @@ class Connection extends StatefulWidget {
   @override
   State<Connection> createState() => _ConnectionState();
 }
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 final TextEditingController username_controller = TextEditingController();
 final TextEditingController password_controller = TextEditingController();
 class _ConnectionState extends State<Connection> {

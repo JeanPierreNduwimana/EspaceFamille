@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -8,7 +8,7 @@ class NotificationsPage extends StatefulWidget {
   @override
   State<NotificationsPage> createState() => _NotificationsPageState();
 }
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 
 class _NotificationsPageState extends State<NotificationsPage> {
   final List<Map<String, dynamic>> notifications = [

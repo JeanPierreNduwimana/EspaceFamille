@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 
 class EditProfilePage extends StatefulWidget {
 
@@ -14,7 +14,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   String _profileImage = 'assets/images/naruto.jpg'; // Image par défaut
-  DesignService _designService = DesignService();
+  WidgetService _designService = WidgetService();
   Image? uploadedImage = null;
 
   @override

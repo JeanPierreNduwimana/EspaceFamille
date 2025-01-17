@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../nav_menu.dart';
-import '../services/design_service.dart';
+import '../services/widget_service.dart';
 import 'model_profile.dart';
 
 class ClassementProfiles extends StatefulWidget {
@@ -12,7 +12,7 @@ class ClassementProfiles extends StatefulWidget {
   @override
   State<ClassementProfiles> createState() => _ClassementProfilesState();
 }
-DesignService _designService = DesignService();
+WidgetService _designService = WidgetService();
 
 List<Profile> profiles = [
   Profile("Bruno", '28-04-2003', 4),
