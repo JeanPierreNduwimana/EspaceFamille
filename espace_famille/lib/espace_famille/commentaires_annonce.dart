@@ -2,6 +2,7 @@ import 'package:espace_famille/espace_famille/model_annonce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../generated/l10n.dart';
 import '../services/widget_service.dart';
 
 WidgetService _designService = WidgetService();
@@ -46,12 +47,13 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _designService.appBar(context,'Commentaires', false,Colors.cyan),
-      body: isloading ? _designService.shimmerCommentairesAnnonce() : buildBody(),
+      body: isloading ? _designService.shimmerCommentairesAnnonce(context) : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
     );
   }
 
   Widget buildBody(){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return RefreshIndicator(
       onRefresh: _onRefresh,
@@ -61,16 +63,19 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
           Container(
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),
+            decoration: BoxDecoration(
+                color: isDarkMode ? Colors.black : Colors.white,
+                borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
+                    color: isDarkMode ? Colors.black87 : Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
                     spreadRadius: 2, // Rayonnement de l'ombre
                     blurRadius: 3, // Rayon du flou de l'ombre
                     offset: const Offset(2, 2), // Décalage horizontal et vertical de l'ombre
                   ),
                 ],
-                border: Border.all(color: Colors.grey.shade300, width: 1)),
+                border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null
+            ),
 
             child: Column(
               children: [
@@ -102,7 +107,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                       children: [
                         GestureDetector(
                             onTap: ()async{
-                              String message = 'Voulez-vous vraiment \n modifier cette annonce ?';
+                              String message = S.of(context).messageEditPost;
                               bool? result = await _designService.dialogYesorNo(context, message );
 
                               if(result !=null){
@@ -187,16 +192,19 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),
+              decoration: BoxDecoration(
+                  color: isDarkMode ? Colors.black : Colors.white,
+                  borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
+                      color: isDarkMode ? Colors.black87 : Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
                       spreadRadius: 2, // Rayonnement de l'ombre
                       blurRadius: 3, // Rayon du flou de l'ombre
                       offset: const Offset(2, 2), // Décalage horizontal et vertical de l'ombre
                     ),
                   ],
-                  border: Border.all(color: Colors.grey.shade300, width: 1)),
+                  border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null
+              ),
               child: Column(
                 children: [
                   Column(

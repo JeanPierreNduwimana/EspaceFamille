@@ -35,6 +35,8 @@
 
   "evaluationProfilePageTitle": "Evaluations of {profileName}",
   "dialogQuickRatingTitle": "Make a quick evaluation of {profileName}",
+  "dialogRatingTitle": "Rate {profileName}",
+  "dialogTaskDetailTitle": "My task details",
 
   "dialogUserSuggestionsTitle": "We would like to hear from you",
   "dialogUserSuggestionsSubTitle" : "Please let us know your comments or suggestions",
@@ -78,7 +80,11 @@
   "labelNon": "No",
   "labelErrorFieldEmpty": "This field can't be empty 😠",
   "labelYourAnswer": "Your answer...",
-  "buttonDeleteImage": "Delete image",
+  "labelOptionalComment": "Your comment (Optional)",
+  "labelBravo": "Well Done",
+  "labelToBeDoneBy": "To be done by",
+  "labelTaksLate": "Late",
+  "labelTaskGiveUp": "Give Up",
 
   "buttonConnexion": "Log In",
   "buttonConnexionWith": "Log In with",
@@ -94,6 +100,14 @@
   "buttonSave": "Save",
   "buttonSendCommentOrSuggestions": "Send your comments or suggestions",
   "buttonOwnAtask": "I'll take care of it 😌",
+  "buttonDeleteImage": "Delete image",
+  "buttonJoinMyFamily": "Joinde ma famille",
+  "buttonTaskTransfer": "Tranfer",
+  "buttonTaskDone" : "Task is done! 👍",
+
+  "messageEditPost": "Do you really want to \n edit this anouncement ?",
+  "messageDeletePost": "Do you really want to \n delete this anouncement ?",
+  "messageAddTaskDescription": "Task description cannot be empty",
 
   "messageSubTaskError": "Sub-task name cannot be empty",
   "messageOwnAtask": "Do you really want to \n take on this task ?",

@@ -60,109 +60,124 @@ class _PageProfileState extends State<PageProfile> {
       appBar: _designService.appBar(context,S.of(context).appBarProfileTitle, true,Colors.cyan),
       resizeToAvoidBottomInset: true, // Permet d'éviter que le clavier cache le contenu
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
-      body: isloading? _designService.shimmerProfil() : buildBody()
+      body: isloading? _designService.shimmerProfil(context) : buildBody()
     );
   }
 
   Widget buildBody(){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.cyan,
       child: Column(
         children: [
-          Container( //Bloc complet d'information utilisateur
-            margin: const EdgeInsets.only(top: 24,left: 8,right: 8,bottom: 20),
-            padding: const EdgeInsets.only(bottom: 12),
-            decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.grey.shade300, width: 1),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
-                    spreadRadius: 2, // Rayonnement de l'ombre
-                    blurRadius: 2, // Rayon du flou de l'ombre
-                    offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
-                  ),
-                ]),
-            child: Column( //Informations d'utilisateur
+          Container(
+            color: isDarkMode ? Colors.black: null,
+            child: Column(
               children: [
-                Row( // rangé contenant l'image
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(top:16, left: 12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                  onTap: (){
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Icon(Icons.arrow_back_ios_new)
-                              )
-                            ],
+                Container( //Bloc complet d'information utilisateur
+                  margin: const EdgeInsets.only(top: 24,left: 8,right: 8,bottom: 20),
+                  padding: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                      color: isDarkMode ? Colors.black : null,
+                      borderRadius: BorderRadius.circular(10),
+                      border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
+                          spreadRadius: 2, // Rayonnement de l'ombre
+                          blurRadius: 2, // Rayon du flou de l'ombre
+                          offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+                        ),
+                      ]),
+                  child: Column( //Informations d'utilisateur
+                    children: [
+                      Row( // rangé contenant l'image
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.only(top:16, left: 12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: (){
+                                          Navigator.pop(context);
+                                        },
+                                        child: Icon(Icons.arrow_back_ios_new, color: isDarkMode ? Colors.grey : null,)
+                                    )
+                                  ],
+                                ),
+                              )),
+                          Container(
+                            height: 120,
+                            width: 120,
+                            margin: const EdgeInsets.only(top: 20),
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/images/cat_profile_img.jpg',
+                                semanticLabel: 'Image du profil',
+                                fit: BoxFit.cover,),
+                            ),
                           ),
-                        )),
-                    Container(
-                      height: 120,
-                      width: 120,
-                      margin: const EdgeInsets.only(top: 20),
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/images/cat_profile_img.jpg',
-                          semanticLabel: 'Image du profil',
-                          fit: BoxFit.cover,),
+                          Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.only(top:16, right: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: (){
+                                          Navigator.pushNamed(context, '/listevaluation');
+                                        },
+                                        child: Image.asset('assets/images/task_list.png', height: 28, width: 28,fit: BoxFit.fill,color: Colors.white, colorBlendMode: BlendMode.difference,))
+                                  ],
+                                ),
+                              ))
+                        ],
                       ),
-                    ),
-                    Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(top:16, right: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                  onTap: (){
-                                    Navigator.pushNamed(context, '/listevaluation');
-                                  },
-                                  child: Image.asset('assets/images/task_list.png', height: 28, width: 28,fit: BoxFit.fill,color: Colors.white, colorBlendMode: BlendMode.difference,))
-                            ],
-                          ),
-                        ))
-                  ],
+                      const SizedBox(height: 8,),
+                      const Row(
+                        children: [
+                          Expanded(child: Text('Jean Pierre',textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),)),
+                          Text('   |   ', style: TextStyle(fontSize: 24, color: Colors.grey)),
+                          Expanded(child: Text('16-03-1999', textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic)))
+                        ],
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Salut c\'est jean Pierre, Bonne journée', style: TextStyle(color: Colors.grey),),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      _designService.getRatingStars(value, true)
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 8,),
-                const Row(
-                  children: [
-                    Expanded(child: Text('Jean Pierre',textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.cyan),)),
-                    Text('   |   ', style: TextStyle(fontSize: 24, color: Colors.grey)),
-                    Expanded(child: Text('16-03-1999', textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic)))
-                  ],
-                ),
-                const Row(
+                Row( // Titre Taches attribuées
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Salut c\'est jean Pierre, Bonne journée', style: TextStyle(color: Colors.grey),),
+                    Text(S.of(context).labelTaskOwned, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.cyan),),
                   ],
                 ),
-                const SizedBox(height: 8,),
-                _designService.getRatingStars(value, true)
               ],
             ),
           ),
-          Row( // Titre Taches attribuées
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(S.of(context).labelTaskOwned, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.cyan),),
-            ],
-          ),
           Expanded( //Bloc complet des listes des taches
             child: ListView.builder(
+              shrinkWrap: true,
                 itemCount: taches.length,
                 itemBuilder: (BuildContext context, int index){
                   return Container(
                       margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.grey.shade300, width: 1),
+                      decoration: BoxDecoration(
+                          color: isDarkMode ? Colors.black : Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
@@ -174,7 +189,7 @@ class _PageProfileState extends State<PageProfile> {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: ListTile(
                         onTap: () => _designService.dialogEvaluerTacheDetailsProfile(
-                            true, context, taches[index], value),
+                            false, context, taches[index], value),
                         leading: ClipRRect(
                           borderRadius: BorderRadius.circular(8), // Ajout de coins arrondis à l'image
                           child: Image.asset(
@@ -186,10 +201,10 @@ class _PageProfileState extends State<PageProfile> {
                         ),
                         title: Text(
                           _designService.maximumString(taches[index].descr, 28),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.black,
+                            color: !isDarkMode ? Colors.black : null,
                           ),
                         ),
                         subtitle: Column(

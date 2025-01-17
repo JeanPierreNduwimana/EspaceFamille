@@ -330,6 +330,26 @@ class S {
     );
   }
 
+  /// `Rate {profileName}`
+  String dialogRatingTitle(Object profileName) {
+    return Intl.message(
+      'Rate $profileName',
+      name: 'dialogRatingTitle',
+      desc: '',
+      args: [profileName],
+    );
+  }
+
+  /// `My task details`
+  String get dialogTaskDetailTitle {
+    return Intl.message(
+      'My task details',
+      name: 'dialogTaskDetailTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `We would like to hear from you`
   String get dialogUserSuggestionsTitle {
     return Intl.message(
@@ -740,11 +760,51 @@ class S {
     );
   }
 
-  /// `Delete image`
-  String get buttonDeleteImage {
+  /// `Your comment (Optional)`
+  String get labelOptionalComment {
     return Intl.message(
-      'Delete image',
-      name: 'buttonDeleteImage',
+      'Your comment (Optional)',
+      name: 'labelOptionalComment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Well Done`
+  String get labelBravo {
+    return Intl.message(
+      'Well Done',
+      name: 'labelBravo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To be done by`
+  String get labelToBeDoneBy {
+    return Intl.message(
+      'To be done by',
+      name: 'labelToBeDoneBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Late`
+  String get labelTaksLate {
+    return Intl.message(
+      'Late',
+      name: 'labelTaksLate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Give Up`
+  String get labelTaskGiveUp {
+    return Intl.message(
+      'Give Up',
+      name: 'labelTaskGiveUp',
       desc: '',
       args: [],
     );
@@ -885,6 +945,76 @@ class S {
     return Intl.message(
       'I\'ll take care of it 😌',
       name: 'buttonOwnAtask',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete image`
+  String get buttonDeleteImage {
+    return Intl.message(
+      'Delete image',
+      name: 'buttonDeleteImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Joinde ma famille`
+  String get buttonJoinMyFamily {
+    return Intl.message(
+      'Joinde ma famille',
+      name: 'buttonJoinMyFamily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tranfer`
+  String get buttonTaskTransfer {
+    return Intl.message(
+      'Tranfer',
+      name: 'buttonTaskTransfer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task is done! 👍`
+  String get buttonTaskDone {
+    return Intl.message(
+      'Task is done! 👍',
+      name: 'buttonTaskDone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to \n edit this anouncement ?`
+  String get messageEditPost {
+    return Intl.message(
+      'Do you really want to \n edit this anouncement ?',
+      name: 'messageEditPost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to \n delete this anouncement ?`
+  String get messageDeletePost {
+    return Intl.message(
+      'Do you really want to \n delete this anouncement ?',
+      name: 'messageDeletePost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task description cannot be empty`
+  String get messageAddTaskDescription {
+    return Intl.message(
+      'Task description cannot be empty',
+      name: 'messageAddTaskDescription',
       desc: '',
       args: [],
     );

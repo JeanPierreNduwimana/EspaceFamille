@@ -22,9 +22,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(profileName) => "Make a quick evaluation of ${profileName}";
 
-  static String m1(profileName) => "Evaluations of ${profileName}";
+  static String m1(profileName) => "Rate ${profileName}";
 
-  static String m2(minutes) => "${minutes} mins ago";
+  static String m2(profileName) => "Evaluations of ${profileName}";
+
+  static String m3(minutes) => "${minutes} mins ago";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -60,6 +62,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "buttonCreateAccont": MessageLookupByLibrary.simpleMessage("Register"),
         "buttonDeleteImage":
             MessageLookupByLibrary.simpleMessage("Delete image"),
+        "buttonJoinMyFamily":
+            MessageLookupByLibrary.simpleMessage("Joinde ma famille"),
         "buttonJoinSpace":
             MessageLookupByLibrary.simpleMessage("Join family space"),
         "buttonOwnAtask":
@@ -69,15 +73,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "buttonSend": MessageLookupByLibrary.simpleMessage("Send"),
         "buttonSendCommentOrSuggestions": MessageLookupByLibrary.simpleMessage(
             "Send your comments or suggestions"),
+        "buttonTaskDone":
+            MessageLookupByLibrary.simpleMessage("Task is done! 👍"),
+        "buttonTaskTransfer": MessageLookupByLibrary.simpleMessage("Tranfer"),
         "buttonUploadImage":
             MessageLookupByLibrary.simpleMessage("Upload Image"),
         "connexionPageTitle": MessageLookupByLibrary.simpleMessage("Log In"),
         "dialogQuickRatingTitle": m0,
+        "dialogRatingTitle": m1,
+        "dialogTaskDetailTitle":
+            MessageLookupByLibrary.simpleMessage("My task details"),
         "dialogUserSuggestionsSubTitle": MessageLookupByLibrary.simpleMessage(
             "Please let us know your comments or suggestions"),
         "dialogUserSuggestionsTitle": MessageLookupByLibrary.simpleMessage(
             "We would like to hear from you"),
-        "evaluationProfilePageTitle": m1,
+        "evaluationProfilePageTitle": m2,
         "groceriePageSubTitle": MessageLookupByLibrary.simpleMessage(
             "Add here any missing food items."),
         "groceriePageTitle": MessageLookupByLibrary.simpleMessage(
@@ -101,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Automatic Message"),
         "labelAchat": MessageLookupByLibrary.simpleMessage("Purchased"),
         "labelAnnually": MessageLookupByLibrary.simpleMessage("Annually"),
+        "labelBravo": MessageLookupByLibrary.simpleMessage("Well Done"),
         "labelChooseRecurrence":
             MessageLookupByLibrary.simpleMessage("Choose recurrence:"),
         "labelDaily": MessageLookupByLibrary.simpleMessage("Daily"),
@@ -119,10 +130,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("What\'s your task?"),
         "labelHintWhatsUp":
             MessageLookupByLibrary.simpleMessage("What\'s new?"),
-        "labelMinutesPassed": m2,
+        "labelMinutesPassed": m3,
         "labelNew": MessageLookupByLibrary.simpleMessage("New"),
         "labelNon": MessageLookupByLibrary.simpleMessage("No"),
         "labelOneTime": MessageLookupByLibrary.simpleMessage("One Time"),
+        "labelOptionalComment":
+            MessageLookupByLibrary.simpleMessage("Your comment (Optional)"),
         "labelOr": MessageLookupByLibrary.simpleMessage("Or"),
         "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "labelPasswordConfirm":
@@ -142,8 +155,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Subtasks added"),
         "labelSubTaskHint":
             MessageLookupByLibrary.simpleMessage("What is your subtask ?"),
+        "labelTaksLate": MessageLookupByLibrary.simpleMessage("Late"),
+        "labelTaskGiveUp": MessageLookupByLibrary.simpleMessage("Give Up"),
         "labelTaskOwned":
             MessageLookupByLibrary.simpleMessage("Assigned Tasks"),
+        "labelToBeDoneBy":
+            MessageLookupByLibrary.simpleMessage("To be done by"),
         "labelUsername": MessageLookupByLibrary.simpleMessage("Username"),
         "labelWeek": MessageLookupByLibrary.simpleMessage("Week"),
         "labelWeekly": MessageLookupByLibrary.simpleMessage("Weekly"),
@@ -151,6 +168,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelYes": MessageLookupByLibrary.simpleMessage("Yes"),
         "labelYourAnswer":
             MessageLookupByLibrary.simpleMessage("Your answer..."),
+        "messageAddTaskDescription": MessageLookupByLibrary.simpleMessage(
+            "Task description cannot be empty"),
+        "messageDeletePost": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to \n delete this anouncement ?"),
+        "messageEditPost": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to \n edit this anouncement ?"),
         "messageOwnAtask": MessageLookupByLibrary.simpleMessage(
             "Do you really want to \n take on this task ?"),
         "messageSubTaskError": MessageLookupByLibrary.simpleMessage(
