@@ -35,6 +35,8 @@
 
   "evaluationProfilePageTitle": "Évaluations de {profileName}",
   "dialogQuickRatingTitle": "Faites une évaluation rapide de {profileName}",
+  "dialogRatingTitle": "Évaluer {profileName}",
+  "dialogTaskDetailTitle": "Détails sur ma tâche",
 
   "dialogUserSuggestionsTitle": "Nous aimerions avoir votre avis",
   "dialogUserSuggestionsSubTitle" : "Veuillez nous faire part de vos commentaires ou suggestions",
@@ -78,6 +80,11 @@
   "labelNon": "Non",
   "labelErrorFieldEmpty": "Le champs ne peut pas être vide 😠",
   "labelYourAnswer": "Votre réponse...",
+  "labelOptionalComment": "commentaire (facultatif)",
+  "labelBravo": "Bravo",
+  "labelToBeDoneBy": "À effectuer d'ici",
+  "labelTaksLate": "En retard",
+  "labelTaskGiveUp": "Abandonner",
 
   "buttonConnexion": "Connexion",
   "buttonConnexionWith": "Connexion avec",
@@ -94,9 +101,15 @@
   "buttonSendCommentOrSuggestions": "Envoyer vos commentaires ou suggestions",
   "buttonOwnAtask": "Je m'en occupe 😌",
   "buttonDeleteImage": "Supprimer l'image",
+  "buttonJoinMyFamily": "Joinde ma famille",
+  "buttonTaskTransfer": "Tranferer",
+  "buttonTaskDone" : "La tache est fait! 👍",
 
   "messageSubTaskError": "Le nom du sous-tâche ne peut pas être vide",
   "messageOwnAtask": "Voulez-vous vraiment \n assumer cette tâche ?",
+  "messageEditPost": "Voulez-vous vraiment \n modifier cette annonce ?",
+  "messageDeletePost": "Voulez-vous vraiment \n supprimer cette annonce ?",
+  "messageAddTaskDescription": "La description de la tâche ne peut être vide",
 
   "AboutUsText": "L'application Espace Famille a été conçue et développée par Jean Pierre Nduwimana, un étudiant en ingénierie informatique passionné par l'univers des applications mobiles. L'application a été créée en 2025 dans le cadre de son apprentissage personnel et de son désir d'acquérir de nouvelles compétences. \n Jean Pierre a mis tout son savoir-faire et son enthousiasme dans la création de cette application, avec l'objectif de proposer une expérience utilisateur fluide et intuitive. Cette application reflète son engagement à apprendre, à expérimenter et à créer des solutions pratiques qui répondent aux besoins des utilisateurs. \n En tant que développeur en constante évolution, Jean Pierre serait ravi de recevoir vos commentaires et suggestions qui seront essentiels pour l'amélioration continue de l'application. Merci d'utiliser l'application Espace Famille et de faire partie de ce projet en pleine croissance !"
 }

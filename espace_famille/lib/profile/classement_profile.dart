@@ -41,7 +41,6 @@ class _ClassementProfilesState extends State<ClassementProfiles> {
       body: buildBody(),
       backgroundColor: Colors.white,
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),
-      //drawer: const NavMenu(),
     );
   }
 }

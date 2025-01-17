@@ -77,12 +77,17 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
     loadPage();
   }
 
+
+  Future<void> _onRefresh() async {
+    await fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: _designService.appBar(context,S.of(context).appBarHomePageTitle, false,Colors.cyan),
-      body: isloading ? _designService.shimmerEspaceFamille() : buildBody(),
+      body: isloading ? _designService.shimmerEspaceFamille(context) : buildBody(),
 
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       floatingActionButton: FloatingActionButton(
@@ -93,16 +98,13 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
             _designService.dialogCreerAnnonce(context,'', null);
           }
         },
-        tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
     );
   }
 
   Widget buildBody(){
-    Future<void> _onRefresh() async {
-      await fetchData();
-    }
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.cyan,
@@ -119,16 +121,18 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                     padding: const EdgeInsets.only(top:16, bottom: 10, right: 16,left: 16),
-                    decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
+                            color: isDarkMode ? Colors.black87 : Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
                             spreadRadius: 2, // Rayonnement de l'ombre
                             blurRadius: 3, // Rayon du flou de l'ombre
                             offset: const Offset(2, 2), // Décalage horizontal et vertical de l'ombre
                           ),
                         ],
-                       border: Border.all(color: Colors.grey.shade300, width: 1)),
+                      // border: Border.all(color: Colors.grey.shade300, width: 1)
+                      ),
                     child: Column(
                       children : [
                         Row(
@@ -159,7 +163,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                               children: [
                                 GestureDetector(
                                     onTap: ()async{
-                                      String message = 'Voulez-vous vraiment \n modifier cette annonce ?';
+                                      String message = S.of(context).messageEditPost;
                                       bool? result = await _designService.dialogYesorNo(context, message );
 
                                       if(result !=null){
@@ -174,7 +178,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                 const SizedBox(width: 12),
                                 GestureDetector(
                                     onTap: ()async{
-                                      String message = 'Voulez-vous vraiment \n supprimer cette annonce ?';
+                                      String message = S.of(context).messageDeletePost;
                                       bool? result = await _designService.dialogYesorNo(context, message);
                                       if(result !=null){
                                         result ? null : null;
@@ -250,7 +254,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                                 margin: const EdgeInsets.symmetric(horizontal: 24),
                                                 padding: const EdgeInsets.symmetric(vertical: 2),
                                                 decoration: BoxDecoration(
-                                                    color: Colors.cyan.shade400,
+                                                    color: isDarkMode ? Colors.cyan.shade800 :  Colors.cyan.shade400,
                                                     borderRadius: BorderRadius.circular(12)
                                                 ),
                                                 child: Text(S.of(context).labeAutomaticMessage, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white,),)

@@ -23,9 +23,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(profileName) =>
       "Faites une évaluation rapide de ${profileName}";
 
-  static String m1(profileName) => "Évaluations de ${profileName}";
+  static String m1(profileName) => "Évaluer ${profileName}";
 
-  static String m2(minutes) => "Il y a ${minutes} mins";
+  static String m2(profileName) => "Évaluations de ${profileName}";
+
+  static String m3(minutes) => "Il y a ${minutes} mins";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -64,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Crée un compte"),
         "buttonDeleteImage":
             MessageLookupByLibrary.simpleMessage("Supprimer l\'image"),
+        "buttonJoinMyFamily":
+            MessageLookupByLibrary.simpleMessage("Joinde ma famille"),
         "buttonJoinSpace":
             MessageLookupByLibrary.simpleMessage("Joindre l\'espace"),
         "buttonOwnAtask":
@@ -73,16 +77,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "buttonSend": MessageLookupByLibrary.simpleMessage("Envoyer"),
         "buttonSendCommentOrSuggestions": MessageLookupByLibrary.simpleMessage(
             "Envoyer vos commentaires ou suggestions"),
+        "buttonTaskDone":
+            MessageLookupByLibrary.simpleMessage("La tache est fait! 👍"),
+        "buttonTaskTransfer": MessageLookupByLibrary.simpleMessage("Tranferer"),
         "buttonUploadImage":
             MessageLookupByLibrary.simpleMessage("Ajouter une image"),
         "connexionPageTitle":
             MessageLookupByLibrary.simpleMessage("Se Connecter"),
         "dialogQuickRatingTitle": m0,
+        "dialogRatingTitle": m1,
+        "dialogTaskDetailTitle":
+            MessageLookupByLibrary.simpleMessage("Détails sur ma tâche"),
         "dialogUserSuggestionsSubTitle": MessageLookupByLibrary.simpleMessage(
             "Veuillez nous faire part de vos commentaires ou suggestions"),
         "dialogUserSuggestionsTitle": MessageLookupByLibrary.simpleMessage(
             "Nous aimerions avoir votre avis"),
-        "evaluationProfilePageTitle": m1,
+        "evaluationProfilePageTitle": m2,
         "groceriePageSubTitle": MessageLookupByLibrary.simpleMessage(
             "Ajoutez ici tout aliment qui manquent."),
         "groceriePageTitle": MessageLookupByLibrary.simpleMessage(
@@ -108,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Message Automatique"),
         "labelAchat": MessageLookupByLibrary.simpleMessage("Achat"),
         "labelAnnually": MessageLookupByLibrary.simpleMessage("Annuelle"),
+        "labelBravo": MessageLookupByLibrary.simpleMessage("Bravo"),
         "labelChooseRecurrence":
             MessageLookupByLibrary.simpleMessage("Choisissez la recurrence :"),
         "labelDaily": MessageLookupByLibrary.simpleMessage("Quotidien"),
@@ -127,10 +138,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Quel est votre tâche ?"),
         "labelHintWhatsUp":
             MessageLookupByLibrary.simpleMessage("Quoi de neuf ?"),
-        "labelMinutesPassed": m2,
+        "labelMinutesPassed": m3,
         "labelNew": MessageLookupByLibrary.simpleMessage("Nouveaux"),
         "labelNon": MessageLookupByLibrary.simpleMessage("Non"),
         "labelOneTime": MessageLookupByLibrary.simpleMessage("Une fois"),
+        "labelOptionalComment":
+            MessageLookupByLibrary.simpleMessage("commentaire (facultatif)"),
         "labelOr": MessageLookupByLibrary.simpleMessage("Ou"),
         "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "labelPasswordConfirm":
@@ -150,8 +163,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sous-tâches ajoutées"),
         "labelSubTaskHint": MessageLookupByLibrary.simpleMessage(
             "Quel est votre sous-tâches ?"),
+        "labelTaksLate": MessageLookupByLibrary.simpleMessage("En retard"),
+        "labelTaskGiveUp": MessageLookupByLibrary.simpleMessage("Abandonner"),
         "labelTaskOwned":
             MessageLookupByLibrary.simpleMessage("Tâches attribuées"),
+        "labelToBeDoneBy":
+            MessageLookupByLibrary.simpleMessage("À effectuer d\'ici"),
         "labelUsername":
             MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
         "labelWeek": MessageLookupByLibrary.simpleMessage("Semaine"),
@@ -160,6 +177,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelYes": MessageLookupByLibrary.simpleMessage("Oui"),
         "labelYourAnswer":
             MessageLookupByLibrary.simpleMessage("Votre réponse..."),
+        "messageAddTaskDescription": MessageLookupByLibrary.simpleMessage(
+            "La description de la tâche ne peut être vide"),
+        "messageDeletePost": MessageLookupByLibrary.simpleMessage(
+            "Voulez-vous vraiment \n supprimer cette annonce ?"),
+        "messageEditPost": MessageLookupByLibrary.simpleMessage(
+            "Voulez-vous vraiment \n modifier cette annonce ?"),
         "messageOwnAtask": MessageLookupByLibrary.simpleMessage(
             "Voulez-vous vraiment \n assumer cette tâche ?"),
         "messageSubTaskError": MessageLookupByLibrary.simpleMessage(

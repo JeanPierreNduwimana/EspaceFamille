@@ -26,6 +26,48 @@ class _InscriptionState extends State<Inscription> {
   }
 
   Widget buildBody(){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    void _selectDate(BuildContext context) async {
+      final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime(2000), // Date par défaut
+        firstDate: DateTime(1900),  // Date minimale
+        lastDate: DateTime.now(),  // Date maximale
+        builder: (context, child) {
+          return Theme(
+            data: ThemeData(
+              //primaryColor: Colors.cyan, // Accent sur les boutons
+              colorScheme: isDarkMode ? const ColorScheme.dark(
+                primary: Colors.cyan, // Header background color & buttons
+                onPrimary: Colors.black, // Text color on header buttons
+                onSurface: Colors.white, // Text color for dates
+              ): const ColorScheme.light(
+                primary: Colors.cyan, // Header background color & buttons
+                onPrimary: Colors.white, // Text color on header buttons
+                onSurface: Colors.black, // Text color for dates
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.cyan // Button text color
+                ),
+              ),
+              dialogBackgroundColor: Colors.white, // Background color of the dialog
+              scaffoldBackgroundColor: Colors.white,
+            ),
+            child: child!,
+          );
+        },
+      );
+
+      if (pickedDate != null && pickedDate != _selectedDate) {
+        setState(() {
+          _selectedDate = pickedDate;
+          _dateController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+        });
+      }
+    }
+
     return SingleChildScrollView(
       child: Center(
           child: Padding(
@@ -41,7 +83,6 @@ class _InscriptionState extends State<Inscription> {
                   maxLength: 16,
                   decoration:  InputDecoration(
                       hintText:S.of(context).labelUsername,
-                      hintStyle: const TextStyle(color: Colors.black38),
                       focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.cyan, // Change border color here
@@ -71,7 +112,6 @@ class _InscriptionState extends State<Inscription> {
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                       hintText: S.of(context).labelPassword,
-                      hintStyle: const TextStyle(color: Colors.black38),
                       focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.cyan, // Change border color here
@@ -88,7 +128,6 @@ class _InscriptionState extends State<Inscription> {
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                       hintText: S.of(context).labelPasswordConfirm,
-                      hintStyle: const TextStyle(color: Colors.black38),
                       focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.cyan, // Change border color here
@@ -117,7 +156,7 @@ class _InscriptionState extends State<Inscription> {
                         onPressed: () async {
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
+                            backgroundColor: isDarkMode ? Colors.black87 : Colors.white,
                             foregroundColor: Colors.cyan
                         ),
                         child: Row(
@@ -146,7 +185,7 @@ class _InscriptionState extends State<Inscription> {
                         Navigator.pushNamed(context, '/connexion');
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
+                          backgroundColor: isDarkMode ? Colors.black87 : Colors.white,
                           foregroundColor: Colors.cyan,
                           elevation: 0,
                           side: BorderSide(
@@ -166,41 +205,8 @@ class _InscriptionState extends State<Inscription> {
           )
       ),
     );
+
   }
 
-  void _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime(2000), // Date par défaut
-      firstDate: DateTime(1900),  // Date minimale
-      lastDate: DateTime.now(),  // Date maximale
-      builder: (context, child) {
-        return Theme(
-          data: ThemeData(
-            //primaryColor: Colors.cyan, // Accent sur les boutons
-            colorScheme: const ColorScheme.light(
-              primary: Colors.cyan, // Header background color & buttons
-              onPrimary: Colors.white, // Text color on header buttons
-              onSurface: Colors.black, // Text color for dates
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.cyan // Button text color
-              ),
-            ),
-            dialogBackgroundColor: Colors.white, // Background color of the dialog
-            scaffoldBackgroundColor: Colors.white,
-          ),
-          child: child!,
-        );
-      },
-    );
 
-    if (pickedDate != null && pickedDate != _selectedDate) {
-      setState(() {
-        _selectedDate = pickedDate;
-        _dateController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-      });
-    }
-  }
 }

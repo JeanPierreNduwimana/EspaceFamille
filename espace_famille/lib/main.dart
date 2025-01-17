@@ -37,10 +37,9 @@ class MyApp extends StatelessWidget {
         Locale('fr', ''), // Spanish, no country code
       ],
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeData.light(), // Mode clair
+      darkTheme: ThemeData.dark(), // Mode sombre
+      themeMode: ThemeMode.dark, // Hérite le mode du système
       home: const Connection(),
       routes: {
         '/accfam': (context) => const AccueilEspaceFammille(),

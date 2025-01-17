@@ -12,9 +12,12 @@ class Connection extends StatefulWidget {
 WidgetService _designService = WidgetService();
 final TextEditingController username_controller = TextEditingController();
 final TextEditingController password_controller = TextEditingController();
+
 class _ConnectionState extends State<Connection> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: _designService.appBar(context,S.of(context).buttonConnexion, true,Colors.cyan),
       body: buildBody(),
@@ -22,6 +25,7 @@ class _ConnectionState extends State<Connection> {
   }
 
   Widget buildBody(){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Center(
           child: Padding(
@@ -32,11 +36,11 @@ class _ConnectionState extends State<Connection> {
                 const SizedBox(height: 24),
                 TextField(
                   controller: username_controller,
+                  cursorColor: Colors.cyan,
                   keyboardType: TextInputType.name,
                   maxLength: 16,
                   decoration:  InputDecoration(
                       hintText:S.of(context).labelUsername,
-                      hintStyle: const TextStyle(color: Colors.black38),
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.cyan, // Change border color here
@@ -47,11 +51,11 @@ class _ConnectionState extends State<Connection> {
                 ),
                 TextField(
                   controller: password_controller,
+                  cursorColor: Colors.cyan,
                   obscureText: true,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                       hintText: S.of(context).labelPassword ,
-                      hintStyle: const TextStyle(color: Colors.black38),
                       focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.cyan, // Change border color here
@@ -80,7 +84,7 @@ class _ConnectionState extends State<Connection> {
                       onPressed: () async {
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
+                          backgroundColor: isDarkMode ? Colors.black87 : Colors.white,
                           foregroundColor: Colors.cyan
                       ),
                       child: Row(
@@ -111,7 +115,7 @@ class _ConnectionState extends State<Connection> {
                         Navigator.pushNamed(context, '/inscription');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor: isDarkMode ? Colors.black87 : Colors.white,
                         foregroundColor: Colors.cyan,
                         elevation: 0,
                         side: BorderSide(

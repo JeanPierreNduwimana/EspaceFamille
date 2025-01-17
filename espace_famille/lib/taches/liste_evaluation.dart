@@ -126,7 +126,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _designService.appBar(context,S.of(context).evaluationProfilePageTitle('JeanPierre'), false,Colors.cyan),
-      body: isloading ? _designService.shimmerListeEvaluation() : buildBody(),
+      body: isloading ? _designService.shimmerListeEvaluation(context) : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 2, setState),
       floatingActionButton: FloatingActionButton(
         backgroundColor: isloading ? Colors.grey : Colors.cyan,
@@ -137,7 +137,6 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
             _showFeedbackDialog();
           }
         },
-        tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
     );

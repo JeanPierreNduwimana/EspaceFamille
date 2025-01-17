@@ -17,6 +17,8 @@ bool orgExist = false;
 class _AppOptionsState extends State<AppOptions> {
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: _designService.appBar(context, 'Profile', true,Colors.cyan),
       body: ListView(
@@ -130,7 +132,7 @@ class _AppOptionsState extends State<AppOptions> {
         ],
       ),
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
-      backgroundColor: Colors.white,
+      backgroundColor: !isDarkMode ? Colors.white : null,
     );
   }
 

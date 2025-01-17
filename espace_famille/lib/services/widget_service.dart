@@ -26,7 +26,6 @@ class WidgetService {
     return AppBar(
       leading: null,
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.white,
       elevation: 0,
       title: Row(
         children: [
@@ -248,6 +247,9 @@ class WidgetService {
     });
   }
   void dialogEvaluerTacheDetailsProfile(bool visitor, BuildContext context, Tache t, double value){
+
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -258,9 +260,9 @@ class WidgetService {
               child: Container(
                 padding: const EdgeInsets.all(8),
                 height: 800,
-                decoration: const BoxDecoration(
-                  color: Colors.white, // Your desired background color
-                  borderRadius: BorderRadius.vertical(
+                decoration: BoxDecoration(
+                  color: !isDarkMode ? Colors.white : null, // Your desired background color
+                  borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(20.0), // Same radius as the shape
                   ),
                 ),
@@ -277,8 +279,8 @@ class WidgetService {
                             },
                             child: Text(S.of(context).buttonCancel, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                           ),
-                          visitor? const Text('Evaluer JeanPierre', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),) :
-                          const Text('Détails sur ma tâche', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          visitor? Text(S.of(context).dialogRatingTitle('Jean Pierre'), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),) :
+                          Text(S.of(context).dialogTaskDetailTitle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.cyan,
@@ -355,38 +357,35 @@ class WidgetService {
                         margin: const EdgeInsets.all(8),
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: isDarkMode ? Colors.black87 : Colors.white,
                           borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: Colors.grey.shade300, width: 1),
+                            border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.1),
-                                // Couleur de l'ombre avec opacité
                                 spreadRadius: 2,
-                                // Rayonnement de l'ombre
                                 blurRadius: 2,
-                                // Rayon du flou de l'ombre
                                 offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
                               ),
                             ]
                         ),
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'À effectuer d\'ici',
+                                  S.of(context).labelToBeDoneBy,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black87,
+                                    color: isDarkMode ? Colors.grey.shade300 : Colors.black87,
                                   ),
                                 ),
                                 Text(
-                                  'En retard',
-                                  style: TextStyle(
+                                  S.of(context).labelTaksLate,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.redAccent,
                                     fontWeight: FontWeight.w600,
@@ -394,10 +393,10 @@ class WidgetService {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 12),
+                            const SizedBox(height: 12),
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   '5',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -405,12 +404,12 @@ class WidgetService {
                                     color: Colors.cyan, // Accentuation avec Cyan
                                   ),
                                 ),
-                                SizedBox(width: 8),
+                                const  SizedBox(width: 8),
                                 Text(
-                                  'Jours Restants',
+                                  S.of(context).labelDay,
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.black87,
+                                    color: isDarkMode ? Colors.grey.shade300 : Colors.black87,
                                   ),
                                 ),
                                 Expanded(
@@ -419,7 +418,7 @@ class WidgetService {
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Colors.black54,
+                                      color: isDarkMode ? Colors.grey.shade300 : Colors.black54,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
@@ -436,14 +435,16 @@ class WidgetService {
                         maxLength: 100,
                         maxLines: null,
                         minLines: 1,
-                        decoration: const InputDecoration(
-                            hintText: 'commentaire facultatif',
-                            hintStyle: TextStyle(color: Colors.black38),
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            hintText: S.of(context).labelOptionalComment,
+                            border: const OutlineInputBorder(),
                         ),
                       ) : const SizedBox()),
                       (visitor?ElevatedButton(
-                        child: value < 2.5? const Text('👎👎') : (value == 3? const Text('Meh 🥱') : (value == 4 ? const Text('Bravo 👏') : const Text('Bravo!! 😃'))),
+                        style: ElevatedButton.styleFrom(
+                         backgroundColor: isDarkMode ? Colors.black45 : null
+                        ),
+                        child: value < 2.5? const Text('👎👎') : (value == 3? const Text('Meh 🥱') : (value == 4 ? Text('${S.of(context).labelBravo} 👏') : Text('${S.of(context).labelBravo}!! 😃'))),
                         onPressed: () => Navigator.pop(context),
                       ) :
                       Container(
@@ -461,12 +462,12 @@ class WidgetService {
                                 elevation: 0
                               ),
                               onPressed: ()=> Navigator.pop(context),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Abandonner'),
-                                  SizedBox(width: 8),
-                                  Icon(Icons.dangerous)
+                                  Text(S.of(context).labelTaskGiveUp),
+                                  const SizedBox(width: 8),
+                                  const Icon(Icons.dangerous)
                                 ],
                               ),
                             ),
@@ -495,12 +496,12 @@ class WidgetService {
                                 }
 
                               },
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Tranferer'),
-                                  SizedBox(width: 12),
-                                  Icon(Icons.compare_arrows)
+                                  Text(S.of(context).buttonTaskTransfer),
+                                  const SizedBox(width: 12),
+                                  const Icon(Icons.compare_arrows)
                                 ],
                               ),),
                             const SizedBox(height: 8),
@@ -509,7 +510,7 @@ class WidgetService {
                                   backgroundColor: Colors.green,
                                   foregroundColor: Colors.white
                               ),
-                              onPressed: ()=> Navigator.pop(context), child: const Text('La tache est fait! 👌'),)
+                              onPressed: ()=> Navigator.pop(context), child: Text(S.of(context).buttonTaskDone),)
                           ],
                         ),
                       ))
@@ -518,7 +519,7 @@ class WidgetService {
             );},);},);
   }
   void dialogCreerAnnonce(BuildContext context, String editMessage, Image? currentImage){
-
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     bool isEditMessage = editMessage != '';
     controllerContenuAnnonce.text = editMessage;
     currentImage != null ? uploadedImage = currentImage : uploadedImage = null;
@@ -533,9 +534,9 @@ class WidgetService {
               child: Container(
                 padding: const EdgeInsets.all(8),
                 height: 800,
-                decoration: const BoxDecoration(
-                  color: Colors.white, // Your desired background color
-                  borderRadius: BorderRadius.vertical(
+                decoration: BoxDecoration(
+                  color: !isDarkMode ? Colors.white : null, // Your desired background color
+                  borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(20.0), // Same radius as the shape
                   ),
                 ),
@@ -605,7 +606,7 @@ class WidgetService {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.cyan,
-                            backgroundColor: Colors.cyan.shade50,
+                            backgroundColor: isDarkMode ? Colors.black : Colors.cyan.shade50,
                           ),
                           onPressed: () async{
                            Image? result = await getImage();
@@ -654,6 +655,7 @@ class WidgetService {
             ); },);},);
   }
   void dialogCreateTask(BuildContext context){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     final TextEditingController controllerTaskName = TextEditingController();
     final TextEditingController controllerSubTaskName = TextEditingController();
@@ -679,9 +681,9 @@ class WidgetService {
                 child: Container(
                     padding: const EdgeInsets.all(8),
                     height: MediaQuery.of(context).size.height * 0.9, // prend 90% de la hauteur de l'appareil,
-                    decoration: const BoxDecoration(
-                      color: Colors.white, // Your desired background color
-                      borderRadius: BorderRadius.vertical(
+                    decoration: BoxDecoration(
+                      color: !isDarkMode ? Colors.white : null, // Your desired background color
+                      borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(20.0), // Same radius as the shape
                       ),
                     ),
@@ -700,10 +702,11 @@ class WidgetService {
                                   child: Text(S.of(context).buttonCancel, style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
                               ElevatedButton(
                                 onPressed: () {
-                                  controllerTaskName.text.trim() == '' ? afficheMessage(context, 'La description de la tâche ne peut être vide') : null;
+                                  controllerTaskName.text.trim() == '' ? afficheMessage(context, S.of(context).messageAddTaskDescription) : null;
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white, backgroundColor: Colors.green.shade400, // Color of the icon
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: isDarkMode? Colors.green.shade700 : Colors.green.shade400, // Color of the icon
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12), // Rounded corners
                                   ),
@@ -842,7 +845,8 @@ class WidgetService {
                             padding: const EdgeInsets.only(left:16,right: 16),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.green.shade700, backgroundColor: Colors.white,
+                                  foregroundColor: Colors.green.shade700,
+                                  backgroundColor: isDarkMode ? Colors.black : Colors.white,
                                 ),
                                 onPressed: (){
                               setState((){
@@ -879,12 +883,12 @@ class WidgetService {
                                     decoration: BoxDecoration(
                                       color: _selectedOption == taskTypeOptions[index]
                                           ? Colors.green.shade50
-                                          : Colors.white,
-                                      border: Border.all(
+                                          : isDarkMode ? Colors.black87 : Colors.white,
+                                      border: !isDarkMode ? Border.all(
                                         color: _selectedOption == taskTypeOptions[index]
                                             ? Colors.green.shade200
                                             : Colors.grey,
-                                      ),
+                                      ) : null,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Row(
@@ -905,7 +909,7 @@ class WidgetService {
                                               taskTypeOptions[index],
                                               style: TextStyle(
                                                 fontSize: 14,
-                                                color: _selectedOption == taskTypeOptions[index] ? Colors.green.shade700 : Colors.black,
+                                                color: _selectedOption == taskTypeOptions[index] ? Colors.green.shade700 : isDarkMode ? Colors.white : Colors.black,
                                                 fontWeight: _selectedOption == taskTypeOptions[index] ? FontWeight.bold : FontWeight.normal
                                               ),
                                               overflow: TextOverflow.ellipsis,))
@@ -1032,6 +1036,7 @@ class WidgetService {
             },);},);
   }
   void dialogRepondreCommentaire(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     showModalBottomSheet(
       context: context,
       isScrollControlled: true, // Permet de s'ajuster au clavier
@@ -1047,9 +1052,9 @@ class WidgetService {
               ),
               child: Container(
                 padding: const EdgeInsets.all(16),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                decoration: BoxDecoration(
+                  color: !isDarkMode ? Colors.white : null,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min, // Ajuste la hauteur au contenu
@@ -1188,18 +1193,20 @@ class WidgetService {
     }
   }
   void afficheMessage(BuildContext context, String message) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.white, // Set background color to white
+          backgroundColor: !isDarkMode ? Colors.white : null, // Set background color to white
           title: Text(
             S.of(context).labelError,
             style: const TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold), // Cyan text color for title
           ),
           content: Text(
             message,
-            style: const TextStyle(color: Colors.black), // Cyan text color for the message
+            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black), // Cyan text color for the message
           ),
           actions: <Widget>[
             TextButton(
@@ -1913,10 +1920,12 @@ class WidgetService {
     );
   }
 
-  Widget shimmerAcceuil() {
+  Widget shimmerAcceuil(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: isDarkMode ? Colors.black54 : Colors.grey.shade300,
+      highlightColor: isDarkMode ? Colors.black : Colors.grey.shade100,
       enabled: true,
       child: SingleChildScrollView(
         child: Padding(
@@ -1987,10 +1996,12 @@ class WidgetService {
     );
   }
 
-  Widget shimmerEspaceFamille(){
+  Widget shimmerEspaceFamille(BuildContext context){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: isDarkMode ? Colors.black54 : Colors.grey.shade300,
+      highlightColor: isDarkMode ? Colors.black : Colors.grey.shade100,
       enabled: true,
       child: ListView.builder(
         itemCount: 5,
@@ -2009,10 +2020,12 @@ class WidgetService {
       ),
     );
   }
-  Widget shimmerCommentairesAnnonce(){
+  Widget shimmerCommentairesAnnonce(BuildContext context){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: isDarkMode ? Colors.black54 : Colors.grey.shade300,
+      highlightColor: isDarkMode ? Colors.black : Colors.grey.shade100,
       enabled: true,
       child: Column(
         children: [
@@ -2040,10 +2053,11 @@ class WidgetService {
       ),
     );
   }
-  Widget shimmerEpiceire(){
+  Widget shimmerEpiceire(BuildContext context){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: isDarkMode ? Colors.black54 : Colors.grey.shade300,
+      highlightColor: isDarkMode ? Colors.black : Colors.grey.shade100,
       enabled: true,
       child: ListView.builder(
         itemCount: 6,
@@ -2065,10 +2079,12 @@ class WidgetService {
       ),
     );
   }
-  Widget shimmerTaches(){
+  Widget shimmerTaches(BuildContext context){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: isDarkMode ? Colors.black54 : Colors.grey.shade300,
+      highlightColor: isDarkMode ? Colors.black : Colors.grey.shade100,
       enabled: true,
       child: ListView.builder(
         itemCount: 6,
@@ -2090,10 +2106,12 @@ class WidgetService {
       ),
     );
   }
-  Widget shimmerProfil(){
+  Widget shimmerProfil(BuildContext context){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: isDarkMode ? Colors.black54 : Colors.grey.shade300,
+      highlightColor: isDarkMode ? Colors.black : Colors.grey.shade100,
       enabled: true,
       child: ListView.builder(
         itemCount: 6,
@@ -2120,10 +2138,12 @@ class WidgetService {
       ),
     );
   }
-  Widget shimmerListeEvaluation(){
+  Widget shimmerListeEvaluation(BuildContext context){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: isDarkMode ? Colors.black54 : Colors.grey.shade300,
+      highlightColor: isDarkMode ? Colors.black : Colors.grey.shade100,
       enabled: true,
       child: ListView.builder(
         itemCount: 6,

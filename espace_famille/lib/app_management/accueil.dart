@@ -59,15 +59,14 @@ class _AccueilState extends State<Accueil> {
       body: RefreshIndicator(
         onRefresh: pageRefresh,
         color: Colors.cyan,
-        child: isloading ? _designService.shimmerAcceuil() : buildBody(),
+        child: isloading ? _designService.shimmerAcceuil(context) : buildBody(),
       ),
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
-      //drawer: const NavMenu(),
-      backgroundColor: Colors.white,
     );
   }
 
   Widget buildBody(){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -82,14 +81,14 @@ class _AccueilState extends State<Accueil> {
               height: postimageavailable ? 400 : 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: Colors.white,
-                border: Border.all(color: Colors.grey.shade300, width: 1),
+                color: isDarkMode ? Colors.black : Colors.white,
+                border: Border.all(color: isDarkMode ? Colors.black54 : Colors.grey.shade300, width: 1),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
-                    spreadRadius: 4, // Rayonnement de l'ombre
+                    spreadRadius: isDarkMode ? 1 :4, // Rayonnement de l'ombre
                     blurRadius: 6, // Rayon du flou de l'ombre
-                    offset: const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
+                    offset: isDarkMode ? const Offset(1,1) : const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
                   ),
                 ],
               ),
@@ -300,14 +299,14 @@ class _AccueilState extends State<Accueil> {
                 height: 400,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: Colors.white,
-                  border: Border.all(color: Colors.grey.shade300, width: 1),
+                  color: isDarkMode ? Colors.black : Colors.white,
+                  border: Border.all(color: isDarkMode ? Colors.black54 : Colors.grey.shade300, width: 1),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
-                      spreadRadius: 4, // Rayonnement de l'ombre
+                      spreadRadius: isDarkMode ? 1 :4, // Rayonnement de l'ombre
                       blurRadius: 6, // Rayon du flou de l'ombre
-                      offset: const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
+                      offset: isDarkMode ? const Offset(1,1) : const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
                     ),
                   ],
                 ),
@@ -502,13 +501,13 @@ class _AccueilState extends State<Accueil> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: Colors.white,
+                          color: isDarkMode ? Colors.black : Colors.white,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
-                              spreadRadius: 4, // Rayonnement de l'ombre
+                              spreadRadius: isDarkMode ? 1 :4, // Rayonnement de l'ombre
                               blurRadius: 6, // Rayon du flou de l'ombre
-                              offset: const Offset(1, 3), // Décalage horizontal et vertical de l'ombre
+                              offset: isDarkMode ? const Offset(1,1) : const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
                             ),
                           ],
                         ),
@@ -519,9 +518,9 @@ class _AccueilState extends State<Accueil> {
                             Expanded(
                               child: Container(
                                 padding: const EdgeInsets.all(38),
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.vertical(
+                                decoration: BoxDecoration(
+                                  color: isDarkMode ? Colors.black : Colors.white,
+                                  borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(16),
                                   ),
                                 ),
@@ -574,13 +573,13 @@ class _AccueilState extends State<Accueil> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: Colors.white,
+                          color: isDarkMode ? Colors.black : Colors.white,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
-                              spreadRadius: 4, // Rayonnement de l'ombre
+                              spreadRadius: isDarkMode ? 1 :4, // Rayonnement de l'ombre
                               blurRadius: 6, // Rayon du flou de l'ombre
-                              offset: const Offset(2, 2), // Décalage horizontal et vertical de l'ombre
+                              offset: isDarkMode ? const Offset(1,1) : const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
                             ),
                           ],
                         ),
@@ -591,13 +590,13 @@ class _AccueilState extends State<Accueil> {
                             Expanded(
                               child: Container(
                                 padding: const EdgeInsets.all(38),
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.vertical(
+                                decoration: BoxDecoration(
+                                  color: isDarkMode ? Colors.black : Colors.white,
+                                  borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(16),
                                   ),
                                 ),
-                                child: Image.asset('assets/images/trophy_icon.png', fit: BoxFit.contain,))
+                                child: Image.asset('assets/images/trophy_icon.png', fit: BoxFit.contain))
                             ),
                             // Titre de la catégorie
                             Container(
@@ -638,9 +637,9 @@ class _AccueilState extends State<Accueil> {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
-                    spreadRadius: 4, // Rayonnement de l'ombre
+                    spreadRadius: isDarkMode ? 1 :4, // Rayonnement de l'ombre
                     blurRadius: 6, // Rayon du flou de l'ombre
-                    offset: const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
+                    offset: isDarkMode ? const Offset(1,1) : const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
                   ),
                 ],
               ),
@@ -694,13 +693,13 @@ class _AccueilState extends State<Accueil> {
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: Colors.white,
+                color: isDarkMode ? Colors.black : Colors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
-                    spreadRadius: 4, // Rayonnement de l'ombre
+                    spreadRadius: isDarkMode ? 1 :4, // Rayonnement de l'ombre
                     blurRadius: 6, // Rayon du flou de l'ombre
-                    offset: const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
+                    offset: isDarkMode ? const Offset(1,1) : const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
                   ),
                 ],
               ),
@@ -723,9 +722,9 @@ class _AccueilState extends State<Accueil> {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
-                                    spreadRadius: 4, // Rayonnement de l'ombre
+                                    spreadRadius: isDarkMode ? 1 :4, // Rayonnement de l'ombre
                                     blurRadius: 6, // Rayon du flou de l'ombre
-                                    offset: const Offset(3,0), // Décalage horizontal et vertical de l'ombre
+                                    offset: isDarkMode ? const Offset(1,1) : const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
                                   ),
                                 ],
                               ),
@@ -761,11 +760,11 @@ class _AccueilState extends State<Accueil> {
                                             ),
                                           ),
                                           //const SizedBox(height: 4),
-                                          const Text('Jean Pierre', textAlign: TextAlign.center,
+                                          Text('Jean Pierre', textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 10,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                              color: isDarkMode ? Colors.white : Colors.black,
                                             ),)
                                         ],
                                       ),
@@ -791,11 +790,11 @@ class _AccueilState extends State<Accueil> {
                                             _designService.dialogCreateOrganizationDialog(context);
                                           }
                                         }
-                                      }, child: const Row(
+                                      }, child: Row(
                                         children: [
-                                          Text('Joinde ma famille'),
-                                          SizedBox(width: 8),
-                                          Icon(Icons.arrow_right_alt)
+                                          Text(S.of(context).buttonJoinMyFamily),
+                                          const SizedBox(width: 8),
+                                          const Icon(Icons.arrow_right_alt)
                                         ],
                                       )
                                   ),

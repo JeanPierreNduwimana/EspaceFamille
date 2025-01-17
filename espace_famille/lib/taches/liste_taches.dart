@@ -57,21 +57,22 @@ class _ListeTachesState extends State<ListeTaches> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _designService.appBar(context,S.of(context).appBarTaskPageTitle, false,Colors.green),
-      body: isloading ? _designService.shimmerTaches() : buildBody(),
+      body: isloading ? _designService.shimmerTaches(context) : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: isloading ? Colors.grey : Colors.green.shade400,
+        backgroundColor: isloading ? Colors.grey : Theme.of(context).brightness == Brightness.dark? Colors.green.shade700 : Colors.green.shade400,
         foregroundColor: Colors.white,
         onPressed: (){
           _designService.dialogCreateTask(context);
         },
-        tooltip: 'Ajouter une tâche',
         child: const Icon(Icons.add),
       ),
     );
   }
 
   Widget buildBody() {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.green,
@@ -108,9 +109,9 @@ class _ListeTachesState extends State<ListeTaches> {
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                       height: 400,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.vertical(
+                        borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(24),
                         ),
                       ),
@@ -200,20 +201,16 @@ class _ListeTachesState extends State<ListeTaches> {
                 );
               },
               child: Container(
-                //height: 200,
                 margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(color: Colors.white,
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey.shade300, width: 1),
+                    border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
-                        // Couleur de l'ombre avec opacité
+                        color: isDarkMode ? Colors.black87 :  Colors.grey.withOpacity(0.1),
                         spreadRadius: 2,
-                        // Rayonnement de l'ombre
                         blurRadius: 2,
-                        // Rayon du flou de l'ombre
-                        offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+                        offset: const Offset(1, 1),
                       ),
                     ]),
                 padding: const EdgeInsets.all(8),
@@ -225,7 +222,7 @@ class _ListeTachesState extends State<ListeTaches> {
                         Expanded(
                           child: Text(
                             taches[index].descr,
-                            style: const TextStyle(color: Colors.black, fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           ),
                         ),
                       ],

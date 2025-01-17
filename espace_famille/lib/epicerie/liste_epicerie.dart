@@ -57,7 +57,6 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
       appBar: AppBar(
         leading: null,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -84,16 +83,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                       height: 30,
                       decoration: BoxDecoration(
                         color: isloading ? Colors.grey : Colors.red.withOpacity(0.8),
-                        border: Border.all(color: Colors.grey.shade50, width: 1),
                         borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2), // Couleur de l'ombre avec opacité
-                            spreadRadius: 2, // Rayonnement de l'ombre
-                            blurRadius: 3, // Rayon du flou de l'ombre
-                            offset: const Offset(3, 3), // Décalage horizontal et vertical de l'ombre
-                          ),
-                        ],
                       ),
 
                       child: const Icon(Icons.add, color: Colors.white, size: 18,)),
@@ -152,12 +142,14 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
           ],
         ),
       ),
-      body: isloading ? _designService.shimmerEpiceire() : buildBody(),
+      body: isloading ? _designService.shimmerEpiceire(context) : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 1, setState),
     );
   }
 
   Widget buildBody(){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     Future<void> _onRefresh() async {
       await fetchData();
     }
@@ -235,7 +227,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
               },
               child: Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                color: aliments[index].validerAchat ? Colors.grey.withOpacity(0.1) : Colors.white,
+                color: aliments[index].validerAchat ? (isDarkMode ? Colors.black : Colors.grey.withOpacity(0.1)) : (isDarkMode ? Colors.grey.withOpacity(0.1) :  Colors.white),
                 elevation: aliments[index].validerAchat ? 0 :  1,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
