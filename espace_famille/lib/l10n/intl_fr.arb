@@ -85,6 +85,7 @@
   "labelToBeDoneBy": "À effectuer d'ici",
   "labelTaksLate": "En retard",
   "labelTaskGiveUp": "Abandonner",
+  "labelPeriodicConfigure": "Configurer la récurrence",
 
   "buttonConnexion": "Connexion",
   "buttonConnexionWith": "Connexion avec",

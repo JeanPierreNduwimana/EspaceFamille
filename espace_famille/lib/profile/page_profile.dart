@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:espace_famille/services/app_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,6 +15,7 @@ class PageProfile extends StatefulWidget {
 }
 
 WidgetService _designService = WidgetService();
+AppService _appService = AppService();
 List<Tache> taches = [
   Tache('Organiser le bureau et trier les documents important',getImage(),true),
   Tache('Préparer un repas équilibré pour le déjeuner',getImage(),false),
@@ -178,14 +180,14 @@ class _PageProfileState extends State<PageProfile> {
                           color: isDarkMode ? Colors.black : Colors.white,
                           borderRadius: BorderRadius.circular(10),
                           border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null,
-                          boxShadow: [
+                          boxShadow: !isDarkMode ?[
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.1), // Couleur de l'ombre avec opacité
                               spreadRadius: 2, // Rayonnement de l'ombre
                               blurRadius: 2, // Rayon du flou de l'ombre
                               offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
                             ),
-                          ]),
+                          ]:null),
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: ListTile(
                         onTap: () => _designService.dialogEvaluerTacheDetailsProfile(
@@ -200,7 +202,7 @@ class _PageProfileState extends State<PageProfile> {
                           ),
                         ),
                         title: Text(
-                          _designService.maximumString(taches[index].descr, 28),
+                          _appService.maximumString(taches[index].descr, 28),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,

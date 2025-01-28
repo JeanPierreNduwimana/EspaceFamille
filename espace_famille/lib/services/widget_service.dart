@@ -6,6 +6,8 @@ import 'package:shimmer/shimmer.dart';
 import '../generated/l10n.dart';
 import '../taches/model_tache.dart';
 
+/*  CECI UNE CLASS QUI RETOURNE PLUSIEURS WIDGETS À TRAVERS DES METHODES. EX: AppBar, Dialog, etc... */
+
 class WidgetService {
 
   WidgetService();
@@ -22,6 +24,7 @@ class WidgetService {
   int currentPage = -1;
   bool orgExist = true;
 
+  // region AppBar utilisé dans plusieurs page de l'application
   AppBar appBar(BuildContext context,String title, bool onProfilePage, Color titleColor){
     return AppBar(
       leading: null,
@@ -65,175 +68,107 @@ class WidgetService {
       ),
     );
   }
+  // endregion
 
+  //region Widget utilisé pour la navigation en bas de l'écran
+  BottomNavigationBar navigationBar(BuildContext context, int _selectedIndex, StateSetter setState){
+    currentPage = _selectedIndex;
 
-  Future<bool?> dialogYesorNo(BuildContext context, String message) async {
+    // Méthode qui vérifie si l'utilisateur se trouve à la meme page
+    bool onTheSamePage(String pageName){
+      // Obtenir le nom de la route actuelle
+      final currentRoute = ModalRoute.of(context)?.settings.name;
+      // Vérifier si vous êtes déjà sur la page '/acceuil'
+      if (currentRoute != pageName) {
+        return false; // on est pas sur la même page
+      } else {
+        return true; // on est sur la meme page
+      }
+    }
+    
+    // Retour du Widget
+    return BottomNavigationBar(
+      currentIndex: _selectedIndex, // Ajout pour suivre l'onglet actif
+      onTap: (index) {
+        setState(() {
+          _selectedIndex = index; // Met à jour l'onglet actif
+        });
 
-    return showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-            ),
-            height: 200,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  message,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(true),
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.cyan,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      ),
-                      child: Text(S.of(context).labelYes, style: const TextStyle(fontSize: 16)),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(false),
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.redAccent,
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      ),
-                      child: Text(S.of(context).labelNon, style: const TextStyle(fontSize: 16)),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
+        switch(index){
+          case 0 :
+          //Navigation vers Espace
+          if(!onTheSamePage('/acceuil')){
+            Navigator.pushNamed(context, '/acceuil');
+          }
+          break;
+          case 1 :
+          //Navigation vers Épicerie
+            if(!onTheSamePage('/liste_epicerie')){
+              Navigator.pushNamed(context, '/liste_epicerie');
+            }
+            break;
+          case 2 :
+          //Navigation vers Acceuil
+            if(!onTheSamePage('/accfam')){
+              Navigator.pushNamed(context, '/accfam');
+            }
+            break;
+          case 3 :
+          //Navigation vers Taches
+            if(!onTheSamePage('/listetaches')){
+              Navigator.pushNamed(context, '/listetaches');
+            }
+            break;
+          case 4 :
+          //Navigation vers Evenements
+            if(!onTheSamePage('/events')){
+              Navigator.pushNamed(context, '/events');
+            }
+            break;
+        }
       },
+      items: [
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.dashboard_outlined), // Icône représentative pour Accueil
+          activeIcon: const Icon(Icons.dashboard,color: Colors.cyan), // Icône pour l'état actif
+          label: S.of(context).bottomNavHome,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.shopping_cart_outlined), // Icône représentative pour Accueil
+          activeIcon: const Icon(Icons.shopping_cart, color: Colors.redAccent), // Icône pour l'état actif
+          label: S.of(context).appBarGroceriePageTitle,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.people_alt_outlined), // Icône plus moderne pour un espace famille
+          activeIcon: const Icon(Icons.people_alt, color: Colors.cyan,), // Icône pour l'état actif
+          label: S.of(context).bottomNavSpaceFamily,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.task_alt_outlined), // Icône plus moderne pour Profil
+          activeIcon: const Icon(Icons.task_alt, color: Colors.green), // Icône pour l'état actif
+          label: S.of(context).homePageTitleTask,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.calendar_month_outlined), // Icône plus moderne pour Profil
+          activeIcon: const Icon(Icons.calendar_month, color: Colors.purple), // Icône pour l'état actif
+          label: S.of(context).homePageTitleEvents,
+        ),
+      ],
+      selectedItemColor: (
+          _selectedIndex == 0 ? Colors.cyan
+              : _selectedIndex == 1 ? Colors.redAccent
+              : _selectedIndex == 2 ? Colors.cyan
+              : _selectedIndex == 3 ? Colors.green
+              : Colors.purple),
+      // Couleur des icônes actives
+      unselectedItemColor: Colors.grey, // Couleur des icônes inactives
+      type: BottomNavigationBarType.fixed, // Assure un comportement stable
+      elevation: 8, // Ajoute une ombre pour un meilleur visuel
     );
-
-
   }
-  Future<bool?> dialogJoinorCreatFam(BuildContext context) async {
+  //endregion
 
-    return showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-            ),
-            height: 300,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Column(
-                  children: [
-                    Text(
-                      'Votre compte n\'est pas associé à une famille',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    SizedBox(height: 24),
-                    Text(
-                      'Veuillez joindre ou créer la votre.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 28),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.cyan,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        ),
-                        child: const Text('Joindre', style: TextStyle(fontSize: 16)),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 100,
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.cyan,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        ),
-                        child: const Text('Créer', style: TextStyle(fontSize: 16)),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-
-
-  }
+  // ce dialog sert à afficher n'importe quel image en grand.
   void dialogAfficherImage(BuildContext context, String image){
     showDialog(
         context: context,
@@ -246,6 +181,7 @@ class WidgetService {
           child: Image.asset(image));
     });
   }
+
   void dialogEvaluerTacheDetailsProfile(bool visitor, BuildContext context, Tache t, double value){
 
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -357,17 +293,17 @@ class WidgetService {
                         margin: const EdgeInsets.all(8),
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: isDarkMode ? Colors.black87 : Colors.white,
+                          color: isDarkMode ? Colors.black26 : Colors.white,
                           borderRadius: BorderRadius.circular(12),
                             border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null,
-                            boxShadow: [
+                            boxShadow: !isDarkMode ?[
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.1),
                                 spreadRadius: 2,
                                 blurRadius: 2,
                                 offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
                               ),
-                            ]
+                            ]:null
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -454,11 +390,11 @@ class WidgetService {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
+                                backgroundColor: isDarkMode? Colors.black38 : Colors.white,
                                 foregroundColor: Colors.red,
-                                  side: BorderSide(
+                                  side: !isDarkMode ? BorderSide(
                                       color: Colors.red.withOpacity(0.2)
-                                  ),
+                                  ):null,
                                 elevation: 0
                               ),
                               onPressed: ()=> Navigator.pop(context),
@@ -474,11 +410,11 @@ class WidgetService {
                             const SizedBox(height: 8),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
+                                backgroundColor: isDarkMode? Colors.black38 : Colors.white,
                                 foregroundColor: Colors.purple,
-                                side: BorderSide(
+                                side: !isDarkMode? BorderSide(
                                   color: Colors.purple.withOpacity(0.5)
-                                ),
+                                ):null,
                                 elevation: 0
                               ),
                               onPressed: () async {
@@ -507,7 +443,7 @@ class WidgetService {
                             const SizedBox(height: 8),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green,
+                                  backgroundColor: isDarkMode ? Colors.green.shade800 : Colors.green,
                                   foregroundColor: Colors.white
                               ),
                               onPressed: ()=> Navigator.pop(context), child: Text(S.of(context).buttonTaskDone),)
@@ -882,7 +818,7 @@ class WidgetService {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: _selectedOption == taskTypeOptions[index]
-                                          ? Colors.green.shade50
+                                          ? isDarkMode ? Colors.black26 : Colors.green.shade50
                                           : isDarkMode ? Colors.black87 : Colors.white,
                                       border: !isDarkMode ? Border.all(
                                         color: _selectedOption == taskTypeOptions[index]
@@ -929,7 +865,7 @@ class WidgetService {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Configurer la periodique',
+                                    S.of(context).labelPeriodicConfigure,
                                     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade700),
                                   ),
                                   Row(
@@ -992,7 +928,7 @@ class WidgetService {
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.green.shade700,
-                                        backgroundColor: Colors.green.shade50
+                                        backgroundColor: isDarkMode ? Colors.black : Colors.green.shade50
                                     ),
                                     onPressed: ()async{
                                       Image? result = await getImage();
@@ -1013,7 +949,7 @@ class WidgetService {
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.redAccent,
-                                        backgroundColor: Colors.red.shade50
+                                        backgroundColor: isDarkMode ? Colors.black : Colors.red.shade50
                                     ),
                                     onPressed: (){
                                       removeImage(setState);
@@ -1149,95 +1085,7 @@ class WidgetService {
       },
     );
   }
-  RatingStars getRatingStars(double value, bool afficheValeur){
-    return RatingStars(
-      value: value,
-      starBuilder: (index, color) => Icon(
-        Icons.star,
-        color: Colors.yellow.shade700,
-      ),
-      starCount: 5,
-      starSize: 20,
-      valueLabelColor: const Color(0xff9b9b9b),
-      valueLabelTextStyle: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w400,
-          fontStyle: FontStyle.normal,
-          fontSize: 12.0),
-      valueLabelRadius: 10,
-      maxValue: 5,
-      starSpacing: 2,
-      maxValueVisibility: true,
-      valueLabelVisibility: afficheValeur,
-      animationDuration: const Duration(milliseconds: 1000),
-      valueLabelPadding:
-      const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
-      valueLabelMargin: const EdgeInsets.only(right: 8),
-      starOffColor: const Color(0xffe7e8ea),
-      starColor: Colors.yellow,
-    );
-  }
-  //verification booléen de longueur maximale des description des tache
-  String maximumString(String descrTache, int max){
-    if(descrTache.length > max){
-      String stringAEnvoyer = '';
-      int index = 0;
-      while(index < max){
-        stringAEnvoyer += descrTache[index];
-        index++;
-      }
-      return ('$stringAEnvoyer...');
 
-    }else{
-      return descrTache;
-    }
-  }
-  void afficheMessage(BuildContext context, String message) {
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: !isDarkMode ? Colors.white : null, // Set background color to white
-          title: Text(
-            S.of(context).labelError,
-            style: const TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold), // Cyan text color for title
-          ),
-          content: Text(
-            message,
-            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black), // Cyan text color for the message
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text(
-                'OK',
-                style: TextStyle(color: Colors.cyan), // Cyan text color for the button
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  Future<Image?> getImage() async{
-    ImagePicker picker = ImagePicker();
-    XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    String? imagePath = pickedImage!.path;
-
-    if(imagePath != ""){
-      return Image.file(File(imagePath),fit: BoxFit.cover,);
-    }
-
-    return null;
-  }
-  void removeImage(StateSetter setState){
-    uploadedImage = null;
-    setState((){});
-  }
   void dialogTransferTache(BuildContext context){
     showDialog(
         context: context,
@@ -1347,6 +1195,7 @@ class WidgetService {
     );
   }
   void dialogAjoutAliment(BuildContext context){
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     final List<Map<String, dynamic>> foodItems = [
       {"name": "Pomme", "image": "assets/images/naruto.jpg", "quantity": 0},
@@ -1411,7 +1260,6 @@ class WidgetService {
                                           maxLength: 16,
                                           decoration: InputDecoration(
                                               hintText: S.of(context).labelFoodName,
-                                              hintStyle: const TextStyle(color: Colors.black38),
                                               focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
@@ -1427,7 +1275,6 @@ class WidgetService {
                                           maxLength: 2,
                                           decoration:  InputDecoration(
                                               hintText: S.of(context).labelQuantityLong,
-                                              hintStyle: const TextStyle(color: Colors.black38),
                                               focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
@@ -1443,7 +1290,6 @@ class WidgetService {
                                           maxLength: 16,
                                           decoration: InputDecoration(
                                               hintText: S.of(context).labelDescription,
-                                              hintStyle: const TextStyle(color: Colors.black38),
                                               focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
@@ -1530,6 +1376,7 @@ class WidgetService {
                                           final food = foodItems[index];
                                           return Card(
                                             margin: const EdgeInsets.all(8),
+                                            color: isDarkMode? Colors.black26 : null,
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10),
                                             ),
@@ -1654,78 +1501,6 @@ class WidgetService {
     });
 
   }
-  BottomNavigationBar navigationBar(BuildContext context, int _selectedIndex, StateSetter setState){
-    currentPage = _selectedIndex;
-    return BottomNavigationBar(
-      currentIndex: _selectedIndex, // Ajout pour suivre l'onglet actif
-      onTap: (index) {
-        setState(() {
-          _selectedIndex = index; // Met à jour l'onglet actif
-        });
-
-        switch(index){
-          case 0 :
-          //Navigation vers Espace
-            Navigator.pushNamed(context, '/acceuil');
-            break;
-          case 1 :
-          //Navigation vers Épicerie
-            Navigator.pushNamed(context, '/liste_epicerie');
-            break;
-          case 2 :
-          //Navigation vers Acceuil
-            Navigator.pushNamed(context, '/accfam');
-            break;
-          case 3 :
-          //Navigation vers Taches
-            Navigator.pushNamed(context, '/listetaches');
-            break;
-          case 4 :
-          //Navigation vers Evenements
-            Navigator.pushNamed(context, '/events');
-            break;
-        }
-      },
-      items: [
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.dashboard_outlined), // Icône représentative pour Accueil
-          activeIcon: const Icon(Icons.dashboard,color: Colors.cyan), // Icône pour l'état actif
-          label: S.of(context).bottomNavHome,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.shopping_cart_outlined), // Icône représentative pour Accueil
-          activeIcon: const Icon(Icons.shopping_cart, color: Colors.redAccent), // Icône pour l'état actif
-          label: S.of(context).appBarGroceriePageTitle,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.people_alt_outlined), // Icône plus moderne pour un espace famille
-          activeIcon: const Icon(Icons.people_alt, color: Colors.cyan,), // Icône pour l'état actif
-          label: S.of(context).bottomNavSpaceFamily,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.task_alt_outlined), // Icône plus moderne pour Profil
-          activeIcon: const Icon(Icons.task_alt, color: Colors.green), // Icône pour l'état actif
-          label: S.of(context).homePageTitleTask,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.calendar_month_outlined), // Icône plus moderne pour Profil
-          activeIcon: const Icon(Icons.calendar_month, color: Colors.purple), // Icône pour l'état actif
-          label: S.of(context).homePageTitleEvents,
-        ),
-      ],
-      selectedItemColor: (
-          _selectedIndex == 0 ? Colors.cyan
-              : _selectedIndex == 1 ? Colors.redAccent
-              : _selectedIndex == 2 ? Colors.cyan
-              : _selectedIndex == 3 ? Colors.green
-              : Colors.purple),
-      // Couleur des icônes actives
-      unselectedItemColor: Colors.grey, // Couleur des icônes inactives
-      type: BottomNavigationBarType.fixed, // Assure un comportement stable
-      elevation: 8, // Ajoute une ombre pour un meilleur visuel
-    );
-  }
-
   void dialogDetailAliment(BuildContext context) {
     bool foodSaved = false;
     showModalBottomSheet(
@@ -1920,6 +1695,233 @@ class WidgetService {
     );
   }
 
+  // Ce widget retourne des étoiles d'évaluation
+  RatingStars getRatingStars(double value, bool afficheValeur){
+    return RatingStars(
+      value: value,
+      starBuilder: (index, color) => Icon(
+        Icons.star,
+        color: Colors.yellow.shade700,
+      ),
+      starCount: 5,
+      starSize: 20,
+      valueLabelColor: const Color(0xff9b9b9b),
+      valueLabelTextStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w400,
+          fontStyle: FontStyle.normal,
+          fontSize: 12.0),
+      valueLabelRadius: 10,
+      maxValue: 5,
+      starSpacing: 2,
+      maxValueVisibility: true,
+      valueLabelVisibility: afficheValeur,
+      animationDuration: const Duration(milliseconds: 1000),
+      valueLabelPadding:
+      const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
+      valueLabelMargin: const EdgeInsets.only(right: 8),
+      starOffColor: const Color(0xffe7e8ea),
+      starColor: Colors.yellow,
+    );
+  }
+
+  //region Ici se trouve les dialogs qui affichent les messages d'alertes
+  Future<bool?> dialogYesorNo(BuildContext context, String message) async {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: !isDarkMode? Colors.white : null,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: !isDarkMode ? [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ]  : null,
+            ),
+            height: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: !isDarkMode? Colors.black87 : null,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: isDarkMode ? Colors.cyan.shade900 : Colors.cyan,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      ),
+                      child: Text(S.of(context).labelYes, style: const TextStyle(fontSize: 16)),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.redAccent,
+                        backgroundColor: !isDarkMode? Colors.white : null,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      ),
+                      child: Text(S.of(context).labelNon, style: const TextStyle(fontSize: 16)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+
+  }
+  Future<bool?> dialogJoinorCreatFam(BuildContext context) async {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: !isDarkMode? Colors.white : null,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            height: 300,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Column(
+                  children: [
+                    Text(
+                      'Votre compte n\'est pas associé à une famille',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        //color: Colors.black87,
+                      ),
+                    ),
+                    SizedBox(height: 24),
+                    Text(
+                      'Veuillez joindre ou créer la votre.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        //color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 28),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor:  Colors.white,
+                          backgroundColor: isDarkMode? Colors.cyan.shade700 :Colors.cyan,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        ),
+                        child: const Text('Joindre', style: TextStyle(fontSize: 16)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.cyan,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        ),
+                        child: const Text('Créer', style: TextStyle(fontSize: 16)),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+
+  }
+  void afficheMessage(BuildContext context, String message) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: !isDarkMode ? Colors.white : null, // Set background color to white
+          title: Text(
+            S.of(context).labelError,
+            style: const TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold), // Cyan text color for title
+          ),
+          content: Text(
+            message,
+            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black), // Cyan text color for the message
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(color: Colors.cyan), // Cyan text color for the button
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  //endregion
+
+  //region Ici se trouve les widgets Shimmer qui s'affiche comme un squelette lors du chargement d'une page
   Widget shimmerAcceuil(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
@@ -1995,7 +1997,6 @@ class WidgetService {
       ),
     );
   }
-
   Widget shimmerEspaceFamille(BuildContext context){
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
@@ -2165,4 +2166,25 @@ class WidgetService {
       ),
     );
   }
+  //endregion
+
+  //region Ici se trouve les méthodes utilisé par les widgets dans cette classe
+  Future<Image?> getImage() async{
+    ImagePicker picker = ImagePicker();
+    XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    String? imagePath = pickedImage!.path;
+
+    if(imagePath != ""){
+      return Image.file(File(imagePath),fit: BoxFit.cover,);
+    }
+
+    return null;
+  }
+  void removeImage(StateSetter setState){
+    uploadedImage = null;
+    setState((){});
+  }
+
+  // endregion
+
 }

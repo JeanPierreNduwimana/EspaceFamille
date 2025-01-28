@@ -168,7 +168,6 @@ class _AppOptionsState extends State<AppOptions> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.white,
           title: const Text('Logout'),
           content: const Text('Are you sure you want to log out?'),
           actions: [
@@ -176,15 +175,13 @@ class _AppOptionsState extends State<AppOptions> {
               onPressed: () {
                 Navigator.pop(context); // Close dialog
               },
-              child: const Text('Cancel'),
+              child: const Text('Cancel', style: TextStyle(color: Colors.cyan),),
             ),
             TextButton(
               onPressed: () {
-                // Implement the logout action
-                Navigator.pushNamed(context, '/connexion'); // Close dialog
-                // Navigate to login page or perform logout action
+                Navigator.pushNamed(context, '/connexion');
               },
-              child: const Text('Logout'),
+              child: const Text('Logout', style: TextStyle(color: Colors.cyan),),
             ),
           ],
         );

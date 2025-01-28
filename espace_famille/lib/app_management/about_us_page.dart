@@ -111,7 +111,6 @@ class _AboutUsPageState extends State<AboutUsPage> {
         ),
       ),
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
-      backgroundColor: Colors.white,
     );
   }
 }

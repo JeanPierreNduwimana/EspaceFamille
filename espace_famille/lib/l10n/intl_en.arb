@@ -85,6 +85,7 @@
   "labelToBeDoneBy": "To be done by",
   "labelTaksLate": "Late",
   "labelTaskGiveUp": "Give Up",
+  "labelPeriodicConfigure": "Set the recurrence of your task",
 
   "buttonConnexion": "Log In",
   "buttonConnexionWith": "Log In with",

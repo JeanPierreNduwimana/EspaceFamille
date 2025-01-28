@@ -141,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelPasswordConfirm":
             MessageLookupByLibrary.simpleMessage("Confirm your password"),
         "labelPeriodic": MessageLookupByLibrary.simpleMessage("Periodic"),
+        "labelPeriodicConfigure": MessageLookupByLibrary.simpleMessage(
+            "Set the recurrence of your task"),
         "labelQuantityLong": MessageLookupByLibrary.simpleMessage("Quantity"),
         "labelQuantityShorted": MessageLookupByLibrary.simpleMessage("Qty"),
         "labelRegisterPageBirthDate":

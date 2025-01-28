@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData.light(), // Mode clair
       darkTheme: ThemeData.dark(), // Mode sombre
-      themeMode: ThemeMode.dark, // Hérite le mode du système
+      themeMode: ThemeMode.system, // Hérite le mode du système
       home: const Connection(),
       routes: {
         '/accfam': (context) => const AccueilEspaceFammille(),

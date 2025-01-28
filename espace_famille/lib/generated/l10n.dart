@@ -810,6 +810,16 @@ class S {
     );
   }
 
+  /// `Set the recurrence of your task`
+  String get labelPeriodicConfigure {
+    return Intl.message(
+      'Set the recurrence of your task',
+      name: 'labelPeriodicConfigure',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Log In`
   String get buttonConnexion {
     return Intl.message(

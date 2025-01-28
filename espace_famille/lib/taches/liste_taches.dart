@@ -110,7 +110,7 @@ class _ListeTachesState extends State<ListeTaches> {
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                       height: 400,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: !isDarkMode ? Colors.white : null,
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(24),
                         ),
