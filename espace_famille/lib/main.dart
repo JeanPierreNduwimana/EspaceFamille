@@ -2,10 +2,12 @@ import 'package:espace_famille/app_management/app_options.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/authentification/inscription.dart';
 import 'package:espace_famille/epicerie/liste_epicerie.dart';
+import 'package:espace_famille/events/event_detail.dart';
+import 'package:espace_famille/events/events_list.dart';
 import 'package:espace_famille/profile/classement_profile.dart';
 import 'package:espace_famille/profile/page_edit_profile.dart';
 import 'package:espace_famille/profile/page_profile.dart';
-import 'package:espace_famille/taches/horaire.dart';
+import 'package:espace_famille/events/horaire.dart';
 import 'package:espace_famille/taches/liste_evaluation.dart';
 import 'package:espace_famille/taches/liste_taches.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,9 @@ class MyApp extends StatelessWidget {
         '/acceuil' : (context) => const Accueil(),
         '/app_options' : (context) => const AppOptions(),
         '/edit_profile' : (context) => const EditProfilePage(),
-        '/notifications' : (context) => const NotificationsPage()
+        '/notifications' : (context) => const NotificationsPage(),
+        '/events_list' : (context) => const EventsList(),
+        '/events_detail' : (context) => const EventDetail()
       },
 
     );

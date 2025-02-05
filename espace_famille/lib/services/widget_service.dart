@@ -121,8 +121,8 @@ class WidgetService {
             break;
           case 4 :
           //Navigation vers Evenements
-            if(!onTheSamePage('/events')){
-              Navigator.pushNamed(context, '/events');
+            if(!onTheSamePage('/events_list')){
+              Navigator.pushNamed(context, '/events_list');
             }
             break;
         }
