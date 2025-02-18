@@ -14,62 +14,63 @@ WidgetService _designService = WidgetService();
 class _AboutUsPageState extends State<AboutUsPage> {
   final TextEditingController _messageController = TextEditingController();
 
-  // Fonction pour afficher le Dialog pour les suggestions
-  void _showFeedbackDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: Text(S.of(context).dialogUserSuggestionsTitle),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                S.of(context).dialogUserSuggestionsSubTitle,
-                style: const TextStyle(fontSize: 14),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                controller: _messageController,
-                cursorColor: Colors.cyan,
-                maxLines: 5,
-                decoration: InputDecoration(
-                  hintText: S.of(context).labelHintMessage,
-                  border: const OutlineInputBorder(),
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.cyan,
-                          width: 1.0
-                      )
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(S.of(context).buttonCancel, style: const TextStyle(color: Colors.cyan)),
-            ),
-            TextButton(
-              onPressed: () {
-                // Logique pour envoyer le message (ici, on l'affiche dans la console)
-                _messageController.clear();
-                Navigator.of(context).pop();
-              },
-              child: Text(S.of(context).buttonSend, style: const TextStyle(color: Colors.cyan)),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    // Fonction pour afficher le Dialog pour les suggestions
+    void _showFeedbackDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: !isDarkMode ? Colors.white : null,
+            title: Text(S.of(context).dialogUserSuggestionsTitle),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  S.of(context).dialogUserSuggestionsSubTitle,
+                  style: const TextStyle(fontSize: 14),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: _messageController,
+                  cursorColor: Colors.cyan,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    hintText: S.of(context).labelHintMessage,
+                    border: const OutlineInputBorder(),
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.cyan,
+                            width: 1.0
+                        )
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(S.of(context).buttonCancel, style: const TextStyle(color: Colors.cyan)),
+              ),
+              TextButton(
+                onPressed: () {
+                  _messageController.clear();
+                  Navigator.of(context).pop();
+                },
+                child: Text(S.of(context).buttonSend, style: const TextStyle(color: Colors.cyan)),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: _designService.appBar(context, S.of(context).appBaraboutUsPageTitle, false, Colors.cyan),
       body: SingleChildScrollView(

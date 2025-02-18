@@ -15,7 +15,7 @@ WidgetService _designService = WidgetService();
 
 List<Aliment> aliments = [
   Aliment('banane', 7, false),
-  Aliment('patate', 3, true),
+  Aliment('patate', 0, true),
   Aliment('orange', 5, true),
   Aliment('Pain', 2, false),
   Aliment('Ketchup', 1, false),
@@ -279,7 +279,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                aliments[index].quantite.toString(),
+                                aliments[index].quantite == 0 ? '-' : aliments[index].quantite.toString(),
                                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
                               ),
                               Text(

@@ -1,3 +1,4 @@
+import 'package:espace_famille/services/app_service.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
@@ -10,10 +11,11 @@ class Inscription extends StatefulWidget {
   State<Inscription> createState() => _InscriptionState();
 }
 WidgetService _designService = WidgetService();
+AppService _appService = AppService();
+
 final TextEditingController username_controller = TextEditingController();
 final TextEditingController password_controller = TextEditingController();
 final TextEditingController passwordConfirm_controller = TextEditingController();
-DateTime? _selectedDate;
 final TextEditingController _dateController = TextEditingController();
 
 class _InscriptionState extends State<Inscription> {
@@ -27,46 +29,6 @@ class _InscriptionState extends State<Inscription> {
 
   Widget buildBody(){
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    void _selectDate(BuildContext context) async {
-      final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime(2000), // Date par défaut
-        firstDate: DateTime(1900),  // Date minimale
-        lastDate: DateTime.now(),  // Date maximale
-        builder: (context, child) {
-          return Theme(
-            data: ThemeData(
-              //primaryColor: Colors.cyan, // Accent sur les boutons
-              colorScheme: isDarkMode ? const ColorScheme.dark(
-                primary: Colors.cyan, // Header background color & buttons
-                onPrimary: Colors.black, // Text color on header buttons
-                onSurface: Colors.white, // Text color for dates
-              ): const ColorScheme.light(
-                primary: Colors.cyan, // Header background color & buttons
-                onPrimary: Colors.white, // Text color on header buttons
-                onSurface: Colors.black, // Text color for dates
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                    foregroundColor: Colors.cyan // Button text color
-                ),
-              ),
-              dialogBackgroundColor: Colors.white, // Background color of the dialog
-              scaffoldBackgroundColor: Colors.white,
-            ),
-            child: child!,
-          );
-        },
-      );
-
-      if (pickedDate != null && pickedDate != _selectedDate) {
-        setState(() {
-          _selectedDate = pickedDate;
-          _dateController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-        });
-      }
-    }
 
     return SingleChildScrollView(
       child: Center(
@@ -102,7 +64,12 @@ class _InscriptionState extends State<Inscription> {
                       borderSide: BorderSide(color: Colors.cyan),
                     ),
                   ),
-                  onTap: () => _selectDate(context),
+                  onTap: () async {
+                    String date = await _appService.getDatepicker(context, Colors.cyan, false);
+                    if(date != ""){
+                      _dateController.text = date;
+                    }
+                  },
                 ),
                 const SizedBox(height: 16),
                 TextField(

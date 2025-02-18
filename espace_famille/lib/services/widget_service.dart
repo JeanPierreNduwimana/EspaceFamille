@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:espace_famille/services/app_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/shimmer.dart';
@@ -18,8 +20,12 @@ class WidgetService {
   final TextEditingController nom_aliment_controller = TextEditingController();
   final TextEditingController descr_aliment_controller = TextEditingController();
   final TextEditingController quantite_aliment_controller = TextEditingController();
+  final TextEditingController controllerTitleEvent = TextEditingController();
+  final TextEditingController controllerDescriptionEvent = TextEditingController();
+  final TextEditingController controllerDateEvent = TextEditingController();
 
   final ScrollController _scrollController = ScrollController();
+  final AppService _appService = AppService();
   Image? uploadedImage;
   int currentPage = -1;
   bool orgExist = true;
@@ -590,6 +596,199 @@ class WidgetService {
                 )),
             ); },);},);
   }
+  void dialogCreateEvent(BuildContext context){
+    clearController();
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return SingleChildScrollView(
+              child: Container(
+                  padding: const EdgeInsets.all(8),
+                  height: 800,
+                  decoration: BoxDecoration(
+                    color: !isDarkMode ? Colors.white : null, // Your desired background color
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(20.0), // Same radius as the shape
+                    ),
+                  ),
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left:4, right: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                  onTap: ((){
+                                    controllerTitleEvent.clear();
+                                    controllerDateEvent.clear();
+                                    controllerDescriptionEvent.clear();
+                                    Navigator.pop(context);
+                                  }),
+                                  child: Text(
+                                    S.of(context).buttonCancel,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)
+                                  )
+                              ),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.purple,
+                                      backgroundColor: isDarkMode ? Colors.black87 : Colors.purple.shade50
+                                  ),
+                                  onPressed: (){
+                                    if(controllerDescriptionEvent.text.trim() == '' ||
+                                        controllerTitleEvent.text.trim() == '' ||
+                                        controllerDateEvent.text.trim() == ''){
+                                      afficheMessage(context, S.of(context).labelErrorFieldEmpty);
+                                    }
+                                  },
+                                  child: const Icon(Icons.send)),
+
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/images/cat_profile_img.jpg',
+                              semanticLabel: 'Image du profil',
+                              fit: BoxFit.cover,),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 12),
+                          child: TextFormField(
+                            controller: controllerTitleEvent,
+                            cursorColor: Colors.purple,
+                            keyboardType: TextInputType.text,
+                            maxLength: 28,
+                            autofocus: true,
+                            decoration: const InputDecoration(
+                              label: Text('Titre'),
+                              hintText: 'Titre de l\'evenement',
+                              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.purple, // Change border color here
+                                  width: 2.0, // Border width
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 12),
+                          height: 145,
+                          child: TextFormField(
+                            controller: controllerDescriptionEvent,
+                            cursorColor: Colors.purple,
+                            maxLines: null,
+                            keyboardType: TextInputType.text,
+                            expands: true,
+                            maxLength: 145,
+                            decoration: const InputDecoration(
+                              label: Text('Description'),
+                              hintText: 'De quoi s\'agit votre evenement?',
+                              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.purple, // Change border color here
+                                  width: 2.0, // Border width
+                                ),
+                              ),
+                            ),
+
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 12,bottom: 12),
+                          child: TextFormField(
+                            controller: controllerDateEvent,
+                            cursorColor: Colors.purple,
+                            readOnly: true,
+                            decoration: const InputDecoration(
+                              label: Text('Date de l\'evenemnt'),
+                              hintText: 'jour-mois-année',
+                              suffixIcon: Icon(Icons.calendar_today, color: Colors.purple),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.purple, // Change border color here
+                                  width: 2.0, // Border width
+                                ),
+                              ),
+                            ),
+                            onTap: ()async{
+                              String date = await _appService.getDatepicker(context, Colors.purple, true);
+                              if(date != ""){
+                                controllerDateEvent.text = date;
+                              }
+                            },
+                          ),
+                        ),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.purple,
+                              backgroundColor: isDarkMode ? Colors.black : Colors.purple.shade50,
+                            ),
+                            onPressed: () async{
+                              Image? result = await getImage();
+                              if(result != null){
+                                setState((){
+                                  uploadedImage = result;
+                                });
+                              }
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.upload_outlined),
+                                const SizedBox(width: 4),
+                                Text(S.of(context).buttonUploadImage)
+                              ],
+                            )),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                margin: const EdgeInsets.symmetric(vertical: 12),
+                                height: 200, width: 200,
+                                child: uploadedImage != null? uploadedImage! : const SizedBox())
+                          ],
+                        ),
+                        uploadedImage != null ?
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.redAccent,
+                                backgroundColor: Colors.red.shade50
+                            ),
+                            onPressed: (){
+                              removeImage(setState);
+                            },
+                            child: Row(
+                              children: [
+                                const Icon(Icons.delete_outlined),
+                                const SizedBox(width: 5,),
+                                Text(S.of(context).buttonDeleteImage),
+                              ],
+                            )) : const SizedBox(),
+                      ],
+                    ),
+                  )),
+            ); },);},);
+  }
+
   void dialogCreateTask(BuildContext context){
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
@@ -1049,7 +1248,7 @@ class WidgetService {
                           child: TextField(
                             controller: controllercommentRepondre,
                             cursorColor: Colors.cyan,
-                            maxLines: null,  // Makes the TextField multiline
+                            maxLines: 8,  // Makes the TextField multiline
                             keyboardType: TextInputType.multiline,
                             autofocus: true,
                             decoration: InputDecoration(
@@ -1271,10 +1470,12 @@ class WidgetService {
                                         TextField(
                                           controller: quantite_aliment_controller,
                                           cursorColor: Colors.redAccent,
-                                          keyboardType: TextInputType.number,
-                                          maxLength: 2,
+                                          keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+                                          maxLength: 2, inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly, // Autorise uniquement les chiffres
+                                          ],
                                           decoration:  InputDecoration(
-                                              hintText: S.of(context).labelQuantityLong,
+                                              hintText: '${S.of(context).labelQuantityLong} ${S.of(context).labelOptionnal}',
                                               focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
@@ -1289,7 +1490,7 @@ class WidgetService {
                                           keyboardType: TextInputType.name,
                                           maxLength: 16,
                                           decoration: InputDecoration(
-                                              hintText: S.of(context).labelDescription,
+                                              hintText: S.of(context).labelDescriptionOptional,
                                               focusedBorder: const UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.cyan, // Change border color here
@@ -2187,4 +2388,15 @@ class WidgetService {
 
   // endregion
 
+  void clearController(){
+    comment_controller.clear();
+    controllercommentRepondre.clear();
+    controllerContenuAnnonce.clear();
+    nom_aliment_controller.clear();
+    descr_aliment_controller.clear();
+    quantite_aliment_controller.clear();
+    controllerTitleEvent.clear();
+    controllerDescriptionEvent.clear();
+    controllerDateEvent.clear();
+  }
 }

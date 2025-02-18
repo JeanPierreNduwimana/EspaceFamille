@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Connexion avec"),
         "buttonCreateAccont":
             MessageLookupByLibrary.simpleMessage("Crée un compte"),
+        "buttonCreateEvent":
+            MessageLookupByLibrary.simpleMessage("Créer un événement"),
         "buttonDeleteImage":
             MessageLookupByLibrary.simpleMessage("Supprimer l\'image"),
         "buttonJoinMyFamily":
@@ -77,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "buttonSend": MessageLookupByLibrary.simpleMessage("Envoyer"),
         "buttonSendCommentOrSuggestions": MessageLookupByLibrary.simpleMessage(
             "Envoyer vos commentaires ou suggestions"),
+        "buttonShowSchedure":
+            MessageLookupByLibrary.simpleMessage("Afficher un horaire"),
         "buttonTaskDone":
             MessageLookupByLibrary.simpleMessage("La tache est fait! 👍"),
         "buttonTaskTransfer": MessageLookupByLibrary.simpleMessage("Tranferer"),
@@ -117,19 +121,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "labeAutomaticMessage":
             MessageLookupByLibrary.simpleMessage("Message Automatique"),
         "labelAchat": MessageLookupByLibrary.simpleMessage("Achat"),
+        "labelAddComment":
+            MessageLookupByLibrary.simpleMessage("Ajouter un commentaire"),
         "labelAnnually": MessageLookupByLibrary.simpleMessage("Annuelle"),
         "labelBravo": MessageLookupByLibrary.simpleMessage("Bravo"),
         "labelChooseRecurrence":
             MessageLookupByLibrary.simpleMessage("Choisissez la recurrence :"),
+        "labelCommentDescription": MessageLookupByLibrary.simpleMessage(
+            "Votre commentaire peut etre pour un opinion, une information supplementaire à l’evenement, un rappel, ou autre"),
         "labelDaily": MessageLookupByLibrary.simpleMessage("Quotidien"),
         "labelDay": MessageLookupByLibrary.simpleMessage("Jour"),
+        "labelDelete": MessageLookupByLibrary.simpleMessage("Supprimer"),
+        "labelDeleteMyComment":
+            MessageLookupByLibrary.simpleMessage("Supprimer mon commentaire"),
         "labelDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "labelDescriptionOptional":
             MessageLookupByLibrary.simpleMessage("Description (facultatif)"),
         "labelDone": MessageLookupByLibrary.simpleMessage("Fait"),
         "labelError": MessageLookupByLibrary.simpleMessage("Erreur"),
         "labelErrorFieldEmpty": MessageLookupByLibrary.simpleMessage(
-            "Le champs ne peut pas être vide 😠"),
+            "Un ou plusieurs champs ne peuvent pas être vide 😓"),
         "labelFoodName":
             MessageLookupByLibrary.simpleMessage("Nom de l\'aliment"),
         "labelHintMessage":
@@ -144,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelOneTime": MessageLookupByLibrary.simpleMessage("Une fois"),
         "labelOptionalComment":
             MessageLookupByLibrary.simpleMessage("commentaire (facultatif)"),
+        "labelOptionnal": MessageLookupByLibrary.simpleMessage("(facultatif)"),
         "labelOr": MessageLookupByLibrary.simpleMessage("Ou"),
         "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "labelPasswordConfirm":
@@ -179,6 +191,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelYes": MessageLookupByLibrary.simpleMessage("Oui"),
         "labelYourAnswer":
             MessageLookupByLibrary.simpleMessage("Votre réponse..."),
+        "labelYourCommentHere": MessageLookupByLibrary.simpleMessage(
+            "Écrivez votre commentaire ici..."),
+        "lebelDeleteMyCommentDescription": MessageLookupByLibrary.simpleMessage(
+            "Voulez supprimer votre commentaire ?"),
         "messageAddTaskDescription": MessageLookupByLibrary.simpleMessage(
             "La description de la tâche ne peut être vide"),
         "messageDeletePost": MessageLookupByLibrary.simpleMessage(

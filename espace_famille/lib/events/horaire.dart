@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../nav_menu.dart';
 import '../services/widget_service.dart';
 
 class Horaire extends StatefulWidget {
@@ -12,6 +11,7 @@ class Horaire extends StatefulWidget {
   State<Horaire> createState() => _HoraireState();
 }
 WidgetService _designService = WidgetService();
+bool zoom = false;
 
 class _HoraireState extends State<Horaire> {
 
@@ -35,20 +35,27 @@ class _HoraireState extends State<Horaire> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Horaire', false,Colors.purple),
+      appBar: zoom ? null : _designService.appBar(context,'Horaire', false,Colors.purple),
       body: buildBody(),
-      bottomNavigationBar: _designService.navigationBar(context, 4, setState),
+      bottomNavigationBar: zoom ? null : _designService.navigationBar(context, 4, setState),
       //drawer: const NavMenu(),
     );
   }
 
   Widget buildBody(){
     return Center(
-      child: InteractiveViewer(
-        clipBehavior: Clip.none,
-        minScale: 1.0, //minimum zoom scale
-        maxScale: 4.0, //maximum zoom scale
-        child: Image.asset('assets/images/horaire.jpg', fit: BoxFit.contain,),
+      child: GestureDetector(
+        onDoubleTap: (){
+          setState(() {
+            zoom = !zoom;
+          });
+        },
+        child: InteractiveViewer(
+          clipBehavior: Clip.none,
+          minScale: 1.0, //minimum zoom scale
+          maxScale: 4.0, //maximum zoom scale
+          child: Image.asset('assets/images/horaire.jpg', fit: BoxFit.contain,),
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:espace_famille/app_management/app_options.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/authentification/inscription.dart';
 import 'package:espace_famille/epicerie/liste_epicerie.dart';
-import 'package:espace_famille/events/event_detail.dart';
+import 'package:espace_famille/events/event_details.dart';
 import 'package:espace_famille/events/events_list.dart';
 import 'package:espace_famille/profile/classement_profile.dart';
 import 'package:espace_famille/profile/page_edit_profile.dart';
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         '/listetaches' : (context) => const ListeTaches(),
         '/listevaluation' : (context) => const ListeEvaluation(),
         '/classement' : (context) => const ClassementProfiles(),
-        '/events' : (context) => const Horaire(),
+        '/horaire' : (context) => const Horaire(),
         '/liste_epicerie' : (context) => const ListeEpicerie(),
         '/connexion' : (context) => const Connection(),
         '/inscription' : (context) => const Inscription(),
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         '/edit_profile' : (context) => const EditProfilePage(),
         '/notifications' : (context) => const NotificationsPage(),
         '/events_list' : (context) => const EventsList(),
-        '/events_detail' : (context) => const EventDetail()
+        '/event_detail' : (context) => const EventDetailsPage()
       },
 
     );

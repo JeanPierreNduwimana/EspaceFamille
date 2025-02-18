@@ -124,12 +124,14 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+  return Scaffold(
       appBar: _designService.appBar(context,S.of(context).evaluationProfilePageTitle('JeanPierre'), false,Colors.cyan),
       body: isloading ? _designService.shimmerListeEvaluation(context) : buildBody(),
-      bottomNavigationBar: _designService.navigationBar(context, 2, setState),
+      bottomNavigationBar: _designService.navigationBar(context, 0, setState),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: isloading ? Colors.grey : Colors.cyan,
+        backgroundColor: isloading ? Colors.grey : isDarkMode ? Colors.cyan.shade700 : Colors.cyan,
         foregroundColor: Colors.white,
         onPressed: (){
           // TODO: Ajouter un dialog qui permet de faire un commentaire instanté à un profil
@@ -143,6 +145,7 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
   }
 
   Widget buildBody() {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.cyan,
@@ -176,10 +179,10 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
             }
             return Container( // Contient les element de chaque listtile
               margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.white,
+              decoration: BoxDecoration(color: !isDarkMode ? Colors.white : Colors.black,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade300, width: 1),
-                  boxShadow: [
+                  border: !isDarkMode ? Border.all(color: Colors.grey.shade300, width: 1) : null,
+                  boxShadow: !isDarkMode ? [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.1),
                       // Couleur de l'ombre avec opacité
@@ -189,7 +192,8 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                       // Rayon du flou de l'ombre
                       offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
                     ),
-                  ]),
+                  ] : null
+              ),
               padding: const EdgeInsets.all(8),
 
               child: Padding(
@@ -215,11 +219,11 @@ class _ListeEvaluationState extends State<ListeEvaluation> {
                         const Text('Nom de la personne', style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),),
                         const SizedBox(height: 2,),
                         _designService.getRatingStars(3, false),
-                        const Column(
+                        Column(
                           children: [
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Text('ce que je pense de ca ce que je pense de ca ce que je pense de ca ce que je pense de ca ce que je pense de ca ce que je pense de ca' ,
-                              textAlign: TextAlign.left, style: TextStyle(color: Colors.black,),),
+                              textAlign: TextAlign.left, style: TextStyle(color: !isDarkMode ? Colors.black : null,),),
                           ],
                         ),
                       ],

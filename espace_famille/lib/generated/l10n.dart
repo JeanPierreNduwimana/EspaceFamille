@@ -740,10 +740,10 @@ class S {
     );
   }
 
-  /// `This field can't be empty 😠`
+  /// `One or several fields can't be empty 😓`
   String get labelErrorFieldEmpty {
     return Intl.message(
-      'This field can\'t be empty 😠',
+      'One or several fields can\'t be empty 😓',
       name: 'labelErrorFieldEmpty',
       desc: '',
       args: [],
@@ -815,6 +815,16 @@ class S {
     return Intl.message(
       'Set the recurrence of your task',
       name: 'labelPeriodicConfigure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(optionnal)`
+  String get labelOptionnal {
+    return Intl.message(
+      '(optionnal)',
+      name: 'labelOptionnal',
       desc: '',
       args: [],
     );
@@ -995,6 +1005,86 @@ class S {
     return Intl.message(
       'Task is done! 👍',
       name: 'buttonTaskDone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create un event`
+  String get buttonCreateEvent {
+    return Intl.message(
+      'Create un event',
+      name: 'buttonCreateEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show Schedule`
+  String get buttonShowSchedure {
+    return Intl.message(
+      'Show Schedule',
+      name: 'buttonShowSchedure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add a comment`
+  String get labelAddComment {
+    return Intl.message(
+      'Add a comment',
+      name: 'labelAddComment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your comment may be for an opinion, additional information about the event, a reminder or other.`
+  String get labelCommentDescription {
+    return Intl.message(
+      'Your comment may be for an opinion, additional information about the event, a reminder or other.',
+      name: 'labelCommentDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write your comment here...`
+  String get labelYourCommentHere {
+    return Intl.message(
+      'Write your comment here...',
+      name: 'labelYourCommentHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete my comment`
+  String get labelDeleteMyComment {
+    return Intl.message(
+      'Delete my comment',
+      name: 'labelDeleteMyComment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to delete your comment ?`
+  String get lebelDeleteMyCommentDescription {
+    return Intl.message(
+      'Do you want to delete your comment ?',
+      name: 'lebelDeleteMyCommentDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get labelDelete {
+    return Intl.message(
+      'Delete',
+      name: 'labelDelete',
       desc: '',
       args: [],
     );
