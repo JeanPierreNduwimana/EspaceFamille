@@ -3,6 +3,7 @@ import 'package:espace_famille/profile/page_profile.dart';
 import 'package:espace_famille/services/widget_service.dart';
 import 'package:flutter/material.dart';
 
+import '../authentification/connexion.dart';
 import '../generated/l10n.dart';
 import 'notification_page.dart';
 
@@ -179,7 +180,10 @@ class _AppOptionsState extends State<AppOptions> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/connexion');
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => Connection()), (Route<dynamic> route) => false,
+                );
               },
               child: const Text('Logout', style: TextStyle(color: Colors.cyan),),
             ),

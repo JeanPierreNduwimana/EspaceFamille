@@ -1,4 +1,9 @@
+import 'package:espace_famille/authentification/connexion.dart';
+import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/services/app_service.dart';
+import 'package:espace_famille/services/error_handling_service.dart';
+import 'package:espace_famille/services/firebase_service.dart';
+import 'package:espace_famille/tools/form_controllers.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
@@ -12,13 +17,11 @@ class Inscription extends StatefulWidget {
 }
 WidgetService _designService = WidgetService();
 AppService _appService = AppService();
+bool isLoading = false;
 
-final TextEditingController username_controller = TextEditingController();
-final TextEditingController password_controller = TextEditingController();
-final TextEditingController passwordConfirm_controller = TextEditingController();
-final TextEditingController _dateController = TextEditingController();
 
 class _InscriptionState extends State<Inscription> {
+  final _signUpFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,70 +41,81 @@ class _InscriptionState extends State<Inscription> {
               children: [
                 Text(S.of(context).labelRegisterPageTitle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
                 const SizedBox(height: 24),
-                TextField(
-                  controller: username_controller,
-                  keyboardType: TextInputType.name,
-                  cursorColor: Colors.cyan,
-                  maxLength: 16,
-                  decoration:  InputDecoration(
-                      hintText:S.of(context).labelUsername,
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.cyan, // Change border color here
-                            width: 2.0, // Border width
-                          )
-                      )
-                  ),
-                ),
-                TextField(
-                  controller: _dateController,
-                  readOnly: true,
-                  cursorColor: Colors.cyan,
-                  decoration: InputDecoration(
-                    hintText: S.of(context).labelRegisterPageBirthDate,
-                    suffixIcon: const Icon(Icons.calendar_today, color: Colors.cyan),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.cyan),
-                    ),
-                  ),
-                  onTap: () async {
-                    String date = await _appService.getDatepicker(context, Colors.cyan, false);
-                    if(date != ""){
-                      _dateController.text = date;
-                    }
-                  },
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: password_controller,
-                  obscureText: true,
-                  cursorColor: Colors.cyan,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                      hintText: S.of(context).labelPassword,
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.cyan, // Change border color here
-                            width: 2.0, // Border width
-                          )
-                      )
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: passwordConfirm_controller,
-                  obscureText: true,
-                  cursorColor: Colors.cyan,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                      hintText: S.of(context).labelPasswordConfirm,
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.cyan, // Change border color here
-                            width: 2.0, // Border width
-                          )
-                      )
-                  ),
+                Form(
+                  key: _signUpFormKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: FormController.username_controller,
+                        keyboardType: TextInputType.name,
+                        cursorColor: Colors.cyan,
+                        maxLength: 16,
+                        decoration:  InputDecoration(
+                            hintText:S.of(context).labelUsername,
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.cyan, // Change border color here
+                                  width: 2.0, // Border width
+                                )
+                            )
+                        ),
+                        validator: (value) => ErrorHandling().errorUsernameController(FormController.username_controller.text)
+                      ),
+                      TextFormField(
+                        controller: FormController.dateController,
+                        readOnly: true,
+                        cursorColor: Colors.cyan,
+                        decoration: InputDecoration(
+                          hintText: S.of(context).labelRegisterPageBirthDate,
+                          suffixIcon: const Icon(Icons.calendar_today, color: Colors.cyan),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.cyan),
+                          ),
+                        ),
+                        validator: (value) => ErrorHandling().errorEmptyField(FormController.dateController.text),
+                        onTap: () async {
+                          String date = await _appService.getDatepicker(context, Colors.cyan, false);
+                          if(date != ""){
+                            FormController.dateController.text = date;
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: FormController.password_controller,
+                        obscureText: true,
+                        cursorColor: Colors.cyan,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                            hintText: S.of(context).labelPassword,
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.cyan, // Change border color here
+                                  width: 2.0, // Border width
+                                )
+                            )
+                        ),
+                        validator: (value) => ErrorHandling().errorpasswordController(FormController.password_controller.text, FormController.passwordConfirm_controller.text),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: FormController.passwordConfirm_controller,
+                        obscureText: true,
+                        cursorColor: Colors.cyan,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                            hintText: S.of(context).labelPasswordConfirm,
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.cyan, // Change border color here
+                                  width: 2.0, // Border width
+                                )
+                            )
+                        ),
+                        validator: (value) => ErrorHandling().errorpasswordController(FormController.password_controller.text, FormController.passwordConfirm_controller.text),
+                      ),
+                    ],
+                  )
                 ),
                 const SizedBox(height: 24),
                 Column(
@@ -109,14 +123,16 @@ class _InscriptionState extends State<Inscription> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () async {
-                        Navigator.pushNamed(context, '/acceuil');
+                      onPressed: () {
+                        if(!isLoading){
+                          buttonSignInResquest();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.cyan,
                           foregroundColor: Colors.white
                       ),
-                      child: Text(S.of(context).buttonCreateAccont),
+                      child: isLoading ? const SizedBox( height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white,)) : Text(S.of(context).buttonCreateAccont),
                     ),
                     const SizedBox(height: 12,),
                     ElevatedButton(
@@ -149,7 +165,11 @@ class _InscriptionState extends State<Inscription> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        Navigator.pushNamed(context, '/connexion');
+                        FormController().clearAllControllers();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Connection()), (Route<dynamic> route) => false,
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: isDarkMode ? Colors.black87 : Colors.white,
@@ -173,6 +193,30 @@ class _InscriptionState extends State<Inscription> {
       ),
     );
 
+  }
+
+  void buttonSignInResquest()async{
+    setState(() {
+      isLoading = true;
+    });
+      if(_signUpFormKey.currentState!.validate()){
+        SignUpRequest signUpRequest = SignUpRequest(
+            FormController.username_controller.text,
+            FormController.dateController.text,
+            FormController.password_controller.text,
+            FormController.passwordConfirm_controller.text);
+        try{
+          await FirebaseService().signUp(signUpRequest, context);
+        }finally{
+          setState(() {
+            isLoading = false;
+          });
+        }
+      }else{
+        setState(() {
+          isLoading = false;
+        });
+      }
   }
 
 

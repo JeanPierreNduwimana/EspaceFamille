@@ -30,6 +30,7 @@ android {
     compileSdkVersion 34
     defaultConfig {
         targetSdkVersion 34
+        multiDexEnabled true
     }
     ndkVersion flutter.ndkVersion
 
@@ -70,4 +71,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'androidx.multidex:multidex:2.0.1'
+}

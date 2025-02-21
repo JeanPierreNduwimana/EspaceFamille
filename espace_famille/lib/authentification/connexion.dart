@@ -1,7 +1,11 @@
+import 'package:espace_famille/models/transfer_models.dart';
+import 'package:espace_famille/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
+import '../services/error_handling_service.dart';
 import '../services/widget_service.dart';
+import '../tools/form_controllers.dart';
 
 class Connection extends StatefulWidget {
   const Connection({super.key});
@@ -10,11 +14,9 @@ class Connection extends StatefulWidget {
   State<Connection> createState() => _ConnectionState();
 }
 WidgetService _designService = WidgetService();
-final TextEditingController username_controller = TextEditingController();
-final TextEditingController password_controller = TextEditingController();
-
+bool isLoading = false;
 class _ConnectionState extends State<Connection> {
-
+  final _connexionFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
 
@@ -34,34 +36,43 @@ class _ConnectionState extends State<Connection> {
               children: [
                 Text(S.of(context).connexionPageTitle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
                 const SizedBox(height: 24),
-                TextField(
-                  controller: username_controller,
-                  cursorColor: Colors.cyan,
-                  keyboardType: TextInputType.name,
-                  maxLength: 16,
-                  decoration:  InputDecoration(
-                      hintText:S.of(context).labelUsername,
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.cyan, // Change border color here
-                          width: 2.0, // Border width
-                        )
-                      )
-                  ),
-                ),
-                TextField(
-                  controller: password_controller,
-                  cursorColor: Colors.cyan,
-                  obscureText: true,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                      hintText: S.of(context).labelPassword ,
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.cyan, // Change border color here
-                            width: 2.0, // Border width
-                          )
-                      )
+                Form(
+                  key: _connexionFormKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: FormController.username_controller,
+                        cursorColor: Colors.cyan,
+                        keyboardType: TextInputType.name,
+                        maxLength: 16,
+                        decoration:  InputDecoration(
+                            hintText:S.of(context).labelUsername,
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.cyan, // Change border color here
+                                width: 2.0, // Border width
+                              )
+                            )
+                        ),
+                          validator: (value) => ErrorHandling().errorUsernameController(FormController.username_controller.text)
+                      ),
+                      TextFormField(
+                        controller: FormController.password_controller,
+                        cursorColor: Colors.cyan,
+                        obscureText: true,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                            hintText: S.of(context).labelPassword ,
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.cyan, // Change border color here
+                                  width: 2.0, // Border width
+                                )
+                            )
+                        ),
+                        validator: (value) => ErrorHandling().errorEmptyField(FormController.password_controller.text),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -70,14 +81,16 @@ class _ConnectionState extends State<Connection> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () async {
-                        Navigator.popAndPushNamed(context, '/acceuil');
+                      onPressed: () {
+                        if(!isLoading){
+                          buttonConnectionRequest();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.cyan,
                         foregroundColor: Colors.white
                       ),
-                      child: Text(S.of(context).buttonConnexion),
+                      child: isLoading ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white)) : Text(S.of(context).buttonConnexion),
                     ),
                     const SizedBox(height: 12,),
                     ElevatedButton(
@@ -112,6 +125,7 @@ class _ConnectionState extends State<Connection> {
                     //const SizedBox(height: 24,),
                     ElevatedButton(
                       onPressed: () async {
+                        FormController().clearAllControllers();
                         Navigator.pushNamed(context, '/inscription');
                       },
                       style: ElevatedButton.styleFrom(
@@ -135,5 +149,31 @@ class _ConnectionState extends State<Connection> {
           )
       ),
     );
+  }
+
+  void buttonConnectionRequest()async{
+    setState(() {
+      isLoading = true;
+    });
+    if(_connexionFormKey.currentState!.validate()){
+
+      LogInRequest logInRequest = LogInRequest(
+          FormController.username_controller.text,
+          FormController.password_controller.text
+      );
+      try{
+        await FirebaseService().logIn(logInRequest, context);
+      }finally{
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }else{
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+
   }
 }
