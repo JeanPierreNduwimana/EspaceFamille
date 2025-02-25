@@ -17,9 +17,9 @@ WidgetService _designService = WidgetService();
 bool isLoading = false;
 class _ConnectionState extends State<Connection> {
   final _connexionFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: _designService.appBar(context,S.of(context).buttonConnexion, true,Colors.cyan),
       body: buildBody(),

@@ -22,6 +22,15 @@ dependencies:
   json_annotation: ^4.9.0
   json_serializable: ^6.8.0
   intl: ^0.18.1
+  shared_preferences: ^2.2.3
+  flutter_native_splash: ^2.3.10
+
+flutter_native_splash:
+  color: "#04898A"  # Couleur de fond
+  image: assets/images/splash.png  # Image du splash screen
+  android: true
+  ios: true
+  fullscreen: true
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +54,7 @@ flutter:
     - assets/images/trophy_icon.png
     - assets/images/task_icon.png
     - assets/images/family_jump.jpg
+    - assets/images/splash.png
     - assets/images/default_profile_pictures/1.jpg
     - assets/images/default_profile_pictures/2.jpg
     - assets/images/default_profile_pictures/3.jpg

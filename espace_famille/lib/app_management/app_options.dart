@@ -2,6 +2,7 @@ import 'package:espace_famille/app_management/about_us_page.dart';
 import 'package:espace_famille/profile/page_profile.dart';
 import 'package:espace_famille/services/widget_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../authentification/connexion.dart';
 import '../generated/l10n.dart';
@@ -179,7 +180,10 @@ class _AppOptionsState extends State<AppOptions> {
               child: const Text('Cancel', style: TextStyle(color: Colors.cyan),),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                prefs.remove('username');
+                prefs.remove('password');
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => Connection()), (Route<dynamic> route) => false,

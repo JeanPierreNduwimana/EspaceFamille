@@ -1,4 +1,5 @@
 import 'package:espace_famille/app_management/app_options.dart';
+import 'package:espace_famille/app_management/splash.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/authentification/inscription.dart';
 import 'package:espace_famille/epicerie/liste_epicerie.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(), // Mode clair
       darkTheme: ThemeData.dark(), // Mode sombre
       themeMode: ThemeMode.system, // Hérite le mode du système
-      home: const Connection(),
+      home: const SplashScreen(),
       routes: {
         '/accfam': (context) => const AccueilEspaceFammille(),
         '/pageprofile': (context) => const PageProfile(),
