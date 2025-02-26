@@ -24,6 +24,7 @@ dependencies:
   intl: ^0.18.1
   shared_preferences: ^2.2.3
   flutter_native_splash: ^2.3.10
+  firebase_storage: ^11.6.9
 
 flutter_native_splash:
   color: "#04898A"  # Couleur de fond

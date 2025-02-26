@@ -1,5 +1,5 @@
 import 'package:espace_famille/models/transfer_models.dart';
-import 'package:espace_famille/services/firebase_service.dart';
+import 'package:espace_famille/services/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
@@ -162,7 +162,7 @@ class _ConnectionState extends State<Connection> {
           FormController.password_controller.text
       );
       try{
-        await FirebaseService().logIn(logInRequest, context);
+        await FirebaseAuthService().logIn(logInRequest, context);
       }finally{
         setState(() {
           isLoading = false;

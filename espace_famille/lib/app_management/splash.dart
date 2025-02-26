@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../services/firebase_service.dart';
+import '../services/firebase_auth_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseService().directAuth(context);
+    FirebaseAuthService().directAuth(context);
   }
   @override
   Widget build(BuildContext context) {

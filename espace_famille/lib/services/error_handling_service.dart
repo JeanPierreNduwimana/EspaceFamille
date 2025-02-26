@@ -1,30 +1,8 @@
-
-
-
-import 'package:espace_famille/models/transfer_models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ErrorHandling{
   ErrorHandling();
-
-  /*bool signUpvalidation(SignUpRequest signUpRequest){
-
-    //Si un des champs est vide
-    if(signUpRequest.username == '' ||
-        signUpRequest.birthday == '' ||
-        signUpRequest.password == '' ||
-        signUpRequest.confirmPassword == ''){
-
-      return true;
-    }
-
-    //Si les mot de passe ne sont identiques
-    if(signUpRequest.password != signUpRequest.confirmPassword){
-      return true;
-    }
-    return false;
-  } */
 
   String? errorUsernameController(String username){
     if(username.trim() == ''){

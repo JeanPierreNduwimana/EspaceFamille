@@ -2,7 +2,7 @@ import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/services/app_service.dart';
 import 'package:espace_famille/services/error_handling_service.dart';
-import 'package:espace_famille/services/firebase_service.dart';
+import 'package:espace_famille/services/firebase_auth_service.dart';
 import 'package:espace_famille/tools/form_controllers.dart';
 import 'package:flutter/material.dart';
 
@@ -206,7 +206,7 @@ class _InscriptionState extends State<Inscription> {
             FormController.password_controller.text,
             FormController.passwordConfirm_controller.text);
         try{
-          await FirebaseService().signUp(signUpRequest, context);
+          await FirebaseAuthService().signUp(signUpRequest, context);
         }finally{
           setState(() {
             isLoading = false;

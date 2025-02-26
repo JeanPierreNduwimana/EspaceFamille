@@ -1,26 +1,25 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/services/error_handling_service.dart';
 import 'package:espace_famille/tools/form_controllers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app_management/accueil.dart';
 
-FirebaseFirestore _db = FirebaseFirestore.instance;
-class FirebaseService{
 
-  FirebaseService();
+class FirebaseAuthService{
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuthService();
 
   bool isUserSignedIn(){
+
     bool signed = false;
-    FirebaseAuth.instance.authStateChanges().listen((User? user){
+    auth.authStateChanges().listen((User? user){
           if (user == null){
             print('User is currently signed out!');
             signed = false;
@@ -53,10 +52,7 @@ class FirebaseService{
       });
       LogInRequest logInRequest = LogInRequest(signUpRequest.username, signUpRequest.password);
       await logIn(logInRequest, context);
-      /* Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Accueil()), (Route<dynamic> route) => false,
-      ); */
+
     } on FirebaseAuthException catch (e){
       if(e.code == "email-already-in-use"){
         ErrorHandling().showMessage("The username is already taken", context,3);

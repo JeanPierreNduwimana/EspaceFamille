@@ -32,3 +32,37 @@ Map<String, dynamic> _$LogInRequestToJson(LogInRequest instance) =>
       'username': instance.username,
       'password': instance.password,
     };
+
+Member _$MemberFromJson(Map<String, dynamic> json) => Member(
+      DateTime.parse(json['anniversary'] as String),
+      (json['avgStars'] as num).toDouble(),
+      json['famId'] as String,
+      json['profileDescr'] as String,
+      json['profileImgUrl'] as String,
+      json['username'] as String,
+    );
+
+Map<String, dynamic> _$MemberToJson(Member instance) => <String, dynamic>{
+      'anniversary': instance.anniversary.toIso8601String(),
+      'avgStars': instance.avgStars,
+      'famId': instance.famId,
+      'profileDescr': instance.profileDescr,
+      'profileImgUrl': instance.profileImgUrl,
+      'username': instance.username,
+    };
+
+Food _$FoodFromJson(Map<String, dynamic> json) => Food(
+      json['addedBy'] as String,
+      DateTime.parse(json['dateAdded'] as String),
+      json['imgUrl'] as String,
+      json['name'] as String,
+      (json['quantity'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$FoodToJson(Food instance) => <String, dynamic>{
+      'addedBy': instance.addedBy,
+      'dateAdded': instance.dateAdded.toIso8601String(),
+      'imgUrl': instance.imgUrl,
+      'name': instance.name,
+      'quantity': instance.quantity,
+    };
