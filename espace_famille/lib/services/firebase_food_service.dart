@@ -70,6 +70,10 @@ class FirebaseFoodService{
 
   }
 
+  Future<void> setPurchasedFood(Food food, Member member,BuildContext context)async {
+
+  }
+
   Future<void> deleteFoodFromGrocery(Food food,Member member,BuildContext context)async{
 
   }

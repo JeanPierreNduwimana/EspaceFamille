@@ -16,21 +16,6 @@ class FirebaseAuthService{
   final FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseAuthService();
 
-  bool isUserSignedIn(){
-
-    bool signed = false;
-    auth.authStateChanges().listen((User? user){
-          if (user == null){
-            print('User is currently signed out!');
-            signed = false;
-          } else {
-            print('User is signed in!');
-            signed = true;
-          }
-        });
-
-    return signed;
-  }
 
   Future<void> signUp(SignUpRequest signUpRequest, BuildContext context)async {
     String email = '${signUpRequest.username.trim()}@espacefamille.com';
@@ -96,25 +81,32 @@ class FirebaseAuthService{
     }
   }
 
+  Future<void> signOut() async {
+    await auth.signOut();
+  }
+
+  Future<bool> isUserSignedIn() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    return user != null;
+  }
+
   void directAuth(BuildContext context) async {
 
-    final prefs = await SharedPreferences.getInstance();
+    bool isSignedIn = await FirebaseAuthService().isUserSignedIn();
 
-    String? username = prefs.getString('username');
-    String? password = prefs.getString('password');
+    // Vérification si le widget est toujours monté avant de naviguer
+    if (!context.mounted) return;
 
-    if (username != null && password != null) {
-      LogInRequest logInRequest = LogInRequest(username, password);
-      await logIn(logInRequest, context);
-    }else{
-      Future.delayed(Duration(seconds: 2), () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Connection()), (Route<dynamic> route) => false,
-        );
-      });
+    // Déterminer la destination en fonction de l'état de connexion
+    Widget destination = isSignedIn ? const Accueil() : const Connection();
 
-    }
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => destination),
+            (Route<dynamic> route) => false,
+      );
+    });
 
   }
 

@@ -1,5 +1,6 @@
 import 'package:espace_famille/app_management/about_us_page.dart';
 import 'package:espace_famille/profile/page_profile.dart';
+import 'package:espace_famille/services/firebase_auth_service.dart';
 import 'package:espace_famille/services/widget_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -181,9 +182,10 @@ class _AppOptionsState extends State<AppOptions> {
             ),
             TextButton(
               onPressed: () async {
-                final prefs = await SharedPreferences.getInstance();
-                prefs.remove('username');
-                prefs.remove('password');
+               // final prefs = await SharedPreferences.getInstance();
+               // prefs.remove('username');
+               // prefs.remove('password');
+                await FirebaseAuthService().signOut();
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => Connection()), (Route<dynamic> route) => false,
