@@ -1,13 +1,13 @@
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/models/transfer_models.dart';
-import 'package:espace_famille/services/app_service.dart';
-import 'package:espace_famille/services/error_handling_service.dart';
-import 'package:espace_famille/services/firebase_auth_service.dart';
+import 'package:espace_famille/app_services/app_service.dart';
+import 'package:espace_famille/app_services/error_handling_service.dart';
+import 'package:espace_famille/authentification/firebase_auth_service.dart';
 import 'package:espace_famille/tools/form_controllers.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
 
 class Inscription extends StatefulWidget {
   const Inscription({super.key});

@@ -1,7 +1,8 @@
+import 'package:espace_famille/app_services/app_service.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
 
 class EditProfilePage extends StatefulWidget {
 
@@ -48,10 +49,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     onTap: () async{
                       //_showChangePhotoDialog();
 
-                      Image? result = await _designService.getImage();
+                      var result = await AppService().getImage();
                       if(result != null){
                         setState((){
-                          uploadedImage = result;
+                          uploadedImage = Image.file(result, fit: BoxFit.cover);
                         });
                       }
                     },

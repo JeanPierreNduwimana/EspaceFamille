@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
 import 'model_profile.dart';
 
 class ClassementProfiles extends StatefulWidget {

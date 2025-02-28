@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'transfer_models.g.dart';
 
@@ -27,11 +28,12 @@ class LogInRequest {
 
 @JsonSerializable()
 class Member {
-  Member(this.anniversary, this.avgStars, this.famId, this.profileDescr,this.profileImgUrl, this.username);
+  Member(this.anniversary, this.avgStars, this.famId,this.id, this.profileDescr,this.profileImgUrl, this.username);
 
   DateTime anniversary;
   double avgStars;
   String famId;
+  String id;
   String profileDescr;
   String profileImgUrl;
   String username;
@@ -41,13 +43,44 @@ class Member {
 
 @JsonSerializable()
 class Food {
-  Food(this.addedBy, this.dateAdded, this.imgUrl, this.name,this.quantity);
+  Food(this.addedBy, this.dateAdded,this.description, this.imgUrl, this.id, this.isPurchased,
+      this.name, this.quantity);
 
   String addedBy;
+  @TimestampConverter() // Use a custom converter
   DateTime dateAdded;
+  String description;
+  String id;
+  String imgUrl;
+  bool isPurchased;
+  String name;
+  int quantity;
+
+  // Use JsonSerializable for automatic JSON serialization
+  factory Food.fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FoodToJson(this);
+}
+
+// Custom converter to handle Timestamp -> DateTime conversion
+class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
+  const TimestampConverter();
+
+  @override
+  DateTime fromJson(Timestamp timestamp) => timestamp.toDate();
+
+  @override
+  Timestamp toJson(DateTime date) => Timestamp.fromDate(date);
+}
+
+@JsonSerializable()
+class SavedFood {
+  SavedFood(this.imgUrl,this.id,this.name,this.quantity);
+
+  String id;
   String imgUrl;
   String name;
   int quantity;
 
-  factory Food.fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);
-  Map<String, dynamic> toJson() => _$FoodToJson(this); }
+  factory SavedFood.fromJson(Map<String, dynamic> json) => _$SavedFoodFromJson(json);
+  Map<String, dynamic> toJson() => _$SavedFoodToJson(this); }

@@ -1,10 +1,10 @@
 import 'package:espace_famille/models/transfer_models.dart';
-import 'package:espace_famille/services/firebase_auth_service.dart';
+import 'package:espace_famille/authentification/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
-import '../services/error_handling_service.dart';
-import '../services/widget_service.dart';
+import '../app_services/error_handling_service.dart';
+import '../app_services/widget_service.dart';
 import '../tools/form_controllers.dart';
 
 class Connection extends StatefulWidget {

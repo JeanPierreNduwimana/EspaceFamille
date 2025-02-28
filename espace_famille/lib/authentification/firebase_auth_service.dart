@@ -1,44 +1,51 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/models/transfer_models.dart';
-import 'package:espace_famille/services/error_handling_service.dart';
+import 'package:espace_famille/app_services/error_handling_service.dart';
 import 'package:espace_famille/tools/form_controllers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../app_management/accueil.dart';
 
 
 class FirebaseAuthService{
 
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
   FirebaseAuthService();
 
-
+  /// Authentification par inscription
   Future<void> signUp(SignUpRequest signUpRequest, BuildContext context)async {
+
+    //1: Concatenation qui crée un email d'authentification pour l'utilisateur
     String email = '${signUpRequest.username.trim()}@espacefamille.com';
 
     try{
+      //2: Requête d'authentification
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: signUpRequest.password
       );
-      //ajout dans la bd firestore
-      await FirebaseFirestore.instance.collection('Members').doc(
-          userCredential.user!.uid).set({
-        'anniversary': DateFormat('d/M/yyyy').parse(signUpRequest.birthday),
-        'avgStars': 5,
-        'famId': '',
-        'profileDescr': '',
-        'profileImgUrl': 'https://firebasestorage.googleapis.com/v0/b/espace-famille.firebasestorage.app/o/cat_profile_img.jpg?alt=media&token=45f1b705-a401-43ee-9220-2410eeaf8378',
-        'username': signUpRequest.username,
-      });
+
+      //3: Instantiation d'un membre relié à l'utilisateur
+      String memberId = userCredential.user!.uid;
+      Member member = Member(
+          DateFormat('d/M/yyyy').parse(signUpRequest.birthday),5, '', memberId, '', '', signUpRequest.username
+      );
+
+      //4: Ajout du membre dans la base de donnée
+      await _db.collection('Members').doc(memberId).set(member.toJson());
+
+      //5: Instance LoginRequest pour connecter directement l'utilisateur
       LogInRequest logInRequest = LogInRequest(signUpRequest.username, signUpRequest.password);
+
+      //6: Connection de l'utilisateur
       await logIn(logInRequest, context);
 
     } on FirebaseAuthException catch (e){
+
+      //Gestion d'erreurs
       if(e.code == "email-already-in-use"){
         ErrorHandling().showMessage("The username is already taken", context,3);
       }else if(e.code == "weak-password"){
@@ -50,27 +57,32 @@ class FirebaseAuthService{
 
   }
 
+  /// Authentification par connection
   Future<void> logIn(LogInRequest logInRequest, BuildContext context)async{
+
+    //1: Concatenation qui crée un email d'authentification pour l'utilisateur
     String logInEmail = '${logInRequest.username.trim()}@espacefamille.com';
 
     try{
+
+      //2: Requête d'authentification
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: logInEmail,
         password: logInRequest.password,
       );
 
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('username', logInRequest.username);
-      prefs.setString('password', logInRequest.password);
-
+      //3: Les informations des champs sont effacés
       FormController().clearAllControllers();
 
+      //4: Navigation vers la page d'accueil
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => Accueil()), (Route<dynamic> route) => false,
       );
 
     } on FirebaseAuthException catch (e){
+
+      //Gestion d'erreurs
       if(e.code == "invalid-credential"){
         ErrorHandling().showMessage("User not found. Please sign up", context,3);
       }else if(e.code == "network-request-failed"){
@@ -81,25 +93,27 @@ class FirebaseAuthService{
     }
   }
 
+  /// Déconnection
   Future<void> signOut() async {
     await auth.signOut();
   }
 
+  /// Verification si l'utilisateur est toujours connecté
   Future<bool> isUserSignedIn() async {
     User? user = FirebaseAuth.instance.currentUser;
     return user != null;
   }
 
+  /// Authentification automatique de l'utilisateur
   void directAuth(BuildContext context) async {
 
+    //1: Verification si l'utilisateur est toujours authentifié
     bool isSignedIn = await FirebaseAuthService().isUserSignedIn();
 
-    // Vérification si le widget est toujours monté avant de naviguer
-    if (!context.mounted) return;
-
-    // Déterminer la destination en fonction de l'état de connexion
+    //2: Déterminer la destination en fonction de l'état de connexion
     Widget destination = isSignedIn ? const Accueil() : const Connection();
 
+    //3: Redirection vers la page de destination
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushAndRemoveUntil(
         context,

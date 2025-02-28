@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../app_services/widget_service.dart';
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
 
 class AboutUsPage extends StatefulWidget {
   const AboutUsPage({super.key});

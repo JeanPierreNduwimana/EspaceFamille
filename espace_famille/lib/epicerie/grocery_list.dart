@@ -1,46 +1,45 @@
+import 'package:espace_famille/epicerie/firebase_food_service.dart';
+import 'package:espace_famille/epicerie/grocery_list_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
+import '../models/transfer_models.dart';
 import 'model_aliment.dart';
 
-class ListeEpicerie extends StatefulWidget {
-  const ListeEpicerie({super.key});
+class GroceryList extends StatefulWidget {
+  const GroceryList({super.key});
 
   @override
-  State<ListeEpicerie> createState() => _ListeEpicerieState();
+  State<GroceryList> createState() => _GroceryListState();
 }
 WidgetService _designService = WidgetService();
 
-List<Aliment> aliments = [
-  Aliment('banane', 7, false),
-  Aliment('patate', 0, true),
-  Aliment('orange', 5, true),
-  Aliment('Pain', 2, false),
-  Aliment('Ketchup', 1, false),
-  Aliment('Mayonnaise', 2, true),
-  Aliment('L\'eau', 3, false),
-  Aliment('Pomme de terre', 1, false)
-];
 bool isloading = true;
-class _ListeEpicerieState extends State<ListeEpicerie> {
+Member member = Member(DateTime.now(),5,'A1AU6adC6H9d3777lIO1','','','','');
+List<Food> groceryList = [];
+class _GroceryListState extends State<GroceryList> {
 
-  void loadPage()async{
-    await fetchData();
-  }
+  Food food = Food('blabla', DateTime.now(), 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFUAfyVe3Easiycyh3isP9wDQTYuSmGPsPQvLIJdEYvQ_DsFq5Ez2Nh_QjiS3oZ3B8ZPfK9cZQyIStmQMV1lDPLw',
+      'biuwebiwv','',false, 'Mais souffé', 8);
 
-  Future<void> fetchData() async {
+  void loadGroceries()async{
     setState(() {
       isloading = true;
     });
-
-    await Future.delayed(const Duration(seconds: 1)); // Simule un délai de chargement
-
-    setState(() {
-      isloading = false;
-    });
+    try{
+      var result = await FirebaseFoodService().getGroceryList(member, context);
+      groceryList = [];
+      groceryList.add(food);
+      groceryList.insertAll(1, result);
+    }finally{
+      setState(() {
+        isloading = false;
+      });
+    }
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -48,7 +47,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp // Optional
     ]);
-    loadPage();
+    loadGroceries();
   }
 
   @override
@@ -75,7 +74,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                 GestureDetector(
                   onTap: (){
                     if(!isloading){
-                      _designService.dialogAjoutAliment(context);
+                      GroceryListWidgets().dialogAjoutAliment(context);
                     }
                   },
                   child: Container(
@@ -151,14 +150,14 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     Future<void> _onRefresh() async {
-      await fetchData();
+      loadGroceries();
     }
 
     return RefreshIndicator(
       onRefresh: _onRefresh,
       color: Colors.redAccent,
       child: ListView.builder(
-        itemCount: aliments.length,
+        itemCount: groceryList.length,
         itemBuilder: (context, index) {
           return index == 0 ?
            Container(
@@ -177,7 +176,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
           )
           :
           Dismissible(
-            key: Key(aliments[index].nom),
+            key: Key(groceryList[index].name),
             background: Container(
               margin: const EdgeInsets.symmetric(vertical: 18),
               color: Colors.greenAccent,
@@ -194,17 +193,21 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
             ),
             confirmDismiss: (direction) async {
               if (direction == DismissDirection.startToEnd) {
-                // Action quand l'utilisateur glisse vers la droite
-                setState(() {
-                  aliments[index].validerAchat = !aliments[index].validerAchat;
-                });
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: const Duration(seconds: 3),
-                    content: Text(
-                          aliments[index].validerAchat ? 'Cet aliment a été acheté : ${aliments[index].nom}'
-                              : 'L\'achat de cet aliment est annulé : ${aliments[index].nom}' ))
-                );
+                // Item glissé vers la droite : Validation d'achat
+                Food? food = await FirebaseFoodService().setPurchasedFood( groceryList[index], member, context);
+                if(food != null){
+                  setState(() {
+                    groceryList[index].isPurchased = food.isPurchased;
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          duration: const Duration(seconds: 3),
+                          content: Text(
+                              groceryList[index].isPurchased ? 'Cet aliment a été acheté : ${groceryList[index].name}'
+                                  : 'L\'achat de cet aliment est annulé : ${groceryList[index].name}' ))
+                  );
+                }
+
                 return false;
 
               } else if (direction == DismissDirection.endToStart) {
@@ -216,19 +219,18 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
               }
               return null;
             },
-            onDismissed: (direction) {
-              setState(() {
-                aliments.remove(aliments[index]);
-              });
+            onDismissed: (direction) async {
+             await FirebaseFoodService().deleteFoodFromGrocery(groceryList[index], member, context);
+             loadGroceries();
             },
             child: GestureDetector(
               onTap: (){
-                _designService.dialogDetailAliment(context);
+                GroceryListWidgets().dialogDetailAliment(context);
               },
               child: Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                color: aliments[index].validerAchat ? (isDarkMode ? Colors.black : Colors.grey.withOpacity(0.1)) : (isDarkMode ? Colors.grey.withOpacity(0.1) :  Colors.white),
-                elevation: aliments[index].validerAchat ? 0 :  1,
+                color:groceryList[index].isPurchased ? (isDarkMode ? Colors.black : Colors.grey.withOpacity(0.1)) : (isDarkMode ? Colors.grey.withOpacity(0.1) :  Colors.white),
+                elevation: groceryList[index].isPurchased ? 0 :  1,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(
@@ -236,7 +238,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                       Container(
                         margin: const EdgeInsets.only(right: 20),
                         height: 80, width: 80,
-                        child: Image.asset('assets/images/naruto.jpg', fit: BoxFit.cover,),
+                        child: Image.network(groceryList[index].imgUrl, fit: BoxFit.cover,),
                       ),
                        Expanded(
                          flex: 2,
@@ -244,7 +246,7 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                Text(
-                               aliments[index].nom,
+                                 groceryList[index].name,
                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                                                           ),
                                const SizedBox(height: 8),
@@ -254,8 +256,8 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                                      height: 20,
                                      width: 20,
                                      child: ClipOval(
-                                       child: Image.asset(
-                                         'assets/images/cat_profile_img.jpg',
+                                       child: Image.network(
+                                         groceryList[index].imgUrl,
                                          semanticLabel: 'Image du profil',
                                          fit: BoxFit.cover,),
                                      ),
@@ -272,14 +274,14 @@ class _ListeEpicerieState extends State<ListeEpicerie> {
                           padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
                             //border: ,
-                            color: aliments[index].validerAchat ? Colors.grey.withOpacity(0.3) : Colors.red.withOpacity(0.6),
+                            color: groceryList[index].isPurchased ? Colors.grey.withOpacity(0.3) : Colors.red.withOpacity(0.6),
                             shape: BoxShape.circle,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                aliments[index].quantite == 0 ? '-' : aliments[index].quantite.toString(),
+                                groceryList[index].quantity == 0 ? '-' : groceryList[index].quantity.toString(),
                                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
                               ),
                               Text(

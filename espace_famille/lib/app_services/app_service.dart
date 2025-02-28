@@ -1,11 +1,15 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AppService{
   AppService();
   DateTime? _selectedDate;
+  Image? uploadedImage;
+
   //verification booléen de longueur maximale des description des tache
   String maximumString(String descrTache, int max){
     if(descrTache.length > max){
@@ -69,5 +73,22 @@ class AppService{
     }else{
       return "";
     }
+  }
+
+  //region Ici se trouve les méthodes utilisé par les widgets dans cette classe
+  Future<File?> getImage() async{
+    ImagePicker picker = ImagePicker();
+    XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    String? imagePath = pickedImage!.path;
+
+    if(imagePath != ""){
+      return File(imagePath);
+    }
+
+    return null;
+  }
+  void removeImage(StateSetter setState){
+    uploadedImage = null;
+    setState((){});
   }
 }

@@ -2,7 +2,7 @@ import 'package:espace_famille/app_management/app_options.dart';
 import 'package:espace_famille/app_management/splash.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/authentification/inscription.dart';
-import 'package:espace_famille/epicerie/liste_epicerie.dart';
+import 'package:espace_famille/epicerie/grocery_list.dart';
 import 'package:espace_famille/events/event_details.dart';
 import 'package:espace_famille/events/events_list.dart';
 import 'package:espace_famille/profile/classement_profile.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         '/listevaluation' : (context) => const ListeEvaluation(),
         '/classement' : (context) => const ClassementProfiles(),
         '/horaire' : (context) => const Horaire(),
-        '/liste_epicerie' : (context) => const ListeEpicerie(),
+        '/liste_epicerie' : (context) => const GroceryList(),
         '/connexion' : (context) => const Connection(),
         '/inscription' : (context) => const Inscription(),
         '/acceuil' : (context) => const Accueil(),

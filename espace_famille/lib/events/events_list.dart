@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
 
 class EventsList extends StatefulWidget {
   const EventsList({super.key});

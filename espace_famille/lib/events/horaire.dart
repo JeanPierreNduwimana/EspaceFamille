@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
 
 class Horaire extends StatefulWidget {
   const Horaire({super.key});

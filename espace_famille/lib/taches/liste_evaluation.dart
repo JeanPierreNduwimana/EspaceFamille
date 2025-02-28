@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
 
 WidgetService _designService = WidgetService();
 bool test = false;
