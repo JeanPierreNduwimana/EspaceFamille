@@ -1,12 +1,12 @@
 import 'package:espace_famille/epicerie/firebase_food_service.dart';
 import 'package:espace_famille/epicerie/grocery_list_widgets.dart';
+import 'package:espace_famille/epicerie/widget_grocery_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../generated/l10n.dart';
 import '../app_services/widget_service.dart';
 import '../models/transfer_models.dart';
-import 'model_aliment.dart';
 
 class GroceryList extends StatefulWidget {
   const GroceryList({super.key});
@@ -21,7 +21,7 @@ Member member = Member(DateTime.now(),5,'A1AU6adC6H9d3777lIO1','','','','');
 List<Food> groceryList = [];
 class _GroceryListState extends State<GroceryList> {
 
-  Food food = Food('blabla', DateTime.now(), 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFUAfyVe3Easiycyh3isP9wDQTYuSmGPsPQvLIJdEYvQ_DsFq5Ez2Nh_QjiS3oZ3B8ZPfK9cZQyIStmQMV1lDPLw',
+  Food foodforindex0 = Food('blabla', DateTime.now(), 'genericimage',
       'biuwebiwv','',false, 'Mais souffé', 8);
 
   void loadGroceries()async{
@@ -31,7 +31,7 @@ class _GroceryListState extends State<GroceryList> {
     try{
       var result = await FirebaseFoodService().getGroceryList(member, context);
       groceryList = [];
-      groceryList.add(food);
+      groceryList.add(foodforindex0);
       groceryList.insertAll(1, result);
     }finally{
       setState(() {
@@ -53,94 +53,7 @@ class _GroceryListState extends State<GroceryList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: null,
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                S.of(context).appBarGroceriePageTitle,
-                style: const TextStyle(
-                  color: Colors.redAccent,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: (){
-                    if(!isloading){
-                      GroceryListWidgets().dialogAjoutAliment(context);
-                    }
-                  },
-                  child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: isloading ? Colors.grey : Colors.red.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-
-                      child: const Icon(Icons.add, color: Colors.white, size: 18,)),
-                ),
-                const SizedBox(width: 18),
-                PopupMenuButton<String>(
-                    surfaceTintColor: Colors.white,
-                    onSelected: (value) {
-                      // Action à exécuter selon l'option sélectionnée
-                      if (!isloading) {
-                        if (value == 'Date') {
-                        } else if (value == 'Achat') {
-                        }
-                      }
-                    },
-                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                      PopupMenuItem(enabled: false, child: Text(S.of(context).labelSortBy, style: const TextStyle(color: Colors.redAccent),)),
-                      //const PopupMenuDivider(),
-                      const PopupMenuItem<String>(
-                        value: 'Date',
-                        child: Text('Date', style: TextStyle(fontWeight: FontWeight.bold),),
-                      ),
-                      PopupMenuItem<String>(
-                        value: 'Achat',
-                        child: Text(S.of(context).labelAchat, style: const TextStyle(fontWeight: FontWeight.bold)),
-                      ),
-                    ],
-                    icon: Row(
-                      children: [
-                        Text(S.of(context).labelSort, style: TextStyle(fontSize: 14, color: isloading ? Colors.grey : Colors.redAccent, fontWeight: FontWeight.bold),),
-                        Icon(Icons.sort, color: isloading ? Colors.grey : Colors.redAccent),
-                      ],
-                    ) // Icône à trois points
-                ),
-                const SizedBox(width: 32),
-                GestureDetector(
-                  onTap: (){
-                    if (!isloading) {
-                      Navigator.pushNamed(context, '/app_options');
-                    }
-                  },
-                  child: SizedBox(
-                    height: 32,
-                    width: 32,
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/images/cat_profile_img.jpg',
-                        semanticLabel: 'Image du profil',
-                        fit: BoxFit.cover,),
-                    ),
-                  ),
-                )
-              ],
-            )
-
-          ],
-        ),
-      ),
+      appBar: groceryListAppBar(context, isloading),
       body: isloading ? _designService.shimmerEpiceire(context) : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 1, setState),
     );
@@ -149,12 +62,12 @@ class _GroceryListState extends State<GroceryList> {
   Widget buildBody(){
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    Future<void> _onRefresh() async {
+    Future<void> onRefresh() async {
       loadGroceries();
     }
 
     return RefreshIndicator(
-      onRefresh: _onRefresh,
+      onRefresh: onRefresh,
       color: Colors.redAccent,
       child: ListView.builder(
         itemCount: groceryList.length,

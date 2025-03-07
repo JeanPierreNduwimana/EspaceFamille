@@ -14,7 +14,6 @@ class FirebaseFoodService{
   Future<List<Food>> getGroceryList(Member member, BuildContext context)async{
 
     try{
-
       //1: Recherche de la liste d'épicerie
       QuerySnapshot taskSnapshot = await _db.collection('Organisations').doc(member.famId).collection('Groceries').get();
       await Future.delayed(const Duration(seconds: 1));
