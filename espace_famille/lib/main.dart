@@ -2,7 +2,6 @@ import 'package:espace_famille/app_management/app_options.dart';
 import 'package:espace_famille/app_management/splash.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/authentification/inscription.dart';
-import 'package:espace_famille/epicerie/grocery_list.dart';
 import 'package:espace_famille/events/event_details.dart';
 import 'package:espace_famille/events/events_list.dart';
 import 'package:espace_famille/profile/classement_profile.dart';
@@ -19,10 +18,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'grocery/grocery_list.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp( options: DefaultFirebaseOptions.currentPlatform, );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -51,21 +53,20 @@ class MyApp extends StatelessWidget {
       routes: {
         '/accfam': (context) => const AccueilEspaceFammille(),
         '/pageprofile': (context) => const PageProfile(),
-        '/listetaches' : (context) => const ListeTaches(),
-        '/listevaluation' : (context) => const ListeEvaluation(),
-        '/classement' : (context) => const ClassementProfiles(),
-        '/horaire' : (context) => const Horaire(),
-        '/liste_epicerie' : (context) => const GroceryList(),
-        '/connexion' : (context) => const Connection(),
-        '/inscription' : (context) => const Inscription(),
-        '/acceuil' : (context) => const Accueil(),
-        '/app_options' : (context) => const AppOptions(),
-        '/edit_profile' : (context) => const EditProfilePage(),
-        '/notifications' : (context) => const NotificationsPage(),
-        '/events_list' : (context) => const EventsList(),
-        '/event_detail' : (context) => const EventDetailsPage()
+        '/listetaches': (context) => const ListeTaches(),
+        '/listevaluation': (context) => const ListeEvaluation(),
+        '/classement': (context) => const ClassementProfiles(),
+        '/horaire': (context) => const Horaire(),
+        '/liste_epicerie': (context) => const GroceryList(),
+        '/connexion': (context) => const Connection(),
+        '/inscription': (context) => const Inscription(),
+        '/acceuil': (context) => const Accueil(),
+        '/app_options': (context) => const AppOptions(),
+        '/edit_profile': (context) => const EditProfilePage(),
+        '/notifications': (context) => const NotificationsPage(),
+        '/events_list': (context) => const EventsList(),
+        '/event_detail': (context) => const EventDetailsPage()
       },
-
     );
   }
 }
