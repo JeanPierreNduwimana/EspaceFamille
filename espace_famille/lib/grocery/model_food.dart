@@ -1,4 +1,4 @@
-class Aliment {
+class Food {
   //String alimentKey = '';
   String nom = '';
   //String description = '';
@@ -20,11 +20,9 @@ class Aliment {
 
   } */
 
-  Aliment(String Nom, int Quantite,bool ValiderAchat){
-
+  Food(String Nom, int Quantite, bool ValiderAchat) {
     nom = Nom;
     quantite = Quantite;
     validerAchat = ValiderAchat;
-
   }
 }

@@ -1,0 +1,175 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import '../models/transfer_models.dart';
+import '../app_services/error_handling_service.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+class FirebaseFoodService {
+  FirebaseFoodService();
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+
+  /// Request of Grocery Food List
+  Future<List<Food>> getGroceryList(Member member, BuildContext context) async {
+    try {
+      // get of the grocery collection
+      QuerySnapshot taskSnapshot = await _db
+          .collection('Organisations')
+          .doc(member.famId)
+          .collection('Groceries')
+          .get();
+      await Future.delayed(const Duration(seconds: 1));
+      // serialisation of the collection, return of the list
+      return taskSnapshot.docs.map((doc) {
+        return Food.fromJson(doc.data() as Map<String, dynamic>);
+      }).toList();
+    } on FirebaseException catch (e) {
+      // Error handling
+      if (e.code == "network-request-failed") {
+        ErrorHandling().showMessage(
+            "Sorry, no connection 😟 \n Please check your network", context, 3);
+      }
+    }
+    return [];
+  }
+
+  /// Request to add a food item to the grocery list
+  Future<void> addFoodToGrocery(
+      Food food, File foodImage, Member member, BuildContext context) async {
+    try {
+      // Reference to the future location of the food image
+      var foodImageStorageref = _storage
+          .ref()
+          .child('groceryImages/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      //2: Upload the image to its designated location
+      UploadTask uploadTask = foodImageStorageref.putFile(foodImage);
+      TaskSnapshot taskSnapshot = await uploadTask;
+
+      //3: Upload the image link to attribute it to the food
+      food.imgUrl = await taskSnapshot.ref.getDownloadURL();
+    } catch (e) {
+      //Gestion d'erreurs
+      ErrorHandling()
+          .showMessage('Il y\'a une erreur avec l\'image fourni', context, 3);
+      return;
+    }
+
+    //4: If the image procedure is successful, the food is added to the database
+    if (food.imgUrl != '') {
+      try {
+        CollectionReference groceryList = _db
+            .collection('Organisations')
+            .doc(member.famId)
+            .collection('Groceries');
+        food.id = groceryList.doc().id;
+        // await groceryList.add(food.toJson());
+        await groceryList.doc(food.id).set(food.toJson());
+      } on FirebaseException catch (e) {
+        if (e.code == "network-request-failed") {
+          ErrorHandling().showMessage(
+              "Sorry, no connection 😟 \n Please check your network",
+              context,
+              3);
+        }
+      }
+    }
+  }
+
+  /// Request for registration of a food
+  Future<void> addSavedFoodToGrocery(
+      Food food, Member member, BuildContext context) async {
+    try {
+      CollectionReference groceryList = _db
+          .collection('Organisations')
+          .doc(member.famId)
+          .collection('Groceries');
+      await groceryList.add(food.toJson());
+    } on FirebaseException catch (e) {
+      if (e.code == "network-request-failed") {
+        ErrorHandling().showMessage(
+            "Sorry, no connection 😟 \n Please check your network", context, 3);
+      }
+    }
+  }
+
+  /// Request to add a food item saved in the grocery store
+  Future<void> addToSavedFoodList(
+      Food food, File foodImage, Member member, BuildContext context) async {
+    try {
+      CollectionReference groceryList = _db
+          .collection('Organisations')
+          .doc(member.famId)
+          .collection('SavedGroceries');
+      String foodDocId = groceryList.doc().id;
+      SavedFood savedFood = SavedFood(food.imgUrl, foodDocId, food.name, 0);
+      await groceryList.add(savedFood.toJson());
+    } on FirebaseException catch (e) {
+      if (e.code == "network-request-failed") {
+        ErrorHandling().showMessage(
+            "Sorry, no connection 😟 \n Please check your network", context, 3);
+      }
+    }
+  }
+
+  /// Query that changes the status of a food (purchased / not purchased)
+  Future<Food?> setPurchasedFood(
+      Food food, Member member, BuildContext context) async {
+    try {
+      DocumentReference foodDoc = _db
+          .collection('Organisations/${member.famId}/Groceries')
+          .doc(food.id);
+      foodDoc.update({'isPurchased': !food.isPurchased});
+      DocumentSnapshot updatedFood = await foodDoc.get();
+
+      return Food.fromJson(updatedFood.data() as Map<String, dynamic>);
+    } on FirebaseException catch (e) {
+      if (e.code == "network-request-failed") {
+        ErrorHandling().showMessage(
+            "Sorry, no connection 😟 \n Please check your network", context, 3);
+      }
+    }
+
+    return null;
+  }
+
+  /// Query that deletes a food item in the grocery store
+  Future<void> deleteFoodFromGrocery(
+      Food food, Member member, BuildContext context) async {
+    CollectionReference groceryList = _db
+        .collection('Organisations')
+        .doc(member.famId)
+        .collection('Groceries');
+    try {
+      groceryList.doc(food.id).delete();
+    } on FirebaseException catch (e) {
+      if (e.code == "network-request-failed") {
+        ErrorHandling().showMessage(
+            "Sorry, no connection 😟 \n Please check your network", context, 3);
+      }
+
+      //TODO: Gestion de suppression d'un element qui n'existe pas
+    }
+  }
+
+  /// Query that deletes a food from the list of saved foods
+  Future<void> deletesavedFood(
+      SavedFood savedfood, Member member, BuildContext context) async {
+    CollectionReference groceryList = _db
+        .collection('Organisations')
+        .doc(member.famId)
+        .collection('SavedGroceries');
+
+    try {
+      groceryList.doc(savedfood.id).delete();
+    } on FirebaseException catch (e) {
+      if (e.code == "network-request-failed") {
+        ErrorHandling().showMessage(
+            "Sorry, no connection 😟 \n Please check your network", context, 3);
+      }
+
+      //TODO: Gestion de suppression d'un element qui n'existe pas
+    }
+  }
+}
