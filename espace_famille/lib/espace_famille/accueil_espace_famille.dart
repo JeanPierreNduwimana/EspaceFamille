@@ -1,10 +1,11 @@
 import 'package:espace_famille/espace_famille/commentaires_annonce.dart';
 import 'package:espace_famille/espace_famille/model_commentaire.dart';
-import 'package:espace_famille/services/widget_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../app_services/widget_service.dart';
 import '../generated/l10n.dart';
+import '../tools/form_controllers.dart';
 import 'model_annonce.dart';
 
 const String image = 'assets/images/naruto.jpg';
@@ -231,7 +232,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                                 const SizedBox(width: 24),
                                 GestureDetector(
                                   onTap: (){
-                                    _designService.controllercommentRepondre.text = '';
+                                    FormController.controllercommentRepondre.text = '';
                                     _designService.dialogRepondreCommentaire(context);
                                   },
                                   child: Row(

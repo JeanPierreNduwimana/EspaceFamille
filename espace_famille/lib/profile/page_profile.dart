@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:espace_famille/services/app_service.dart';
+import 'package:espace_famille/app_services/app_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
 import '../taches/model_tache.dart';
 
 class PageProfile extends StatefulWidget {

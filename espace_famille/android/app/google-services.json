@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "646552966394",
+    "project_id": "espace-famille",
+    "storage_bucket": "espace-famille.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646552966394:android:cf289f99dc39c538886543",
+        "android_client_info": {
+          "package_name": "com.example.espace_famille"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAca0lcUfIn1a1TbfM0HEABw8e7pkfze_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

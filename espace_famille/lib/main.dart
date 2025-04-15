@@ -1,7 +1,8 @@
 import 'package:espace_famille/app_management/app_options.dart';
+import 'package:espace_famille/app_management/splash.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/authentification/inscription.dart';
-import 'package:espace_famille/epicerie/liste_epicerie.dart';
+import 'package:espace_famille/epicerie/grocery_list.dart';
 import 'package:espace_famille/events/event_details.dart';
 import 'package:espace_famille/events/events_list.dart';
 import 'package:espace_famille/profile/classement_profile.dart';
@@ -16,9 +17,13 @@ import 'app_management/notification_page.dart';
 import 'espace_famille/accueil_espace_famille.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-   runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp( options: DefaultFirebaseOptions.currentPlatform, );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +47,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(), // Mode clair
       darkTheme: ThemeData.dark(), // Mode sombre
       themeMode: ThemeMode.system, // Hérite le mode du système
-      home: const Connection(),
+      home: const SplashScreen(),
       routes: {
         '/accfam': (context) => const AccueilEspaceFammille(),
         '/pageprofile': (context) => const PageProfile(),
@@ -50,7 +55,7 @@ class MyApp extends StatelessWidget {
         '/listevaluation' : (context) => const ListeEvaluation(),
         '/classement' : (context) => const ClassementProfiles(),
         '/horaire' : (context) => const Horaire(),
-        '/liste_epicerie' : (context) => const ListeEpicerie(),
+        '/liste_epicerie' : (context) => const GroceryList(),
         '/connexion' : (context) => const Connection(),
         '/inscription' : (context) => const Inscription(),
         '/acceuil' : (context) => const Accueil(),

@@ -1,8 +1,9 @@
 import 'package:espace_famille/app_management/about_us_page.dart';
 import 'package:espace_famille/profile/page_profile.dart';
-import 'package:espace_famille/services/widget_service.dart';
+import 'package:espace_famille/authentification/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
-
+import '../app_services/widget_service.dart';
+import '../authentification/connexion.dart';
 import '../generated/l10n.dart';
 import 'notification_page.dart';
 
@@ -178,8 +179,15 @@ class _AppOptionsState extends State<AppOptions> {
               child: const Text('Cancel', style: TextStyle(color: Colors.cyan),),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/connexion');
+              onPressed: () async {
+               // final prefs = await SharedPreferences.getInstance();
+               // prefs.remove('username');
+               // prefs.remove('password');
+                await FirebaseAuthService().signOut();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => Connection()), (Route<dynamic> route) => false,
+                );
               },
               child: const Text('Logout', style: TextStyle(color: Colors.cyan),),
             ),

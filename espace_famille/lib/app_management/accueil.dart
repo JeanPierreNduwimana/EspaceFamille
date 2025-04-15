@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import '../app_services/widget_service.dart';
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({super.key});

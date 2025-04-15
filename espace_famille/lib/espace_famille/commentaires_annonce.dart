@@ -1,9 +1,10 @@
 import 'package:espace_famille/espace_famille/model_annonce.dart';
+import 'package:espace_famille/tools/form_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../generated/l10n.dart';
-import '../services/widget_service.dart';
+import '../app_services/widget_service.dart';
 
 WidgetService _designService = WidgetService();
 String testmessage = 'String message = Voulez-vous vraiment modifier cette annonce ?; String message = Voulez-vous vraiment modifier cette annonce ?;String message = Voulez-vous vraiment modifier cette annonce ?;Stri';
@@ -168,7 +169,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                         const SizedBox(width: 24),
                         GestureDetector(
                           onTap: (){
-                            _designService.controllercommentRepondre.text = '';
+                            FormController.controllercommentRepondre.text = '';
                             _designService.dialogRepondreCommentaire(context);
                           },
                           child: Row(
@@ -265,7 +266,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                                   //Icon(Icons.add_card_rounded, color: Colors.cyan[600],),
                                   GestureDetector(
                                     onTap: (){
-                                      _designService.controllercommentRepondre.text = '';
+                                      FormController.controllercommentRepondre.text = '';
                                       _designService.dialogRepondreCommentaire(context);
                                     },
                                     child: const Text('Répondre'),)
@@ -321,7 +322,7 @@ class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
                                               //Icon(Icons.add_card_rounded, color: Colors.cyan[600],),
                                               GestureDetector(
                                                 onTap: (){
-                                                  _designService.controllercommentRepondre.text = '';
+                                                  FormController.controllercommentRepondre.text = '';
                                                   _designService.dialogRepondreCommentaire(context);
                                                 },
                                                 child: const Text('Répondre'),)
