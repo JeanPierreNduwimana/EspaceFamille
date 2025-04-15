@@ -1,7 +1,6 @@
-import 'package:espace_famille/utils/show_snackbar.dart';
 import 'package:flutter/material.dart';
-
 import '../generated/l10n.dart';
+import '../utils/shared_helpers.dart';
 import 'grocery_list_widgets.dart';
 
 PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading) {
@@ -25,12 +24,9 @@ PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading) {
           children: [
             GestureDetector(
               onTap: () {
-                ShowSnackbar(
-                  message: "snackbar marche!",
-                );
-                // if(!isloading){
-                //   GroceryListWidgets().dialogAjoutAliment(context);
-                // }
+                if (!isloading) {
+                  GroceryListWidgets().dialogAjoutAliment(context);
+                }
               },
               child: Container(
                   width: 30,

@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:espace_famille/authentification/connexion.dart';
 import 'package:espace_famille/models/transfer_models.dart';
-import 'package:espace_famille/app_services/error_handling_service.dart';
 import 'package:espace_famille/utils/form_controllers.dart';
-import 'package:espace_famille/utils/show_snackbar.dart';
+import 'package:espace_famille/utils/shared_helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -48,12 +47,15 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       //Gestion d'erreurs
       if (e.code == "email-already-in-use") {
-        ShowSnackbar(message: "The username is already taken");
+        SharedHelpers().showMessage(
+            buildContext: context, message: "The username is already taken");
       } else if (e.code == "weak-password") {
-        ShowSnackbar(
+        SharedHelpers().showMessage(
+            buildContext: context,
             message: "Your password is too weak \n Choose another one");
       } else if (e.code == "network-request-failed") {
-        ShowSnackbar(
+        SharedHelpers().showMessage(
+            buildContext: context,
             message: "Sorry, no connection 😟 \n Please check your network");
       }
     }
@@ -84,12 +86,15 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       //Gestion d'erreurs
       if (e.code == "invalid-credential") {
-        ShowSnackbar(message: "User not found. Please sign up");
+        SharedHelpers().showMessage(
+            buildContext: context, message: "User not found. Please sign up");
       } else if (e.code == "network-request-failed") {
-        ShowSnackbar(
+        SharedHelpers().showMessage(
+            buildContext: context,
             message: "Sorry, no connection 😟 \n Please check your network");
       } else {
-        ShowSnackbar(message: "Error during log in");
+        SharedHelpers()
+            .showMessage(buildContext: context, message: "Error during log in");
       }
     }
   }

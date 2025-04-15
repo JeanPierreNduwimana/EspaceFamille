@@ -30,7 +30,7 @@ class _GroceryListState extends State<GroceryList> {
       isloading = true;
     });
     try {
-      var result = await FirebaseFoodService().getGroceryList(member);
+      var result = await FirebaseFoodService().getGroceryList(member, context);
       groceryList = [];
       groceryList.add(foodforindex0);
       groceryList.insertAll(1, result);
@@ -116,8 +116,8 @@ class _GroceryListState extends State<GroceryList> {
                   confirmDismiss: (direction) async {
                     if (direction == DismissDirection.startToEnd) {
                       // Item glissé vers la droite : Validation d'achat
-                      Food? food = await FirebaseFoodService()
-                          .setPurchasedFood(groceryList[index], member);
+                      Food? food = await FirebaseFoodService().setPurchasedFood(
+                          groceryList[index], member, context);
                       if (food != null) {
                         setState(() {
                           groceryList[index].isPurchased = food.isPurchased;
@@ -141,8 +141,8 @@ class _GroceryListState extends State<GroceryList> {
                     return null;
                   },
                   onDismissed: (direction) async {
-                    await FirebaseFoodService()
-                        .deleteFoodFromGrocery(groceryList[index], member);
+                    await FirebaseFoodService().deleteFoodFromGrocery(
+                        groceryList[index], member, context);
                     loadGroceries();
                   },
                   child: GestureDetector(

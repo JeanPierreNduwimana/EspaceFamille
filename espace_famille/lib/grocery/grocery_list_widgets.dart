@@ -501,7 +501,7 @@ class GroceryListWidgets {
             int.parse(FormController.quantite_aliment_controller.text));
         if (uploadedImage != null) {
           await FirebaseFoodService()
-              .addFoodToGrocery(food, imageToUpload!, member);
+              .addFoodToGrocery(food, imageToUpload!, member, context);
         }
       } finally {
         Navigator.of(context).pop();
