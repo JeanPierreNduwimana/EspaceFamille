@@ -31,181 +31,225 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "AboutUsText": MessageLookupByLibrary.simpleMessage(
-            "L\'application Espace Famille a été conçue et développée par Jean Pierre Nduwimana, un étudiant en ingénierie informatique passionné par l\'univers des applications mobiles. L\'application a été créée en 2025 dans le cadre de son apprentissage personnel et de son désir d\'acquérir de nouvelles compétences. \n Jean Pierre a mis tout son savoir-faire et son enthousiasme dans la création de cette application, avec l\'objectif de proposer une expérience utilisateur fluide et intuitive. Cette application reflète son engagement à apprendre, à expérimenter et à créer des solutions pratiques qui répondent aux besoins des utilisateurs. \n En tant que développeur en constante évolution, Jean Pierre serait ravi de recevoir vos commentaires et suggestions qui seront essentiels pour l\'amélioration continue de l\'application. Merci d\'utiliser l\'application Espace Famille et de faire partie de ce projet en pleine croissance !"),
-        "appBarGroceriePageTitle":
-            MessageLookupByLibrary.simpleMessage("Épicerie"),
-        "appBarHomePageTitle":
-            MessageLookupByLibrary.simpleMessage("Espace Famille"),
-        "appBarProfileTitle": MessageLookupByLibrary.simpleMessage("Profil"),
-        "appBarTaskPageTitle":
-            MessageLookupByLibrary.simpleMessage("Tâches disponible"),
-        "appBaraboutUsPageTitle": MessageLookupByLibrary.simpleMessage(
-            "À propos de l\'Espace Famille"),
-        "appOptionAboutUs": MessageLookupByLibrary.simpleMessage("À propos"),
-        "appOptionDeconnexion":
-            MessageLookupByLibrary.simpleMessage("Déconnexion"),
-        "appOptionEditProfile":
-            MessageLookupByLibrary.simpleMessage("Modifier mon profil"),
-        "appOptionFamily": MessageLookupByLibrary.simpleMessage("Ma famille"),
-        "appOptionNotifications":
-            MessageLookupByLibrary.simpleMessage("Notifications"),
-        "appOptionProfile": MessageLookupByLibrary.simpleMessage("Mon profil"),
-        "bottomNavHome": MessageLookupByLibrary.simpleMessage("Acceuil"),
-        "bottomNavSpaceFamily": MessageLookupByLibrary.simpleMessage("Espace"),
-        "buttonAdd": MessageLookupByLibrary.simpleMessage("Ajouter"),
-        "buttonAddFood":
-            MessageLookupByLibrary.simpleMessage("Ajouter l\'aliment"),
-        "buttonAddSubTask":
-            MessageLookupByLibrary.simpleMessage("Ajouter des sous-tâches"),
-        "buttonCancel": MessageLookupByLibrary.simpleMessage("Annuler"),
-        "buttonConnexion": MessageLookupByLibrary.simpleMessage("Connexion"),
-        "buttonConnexionWith":
-            MessageLookupByLibrary.simpleMessage("Connexion avec"),
-        "buttonCreateAccont":
-            MessageLookupByLibrary.simpleMessage("Crée un compte"),
-        "buttonCreateEvent":
-            MessageLookupByLibrary.simpleMessage("Créer un événement"),
-        "buttonDeleteImage":
-            MessageLookupByLibrary.simpleMessage("Supprimer l\'image"),
-        "buttonJoinMyFamily":
-            MessageLookupByLibrary.simpleMessage("Joinde ma famille"),
-        "buttonJoinSpace":
-            MessageLookupByLibrary.simpleMessage("Joindre l\'espace"),
-        "buttonOwnAtask":
-            MessageLookupByLibrary.simpleMessage("Je m\'en occupe 😌"),
-        "buttonSave": MessageLookupByLibrary.simpleMessage("Enregistrer"),
-        "buttonSeeMore": MessageLookupByLibrary.simpleMessage("Voir plus"),
-        "buttonSend": MessageLookupByLibrary.simpleMessage("Envoyer"),
-        "buttonSendCommentOrSuggestions": MessageLookupByLibrary.simpleMessage(
-            "Envoyer vos commentaires ou suggestions"),
-        "buttonShowSchedure":
-            MessageLookupByLibrary.simpleMessage("Afficher un horaire"),
-        "buttonTaskDone":
-            MessageLookupByLibrary.simpleMessage("La tache est fait! 👍"),
-        "buttonTaskTransfer": MessageLookupByLibrary.simpleMessage("Tranferer"),
-        "buttonUploadImage":
-            MessageLookupByLibrary.simpleMessage("Ajouter une image"),
-        "connexionPageTitle":
-            MessageLookupByLibrary.simpleMessage("Se Connecter"),
-        "dialogQuickRatingTitle": m0,
-        "dialogRatingTitle": m1,
-        "dialogTaskDetailTitle":
-            MessageLookupByLibrary.simpleMessage("Détails sur ma tâche"),
-        "dialogUserSuggestionsSubTitle": MessageLookupByLibrary.simpleMessage(
-            "Veuillez nous faire part de vos commentaires ou suggestions"),
-        "dialogUserSuggestionsTitle": MessageLookupByLibrary.simpleMessage(
-            "Nous aimerions avoir votre avis"),
-        "evaluationProfilePageTitle": m2,
-        "groceriePageSubTitle": MessageLookupByLibrary.simpleMessage(
-            "Ajoutez ici tout aliment qui manquent."),
-        "groceriePageTitle": MessageLookupByLibrary.simpleMessage(
-            "Que ce qui manque dans le frigo ?"),
-        "homePageSectionTitle1": MessageLookupByLibrary.simpleMessage(
-            "Connectez avec vos proches !"),
-        "homePageSectionTitle2": MessageLookupByLibrary.simpleMessage(
-            "Gestion facile d\'épicerie, Miam"),
-        "homePageSectionTitle3": MessageLookupByLibrary.simpleMessage(
-            "Mieux s\'organiser en famille !"),
-        "homePageSectionTitle4": MessageLookupByLibrary.simpleMessage(
-            "Se tenir à jour des évènements !"),
-        "homePageSectionTitle5": MessageLookupByLibrary.simpleMessage(
-            "Apercu des membres de votre famille !"),
-        "homePageTitleEvents":
-            MessageLookupByLibrary.simpleMessage("Évenements"),
-        "homePageTitleGrocerieList":
-            MessageLookupByLibrary.simpleMessage("Liste d\'épicerie"),
-        "homePageTitleRanking":
-            MessageLookupByLibrary.simpleMessage("Classement"),
-        "homePageTitleTask": MessageLookupByLibrary.simpleMessage("Tâches"),
-        "labeAutomaticMessage":
-            MessageLookupByLibrary.simpleMessage("Message Automatique"),
-        "labelAchat": MessageLookupByLibrary.simpleMessage("Achat"),
-        "labelAddComment":
-            MessageLookupByLibrary.simpleMessage("Ajouter un commentaire"),
-        "labelAnnually": MessageLookupByLibrary.simpleMessage("Annuelle"),
-        "labelBravo": MessageLookupByLibrary.simpleMessage("Bravo"),
-        "labelChooseRecurrence":
-            MessageLookupByLibrary.simpleMessage("Choisissez la recurrence :"),
-        "labelCommentDescription": MessageLookupByLibrary.simpleMessage(
-            "Votre commentaire peut etre pour un opinion, une information supplementaire à l’evenement, un rappel, ou autre"),
-        "labelDaily": MessageLookupByLibrary.simpleMessage("Quotidien"),
-        "labelDay": MessageLookupByLibrary.simpleMessage("Jour"),
-        "labelDelete": MessageLookupByLibrary.simpleMessage("Supprimer"),
-        "labelDeleteMyComment":
-            MessageLookupByLibrary.simpleMessage("Supprimer mon commentaire"),
-        "labelDescription": MessageLookupByLibrary.simpleMessage("Description"),
-        "labelDescriptionOptional":
-            MessageLookupByLibrary.simpleMessage("Description (facultatif)"),
-        "labelDone": MessageLookupByLibrary.simpleMessage("Fait"),
-        "labelError": MessageLookupByLibrary.simpleMessage("Erreur"),
-        "labelErrorFieldEmpty": MessageLookupByLibrary.simpleMessage(
-            "Un ou plusieurs champs ne peuvent pas être vide 😓"),
-        "labelFoodName":
-            MessageLookupByLibrary.simpleMessage("Nom de l\'aliment"),
-        "labelHintMessage":
-            MessageLookupByLibrary.simpleMessage("Votre message..."),
-        "labelHintTaskName":
-            MessageLookupByLibrary.simpleMessage("Quel est votre tâche ?"),
-        "labelHintWhatsUp":
-            MessageLookupByLibrary.simpleMessage("Quoi de neuf ?"),
-        "labelMinutesPassed": m3,
-        "labelNew": MessageLookupByLibrary.simpleMessage("Nouveaux"),
-        "labelNon": MessageLookupByLibrary.simpleMessage("Non"),
-        "labelOneTime": MessageLookupByLibrary.simpleMessage("Une fois"),
-        "labelOptionalComment":
-            MessageLookupByLibrary.simpleMessage("commentaire (facultatif)"),
-        "labelOptionnal": MessageLookupByLibrary.simpleMessage("(facultatif)"),
-        "labelOr": MessageLookupByLibrary.simpleMessage("Ou"),
-        "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
-        "labelPasswordConfirm":
-            MessageLookupByLibrary.simpleMessage("Confirmer le mot de passe"),
-        "labelPeriodic": MessageLookupByLibrary.simpleMessage("Périodique"),
-        "labelPeriodicConfigure":
-            MessageLookupByLibrary.simpleMessage("Configurer la récurrence"),
-        "labelQuantityLong": MessageLookupByLibrary.simpleMessage("Quantité"),
-        "labelQuantityShorted": MessageLookupByLibrary.simpleMessage("Qté"),
-        "labelRegisterPageBirthDate":
-            MessageLookupByLibrary.simpleMessage("Date de naissance"),
-        "labelRegisterPageTitle":
-            MessageLookupByLibrary.simpleMessage("S\'incrire"),
-        "labelRegisterWith":
-            MessageLookupByLibrary.simpleMessage("S\'inscrire avec"),
-        "labelSort": MessageLookupByLibrary.simpleMessage("Trier   "),
-        "labelSortBy": MessageLookupByLibrary.simpleMessage("Trier Par"),
-        "labelSubTaskAdded":
-            MessageLookupByLibrary.simpleMessage("Sous-tâches ajoutées"),
-        "labelSubTaskHint": MessageLookupByLibrary.simpleMessage(
-            "Quel est votre sous-tâches ?"),
-        "labelTaksLate": MessageLookupByLibrary.simpleMessage("En retard"),
-        "labelTaskGiveUp": MessageLookupByLibrary.simpleMessage("Abandonner"),
-        "labelTaskOwned":
-            MessageLookupByLibrary.simpleMessage("Tâches attribuées"),
-        "labelToBeDoneBy":
-            MessageLookupByLibrary.simpleMessage("À effectuer d\'ici"),
-        "labelUsername":
-            MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
-        "labelWeek": MessageLookupByLibrary.simpleMessage("Semaine"),
-        "labelWeekly": MessageLookupByLibrary.simpleMessage("Hebdo"),
-        "labelYear": MessageLookupByLibrary.simpleMessage("Année"),
-        "labelYes": MessageLookupByLibrary.simpleMessage("Oui"),
-        "labelYourAnswer":
-            MessageLookupByLibrary.simpleMessage("Votre réponse..."),
-        "labelYourCommentHere": MessageLookupByLibrary.simpleMessage(
-            "Écrivez votre commentaire ici..."),
-        "lebelDeleteMyCommentDescription": MessageLookupByLibrary.simpleMessage(
-            "Voulez supprimer votre commentaire ?"),
-        "messageAddTaskDescription": MessageLookupByLibrary.simpleMessage(
-            "La description de la tâche ne peut être vide"),
-        "messageDeletePost": MessageLookupByLibrary.simpleMessage(
-            "Voulez-vous vraiment \n supprimer cette annonce ?"),
-        "messageEditPost": MessageLookupByLibrary.simpleMessage(
-            "Voulez-vous vraiment \n modifier cette annonce ?"),
-        "messageOwnAtask": MessageLookupByLibrary.simpleMessage(
-            "Voulez-vous vraiment \n assumer cette tâche ?"),
-        "messageSubTaskError": MessageLookupByLibrary.simpleMessage(
-            "Le nom du sous-tâche ne peut pas être vide"),
-        "taskPageTitle": MessageLookupByLibrary.simpleMessage(
-            "Selectionner la taches qui vous convient avec votre disponibilité")
-      };
+    "AboutUsText": MessageLookupByLibrary.simpleMessage(
+      "L\'application Espace Famille a été conçue et développée par Jean Pierre Nduwimana, un étudiant en ingénierie informatique passionné par l\'univers des applications mobiles. L\'application a été créée en 2025 dans le cadre de son apprentissage personnel et de son désir d\'acquérir de nouvelles compétences. \n Jean Pierre a mis tout son savoir-faire et son enthousiasme dans la création de cette application, avec l\'objectif de proposer une expérience utilisateur fluide et intuitive. Cette application reflète son engagement à apprendre, à expérimenter et à créer des solutions pratiques qui répondent aux besoins des utilisateurs. \n En tant que développeur en constante évolution, Jean Pierre serait ravi de recevoir vos commentaires et suggestions qui seront essentiels pour l\'amélioration continue de l\'application. Merci d\'utiliser l\'application Espace Famille et de faire partie de ce projet en pleine croissance !",
+    ),
+    "appBarGroceriePageTitle": MessageLookupByLibrary.simpleMessage("Épicerie"),
+    "appBarHomePageTitle": MessageLookupByLibrary.simpleMessage(
+      "Espace Famille",
+    ),
+    "appBarProfileTitle": MessageLookupByLibrary.simpleMessage("Profil"),
+    "appBarTaskPageTitle": MessageLookupByLibrary.simpleMessage(
+      "Tâches disponible",
+    ),
+    "appBaraboutUsPageTitle": MessageLookupByLibrary.simpleMessage(
+      "À propos de l\'Espace Famille",
+    ),
+    "appOptionAboutUs": MessageLookupByLibrary.simpleMessage("À propos"),
+    "appOptionDeconnexion": MessageLookupByLibrary.simpleMessage("Déconnexion"),
+    "appOptionEditProfile": MessageLookupByLibrary.simpleMessage(
+      "Modifier mon profil",
+    ),
+    "appOptionFamily": MessageLookupByLibrary.simpleMessage("Ma famille"),
+    "appOptionNotifications": MessageLookupByLibrary.simpleMessage(
+      "Notifications",
+    ),
+    "appOptionProfile": MessageLookupByLibrary.simpleMessage("Mon profil"),
+    "bottomNavHome": MessageLookupByLibrary.simpleMessage("Acceuil"),
+    "bottomNavSpaceFamily": MessageLookupByLibrary.simpleMessage("Espace"),
+    "buttonAdd": MessageLookupByLibrary.simpleMessage("Ajouter"),
+    "buttonAddFood": MessageLookupByLibrary.simpleMessage("Ajouter l\'aliment"),
+    "buttonAddSubTask": MessageLookupByLibrary.simpleMessage(
+      "Ajouter des sous-tâches",
+    ),
+    "buttonCancel": MessageLookupByLibrary.simpleMessage("Annuler"),
+    "buttonConnexion": MessageLookupByLibrary.simpleMessage("Connexion"),
+    "buttonConnexionWith": MessageLookupByLibrary.simpleMessage(
+      "Connexion avec",
+    ),
+    "buttonCreateAccont": MessageLookupByLibrary.simpleMessage(
+      "Crée un compte",
+    ),
+    "buttonCreateEvent": MessageLookupByLibrary.simpleMessage(
+      "Créer un événement",
+    ),
+    "buttonDeleteImage": MessageLookupByLibrary.simpleMessage(
+      "Supprimer l\'image",
+    ),
+    "buttonJoinMyFamily": MessageLookupByLibrary.simpleMessage(
+      "Joinde ma famille",
+    ),
+    "buttonJoinSpace": MessageLookupByLibrary.simpleMessage(
+      "Joindre l\'espace",
+    ),
+    "buttonOwnAtask": MessageLookupByLibrary.simpleMessage(
+      "Je m\'en occupe 😌",
+    ),
+    "buttonSave": MessageLookupByLibrary.simpleMessage("Enregistrer"),
+    "buttonSeeMore": MessageLookupByLibrary.simpleMessage("Voir plus"),
+    "buttonSend": MessageLookupByLibrary.simpleMessage("Envoyer"),
+    "buttonSendCommentOrSuggestions": MessageLookupByLibrary.simpleMessage(
+      "Envoyer vos commentaires ou suggestions",
+    ),
+    "buttonShowSchedure": MessageLookupByLibrary.simpleMessage(
+      "Afficher un horaire",
+    ),
+    "buttonTaskDone": MessageLookupByLibrary.simpleMessage(
+      "La tache est fait! 👍",
+    ),
+    "buttonTaskTransfer": MessageLookupByLibrary.simpleMessage("Tranferer"),
+    "buttonUploadImage": MessageLookupByLibrary.simpleMessage(
+      "Ajouter une image",
+    ),
+    "connexionPageTitle": MessageLookupByLibrary.simpleMessage("Se Connecter"),
+    "dialogQuickRatingTitle": m0,
+    "dialogRatingTitle": m1,
+    "dialogTaskDetailTitle": MessageLookupByLibrary.simpleMessage(
+      "Détails sur ma tâche",
+    ),
+    "dialogUserSuggestionsSubTitle": MessageLookupByLibrary.simpleMessage(
+      "Veuillez nous faire part de vos commentaires ou suggestions",
+    ),
+    "dialogUserSuggestionsTitle": MessageLookupByLibrary.simpleMessage(
+      "Nous aimerions avoir votre avis",
+    ),
+    "evaluationProfilePageTitle": m2,
+    "groceriePageSubTitle": MessageLookupByLibrary.simpleMessage(
+      "Ajoutez ici tout aliment qui manquent.",
+    ),
+    "groceriePageTitle": MessageLookupByLibrary.simpleMessage(
+      "Que ce qui manque dans le frigo ?",
+    ),
+    "homePageSectionTitle1": MessageLookupByLibrary.simpleMessage(
+      "Connectez avec vos proches !",
+    ),
+    "homePageSectionTitle2": MessageLookupByLibrary.simpleMessage(
+      "Gestion facile d\'épicerie, Miam",
+    ),
+    "homePageSectionTitle3": MessageLookupByLibrary.simpleMessage(
+      "Mieux s\'organiser en famille !",
+    ),
+    "homePageSectionTitle4": MessageLookupByLibrary.simpleMessage(
+      "Se tenir à jour des évènements !",
+    ),
+    "homePageSectionTitle5": MessageLookupByLibrary.simpleMessage(
+      "Apercu des membres de votre famille !",
+    ),
+    "homePageTitleEvents": MessageLookupByLibrary.simpleMessage("Évenements"),
+    "homePageTitleGrocerieList": MessageLookupByLibrary.simpleMessage(
+      "Liste d\'épicerie",
+    ),
+    "homePageTitleRanking": MessageLookupByLibrary.simpleMessage("Classement"),
+    "homePageTitleTask": MessageLookupByLibrary.simpleMessage("Tâches"),
+    "labeAutomaticMessage": MessageLookupByLibrary.simpleMessage(
+      "Message Automatique",
+    ),
+    "labelAchat": MessageLookupByLibrary.simpleMessage("Achat"),
+    "labelAddComment": MessageLookupByLibrary.simpleMessage(
+      "Ajouter un commentaire",
+    ),
+    "labelAnnually": MessageLookupByLibrary.simpleMessage("Annuelle"),
+    "labelBravo": MessageLookupByLibrary.simpleMessage("Bravo"),
+    "labelChooseRecurrence": MessageLookupByLibrary.simpleMessage(
+      "Choisissez la recurrence :",
+    ),
+    "labelCommentDescription": MessageLookupByLibrary.simpleMessage(
+      "Votre commentaire peut etre pour un opinion, une information supplementaire à l’evenement, un rappel, ou autre",
+    ),
+    "labelDaily": MessageLookupByLibrary.simpleMessage("Quotidien"),
+    "labelDay": MessageLookupByLibrary.simpleMessage("Jour"),
+    "labelDelete": MessageLookupByLibrary.simpleMessage("Supprimer"),
+    "labelDeleteMyComment": MessageLookupByLibrary.simpleMessage(
+      "Supprimer mon commentaire",
+    ),
+    "labelDescription": MessageLookupByLibrary.simpleMessage("Description"),
+    "labelDescriptionOptional": MessageLookupByLibrary.simpleMessage(
+      "Description (facultatif)",
+    ),
+    "labelDone": MessageLookupByLibrary.simpleMessage("Fait"),
+    "labelError": MessageLookupByLibrary.simpleMessage("Erreur"),
+    "labelErrorFieldEmpty": MessageLookupByLibrary.simpleMessage(
+      "Un ou plusieurs champs ne peuvent pas être vide 😓",
+    ),
+    "labelFoodName": MessageLookupByLibrary.simpleMessage("Nom de l\'aliment"),
+    "labelHintMessage": MessageLookupByLibrary.simpleMessage(
+      "Votre message...",
+    ),
+    "labelHintTaskName": MessageLookupByLibrary.simpleMessage(
+      "Quel est votre tâche ?",
+    ),
+    "labelHintWhatsUp": MessageLookupByLibrary.simpleMessage("Quoi de neuf ?"),
+    "labelMinutesPassed": m3,
+    "labelNew": MessageLookupByLibrary.simpleMessage("Nouveaux"),
+    "labelNon": MessageLookupByLibrary.simpleMessage("Non"),
+    "labelOneTime": MessageLookupByLibrary.simpleMessage("Une fois"),
+    "labelOptionalComment": MessageLookupByLibrary.simpleMessage(
+      "commentaire (facultatif)",
+    ),
+    "labelOptionnal": MessageLookupByLibrary.simpleMessage("(facultatif)"),
+    "labelOr": MessageLookupByLibrary.simpleMessage("Ou"),
+    "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
+    "labelPasswordConfirm": MessageLookupByLibrary.simpleMessage(
+      "Confirmer le mot de passe",
+    ),
+    "labelPeriodic": MessageLookupByLibrary.simpleMessage("Périodique"),
+    "labelPeriodicConfigure": MessageLookupByLibrary.simpleMessage(
+      "Configurer la récurrence",
+    ),
+    "labelQuantityLong": MessageLookupByLibrary.simpleMessage("Quantité"),
+    "labelQuantityShorted": MessageLookupByLibrary.simpleMessage("Qté"),
+    "labelRegisterPageBirthDate": MessageLookupByLibrary.simpleMessage(
+      "Date de naissance",
+    ),
+    "labelRegisterPageTitle": MessageLookupByLibrary.simpleMessage(
+      "S\'incrire",
+    ),
+    "labelRegisterWith": MessageLookupByLibrary.simpleMessage(
+      "S\'inscrire avec",
+    ),
+    "labelSort": MessageLookupByLibrary.simpleMessage("Trier   "),
+    "labelSortBy": MessageLookupByLibrary.simpleMessage("Trier Par"),
+    "labelSubTaskAdded": MessageLookupByLibrary.simpleMessage(
+      "Sous-tâches ajoutées",
+    ),
+    "labelSubTaskHint": MessageLookupByLibrary.simpleMessage(
+      "Quel est votre sous-tâches ?",
+    ),
+    "labelTaksLate": MessageLookupByLibrary.simpleMessage("En retard"),
+    "labelTaskGiveUp": MessageLookupByLibrary.simpleMessage("Abandonner"),
+    "labelTaskOwned": MessageLookupByLibrary.simpleMessage("Tâches attribuées"),
+    "labelToBeDoneBy": MessageLookupByLibrary.simpleMessage(
+      "À effectuer d\'ici",
+    ),
+    "labelUsername": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
+    "labelWeek": MessageLookupByLibrary.simpleMessage("Semaine"),
+    "labelWeekly": MessageLookupByLibrary.simpleMessage("Hebdo"),
+    "labelYear": MessageLookupByLibrary.simpleMessage("Année"),
+    "labelYes": MessageLookupByLibrary.simpleMessage("Oui"),
+    "labelYourAnswer": MessageLookupByLibrary.simpleMessage("Votre réponse..."),
+    "labelYourCommentHere": MessageLookupByLibrary.simpleMessage(
+      "Écrivez votre commentaire ici...",
+    ),
+    "lebelDeleteMyCommentDescription": MessageLookupByLibrary.simpleMessage(
+      "Voulez supprimer votre commentaire ?",
+    ),
+    "messageAddTaskDescription": MessageLookupByLibrary.simpleMessage(
+      "La description de la tâche ne peut être vide",
+    ),
+    "messageDeletePost": MessageLookupByLibrary.simpleMessage(
+      "Voulez-vous vraiment \n supprimer cette annonce ?",
+    ),
+    "messageEditPost": MessageLookupByLibrary.simpleMessage(
+      "Voulez-vous vraiment \n modifier cette annonce ?",
+    ),
+    "messageOwnAtask": MessageLookupByLibrary.simpleMessage(
+      "Voulez-vous vraiment \n assumer cette tâche ?",
+    ),
+    "messageSubTaskError": MessageLookupByLibrary.simpleMessage(
+      "Le nom du sous-tâche ne peut pas être vide",
+    ),
+    "taskPageTitle": MessageLookupByLibrary.simpleMessage(
+      "Selectionner la taches qui vous convient avec votre disponibilité",
+    ),
+  };
 }
