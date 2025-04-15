@@ -43,14 +43,14 @@ class FirebaseFoodService {
           .ref()
           .child('groceryImages/${DateTime.now().millisecondsSinceEpoch}.jpg');
 
-      //2: Upload the image to its designated location
+      // Upload the image to its designated location
       UploadTask uploadTask = foodImageStorageref.putFile(foodImage);
       TaskSnapshot taskSnapshot = await uploadTask;
 
-      //3: Upload the image link to attribute it to the food
+      // Upload the image link to attribute it to the food
       food.imgUrl = await taskSnapshot.ref.getDownloadURL();
     } catch (e) {
-      //Gestion d'erreurs
+      // Gestion d'erreurs
       ErrorHandling()
           .showMessage('Il y\'a une erreur avec l\'image fourni', context, 3);
       return;
