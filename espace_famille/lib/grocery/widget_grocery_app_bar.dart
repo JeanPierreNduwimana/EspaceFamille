@@ -1,9 +1,10 @@
+import 'package:espace_famille/utils/show_snackbar.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
 import 'grocery_list_widgets.dart';
 
-PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading){
+PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading) {
   return AppBar(
     leading: null,
     automaticallyImplyLeading: false,
@@ -23,20 +24,27 @@ PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading){
         Row(
           children: [
             GestureDetector(
-              onTap: (){
-                if(!isloading){
-                  GroceryListWidgets().dialogAjoutAliment(context);
-                }
+              onTap: () {
+                ShowSnackbar(
+                  message: "snackbar marche!",
+                );
+                // if(!isloading){
+                //   GroceryListWidgets().dialogAjoutAliment(context);
+                // }
               },
               child: Container(
                   width: 30,
                   height: 30,
                   decoration: BoxDecoration(
-                    color: isloading ? Colors.grey : Colors.red.withOpacity(0.8),
+                    color:
+                        isloading ? Colors.grey : Colors.red.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(8),
                   ),
-
-                  child: const Icon(Icons.add, color: Colors.white, size: 18,)),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 18,
+                  )),
             ),
             const SizedBox(width: 18),
             PopupMenuButton<String>(
@@ -45,32 +53,48 @@ PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading){
                   // Action à exécuter selon l'option sélectionnée
                   if (!isloading) {
                     if (value == 'Date') {
-                    } else if (value == 'Achat') {
-                    }
+                    } else if (value == 'Achat') {}
                   }
                 },
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  PopupMenuItem(enabled: false, child: Text(S.of(context).labelSortBy, style: const TextStyle(color: Colors.redAccent),)),
-                  //const PopupMenuDivider(),
-                  const PopupMenuItem<String>(
-                    value: 'Date',
-                    child: Text('Date', style: TextStyle(fontWeight: FontWeight.bold),),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'Achat',
-                    child: Text(S.of(context).labelAchat, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ],
+                      PopupMenuItem(
+                          enabled: false,
+                          child: Text(
+                            S.of(context).labelSortBy,
+                            style: const TextStyle(color: Colors.redAccent),
+                          )),
+                      //const PopupMenuDivider(),
+                      const PopupMenuItem<String>(
+                        value: 'Date',
+                        child: Text(
+                          'Date',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'Achat',
+                        child: Text(S.of(context).labelAchat,
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                    ],
                 icon: Row(
                   children: [
-                    Text(S.of(context).labelSort, style: TextStyle(fontSize: 14, color: isloading ? Colors.grey : Colors.redAccent, fontWeight: FontWeight.bold),),
-                    Icon(Icons.sort, color: isloading ? Colors.grey : Colors.redAccent),
+                    Text(
+                      S.of(context).labelSort,
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: isloading ? Colors.grey : Colors.redAccent,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Icon(Icons.sort,
+                        color: isloading ? Colors.grey : Colors.redAccent),
                   ],
                 ) // Icône à trois points
-            ),
+                ),
             const SizedBox(width: 32),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 if (!isloading) {
                   Navigator.pushNamed(context, '/app_options');
                 }
@@ -82,13 +106,13 @@ PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading){
                   child: Image.asset(
                     'assets/images/cat_profile_img.jpg',
                     semanticLabel: 'Image du profil',
-                    fit: BoxFit.cover,),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             )
           ],
         )
-
       ],
     ),
   );
