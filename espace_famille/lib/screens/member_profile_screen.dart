@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:espace_famille/utils/app_service.dart';
 import 'package:espace_famille/models/transfer_models.dart';
+import 'package:espace_famille/utils/shared_helpers.dart';
 import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +15,6 @@ class MemberProfileScreen extends StatefulWidget {
 }
 
 WidgetService _designService = WidgetService();
-AppService _appService = AppService();
 List<Tache> taches = [
   Tache(
       'Organiser le bureau et trier les documents important', getImage(), true),
@@ -269,7 +269,8 @@ class _MemberProfileScreenState extends State<MemberProfileScreen> {
                           ),
                         ),
                         title: Text(
-                          _appService.maximumString(taches[index].descr, 28),
+                          SharedHelpers()
+                              .maximumString(taches[index].descr, 28),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
