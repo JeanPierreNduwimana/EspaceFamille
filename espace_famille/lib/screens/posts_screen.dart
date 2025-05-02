@@ -1,28 +1,26 @@
-import 'package:espace_famille/espace_famille/commentaires_annonce.dart';
-import 'package:espace_famille/espace_famille/model_commentaire.dart';
+import 'package:espace_famille/models/transfer_models.dart';
+import 'package:espace_famille/screens/post_comments_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../app_services/widget_service.dart';
+import '../widgets/widget_service.dart';
 import '../generated/l10n.dart';
 import '../utils/form_controllers.dart';
-import 'model_annonce.dart';
 
 const String image = 'assets/images/naruto.jpg';
 WidgetService _designService = WidgetService();
 
-class AccueilEspaceFammille extends StatefulWidget {
-  const AccueilEspaceFammille({super.key});
+class PostsScreen extends StatefulWidget {
+  const PostsScreen({super.key});
 
   @override
-  State<AccueilEspaceFammille> createState() => _AccueilEspaceFammilleState();
+  State<PostsScreen> createState() => _PostsScreenState();
 }
 
 String testmessage =
     'String message = Voulez-vous vraiment modifier cette annonce ?; String message = Voulez-vous vraiment modifier cette annonce ?;String message = Voulez-vous vraiment modifier cette annonce ?;Stri';
 bool isloading = true;
 
-class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
+class _PostsScreenState extends State<PostsScreen> {
   final List<Annonce> annonces = [
     Annonce(1, 'jeanPierre', testmessage, '10 mins', 6, 2, image),
     Annonce(2, 'Mario', 'Ne prennez pas mon sandwich que j\'ai laissé au frigo',
@@ -137,7 +135,7 @@ class _AccueilEspaceFammilleState extends State<AccueilEspaceFammille> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            CommentairesAnnonce(annonce: annonces[index])))
+                            PostCommentsScreen(annonce: annonces[index])))
               },
               child: Column(
                 children: [

@@ -6,8 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import '../utils/shared_helpers.dart';
 
-class FirebaseFoodService {
-  FirebaseFoodService();
+class GroceriesService {
+  GroceriesService();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 

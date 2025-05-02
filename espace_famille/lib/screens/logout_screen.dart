@@ -1,26 +1,26 @@
-import 'package:espace_famille/authentification/connexion.dart';
+import 'package:espace_famille/screens/login_screen.dart';
 import 'package:espace_famille/models/transfer_models.dart';
-import 'package:espace_famille/app_services/app_service.dart';
-import 'package:espace_famille/app_services/error_handling_service.dart';
-import 'package:espace_famille/authentification/firebase_auth_service.dart';
+import 'package:espace_famille/utils/app_service.dart';
+import 'package:espace_famille/utils/error_handling_service.dart';
+import 'package:espace_famille/services/firebase_auth_service.dart';
 import 'package:espace_famille/utils/form_controllers.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
-import '../app_services/widget_service.dart';
+import '../widgets/widget_service.dart';
 
-class Inscription extends StatefulWidget {
-  const Inscription({super.key});
+class LogOutScreen extends StatefulWidget {
+  const LogOutScreen({super.key});
 
   @override
-  State<Inscription> createState() => _InscriptionState();
+  State<LogOutScreen> createState() => _LogOutScreenState();
 }
 
 WidgetService _designService = WidgetService();
 AppService _appService = AppService();
 bool isLoading = false;
 
-class _InscriptionState extends State<Inscription> {
+class _LogOutScreenState extends State<LogOutScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -188,7 +188,7 @@ class _InscriptionState extends State<Inscription> {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Connection()),
+                          builder: (context) => const LoginScreen()),
                       (Route<dynamic> route) => false,
                     );
                   },

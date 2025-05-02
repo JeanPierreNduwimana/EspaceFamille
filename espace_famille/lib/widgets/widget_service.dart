@@ -1,10 +1,10 @@
+import 'package:espace_famille/models/transfer_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:shimmer/shimmer.dart';
 import '../generated/l10n.dart';
-import '../taches/model_tache.dart';
 import '../utils/form_controllers.dart';
-import 'app_service.dart';
+import '../utils/app_service.dart';
 
 /*  CECI UNE CLASS QUI RETOURNE PLUSIEURS WIDGETS À TRAVERS DES METHODES. EX: AppBar, Dialog, etc... */
 

@@ -1,27 +1,29 @@
-import 'package:espace_famille/app_management/about_us_page.dart';
-import 'package:espace_famille/profile/page_profile.dart';
-import 'package:espace_famille/authentification/firebase_auth_service.dart';
+import 'package:espace_famille/screens/about_us_screen.dart';
+import 'package:espace_famille/screens/member_profile_screen.dart';
+import 'package:espace_famille/services/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
-import '../app_services/widget_service.dart';
-import '../authentification/connexion.dart';
+import '../widgets/widget_service.dart';
+import '../screens/login_screen.dart';
 import '../generated/l10n.dart';
-import 'notification_page.dart';
+import 'notification_screen.dart';
 
-class AppOptions extends StatefulWidget {
-  const AppOptions({super.key});
+class AppOptionsScreen extends StatefulWidget {
+  const AppOptionsScreen({super.key});
 
   @override
-  State<AppOptions> createState() => _AppOptionsState();
+  State<AppOptionsScreen> createState() => _AppOptionsScreenState();
 }
+
 WidgetService _designService = WidgetService();
 bool orgExist = false;
-class _AppOptionsState extends State<AppOptions> {
+
+class _AppOptionsScreenState extends State<AppOptionsScreen> {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: _designService.appBar(context, 'Profile', true,Colors.cyan),
+      appBar: _designService.appBar(context, 'Profile', true, Colors.cyan),
       body: ListView(
         children: [
           _buildListTile(
@@ -33,15 +35,17 @@ class _AppOptionsState extends State<AppOptions> {
                 child: Image.asset(
                   'assets/images/cat_profile_img.jpg',
                   semanticLabel: 'Image du profil',
-                  fit: BoxFit.cover,),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             S.of(context).appOptionProfile,
             Colors.cyan,
-                () {
+            () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PageProfile()),
+                MaterialPageRoute(
+                    builder: (context) => const MemberProfileScreen()),
               );
             },
           ),
@@ -55,21 +59,21 @@ class _AppOptionsState extends State<AppOptions> {
                 child: Image.asset(
                   'assets/images/cat_profile_img.jpg',
                   semanticLabel: 'Image du profil',
-                  fit: BoxFit.cover,),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             S.of(context).appOptionFamily,
             Colors.cyan,
-                () async {
-
-              if(orgExist){
-
-              }else{
-                bool? result = await _designService.dialogJoinorCreatFam(context);
-                if(result != null){
-                  if(result){
+            () async {
+              if (orgExist) {
+              } else {
+                bool? result =
+                    await _designService.dialogJoinorCreatFam(context);
+                if (result != null) {
+                  if (result) {
                     _designService.dialogJoinOrganizationDialog(context);
-                  }else{
+                  } else {
                     _designService.dialogCreateOrganizationDialog(context);
                   }
                 }
@@ -85,11 +89,11 @@ class _AppOptionsState extends State<AppOptions> {
             const Icon(Icons.notifications, color: Colors.green),
             S.of(context).appOptionNotifications,
             Colors.green,
-                () {
-
+            () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const NotificationsPage()),
+                MaterialPageRoute(
+                    builder: (context) => const NotificationsScreen()),
               );
             },
           ),
@@ -98,8 +102,7 @@ class _AppOptionsState extends State<AppOptions> {
             const Icon(Icons.settings, color: Colors.cyan),
             S.of(context).appOptionEditProfile,
             Colors.cyan,
-                () {
-
+            () {
               Navigator.pushNamed(context, '/edit_profile');
 
               /*Navigator.push(
@@ -108,13 +111,12 @@ class _AppOptionsState extends State<AppOptions> {
               );*/
             },
           ),
-
           _buildListTile(
             context,
             const Icon(Icons.exit_to_app, color: Colors.redAccent),
             S.of(context).appOptionDeconnexion,
             Colors.redAccent,
-                () {
+            () {
               _showLogoutDialog(context);
             },
           ),
@@ -123,10 +125,10 @@ class _AppOptionsState extends State<AppOptions> {
             const Icon(Icons.info, color: Colors.blueAccent),
             S.of(context).appOptionAboutUs,
             Colors.blueAccent,
-                () {
+            () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AboutUsPage()),
+                MaterialPageRoute(builder: (context) => const AboutUsScreen()),
               );
             },
           ),
@@ -137,14 +139,15 @@ class _AppOptionsState extends State<AppOptions> {
     );
   }
 
-  Widget _buildListTile(
-      BuildContext context, Widget? icon, String title, Color iconColor, Function() onTap) {
+  Widget _buildListTile(BuildContext context, Widget? icon, String title,
+      Color iconColor, Function() onTap) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Column(
         children: [
           ListTile(
-            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             leading: CircleAvatar(
               radius: 20,
               backgroundColor: iconColor.withOpacity(0.2),
@@ -176,26 +179,31 @@ class _AppOptionsState extends State<AppOptions> {
               onPressed: () {
                 Navigator.pop(context); // Close dialog
               },
-              child: const Text('Cancel', style: TextStyle(color: Colors.cyan),),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.cyan),
+              ),
             ),
             TextButton(
               onPressed: () async {
-               // final prefs = await SharedPreferences.getInstance();
-               // prefs.remove('username');
-               // prefs.remove('password');
+                // final prefs = await SharedPreferences.getInstance();
+                // prefs.remove('username');
+                // prefs.remove('password');
                 await FirebaseAuthService().signOut();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => Connection()), (Route<dynamic> route) => false,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  (Route<dynamic> route) => false,
                 );
               },
-              child: const Text('Logout', style: TextStyle(color: Colors.cyan),),
+              child: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.cyan),
+              ),
             ),
           ],
         );
       },
     );
   }
-
 }
-

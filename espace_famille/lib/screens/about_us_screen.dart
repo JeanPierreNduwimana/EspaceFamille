@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../app_services/widget_service.dart';
+import '../widgets/widget_service.dart';
 import '../generated/l10n.dart';
 
-class AboutUsPage extends StatefulWidget {
-  const AboutUsPage({super.key});
+class AboutUsScreen extends StatefulWidget {
+  const AboutUsScreen({super.key});
 
   @override
-  State<AboutUsPage> createState() => _AboutUsPageState();
+  State<AboutUsScreen> createState() => _AboutUsScreenState();
 }
+
 WidgetService _designService = WidgetService();
 
-class _AboutUsPageState extends State<AboutUsPage> {
+class _AboutUsScreenState extends State<AboutUsScreen> {
   final TextEditingController _messageController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +42,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                     hintText: S.of(context).labelHintMessage,
                     border: const OutlineInputBorder(),
                     focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.cyan,
-                            width: 1.0
-                        )
-                    ),
+                        borderSide: BorderSide(color: Colors.cyan, width: 1.0)),
                   ),
                 ),
               ],
@@ -56,14 +52,16 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(S.of(context).buttonCancel, style: const TextStyle(color: Colors.cyan)),
+                child: Text(S.of(context).buttonCancel,
+                    style: const TextStyle(color: Colors.cyan)),
               ),
               TextButton(
                 onPressed: () {
                   _messageController.clear();
                   Navigator.of(context).pop();
                 },
-                child: Text(S.of(context).buttonSend, style: const TextStyle(color: Colors.cyan)),
+                child: Text(S.of(context).buttonSend,
+                    style: const TextStyle(color: Colors.cyan)),
               ),
             ],
           );
@@ -72,7 +70,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
     }
 
     return Scaffold(
-      appBar: _designService.appBar(context, S.of(context).appBaraboutUsPageTitle, false, Colors.cyan),
+      appBar: _designService.appBar(
+          context, S.of(context).appBaraboutUsPageTitle, false, Colors.cyan),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -86,12 +85,16 @@ class _AboutUsPageState extends State<AboutUsPage> {
                   child: Image.asset(
                     'assets/images/cat_profile_img.jpg',
                     semanticLabel: 'Image du profil',
-                    fit: BoxFit.cover,),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
-              Text(S.of(context).AboutUsText,
-                style: const TextStyle(fontSize: 16,),
+              Text(
+                S.of(context).AboutUsText,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
@@ -100,7 +103,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.cyan,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                 ),
                 child: Text(
                   S.of(context).buttonSendCommentOrSuggestions,

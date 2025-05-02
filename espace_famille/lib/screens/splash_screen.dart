@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../authentification/firebase_auth_service.dart';
+import '../services/firebase_auth_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,13 +11,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     FirebaseAuthService().directAuth(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,16 +26,19 @@ class _SplashScreenState extends State<SplashScreen> {
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/splash.png')
-          )
-        ),
+            image:
+                DecorationImage(image: AssetImage('assets/images/splash.png'))),
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Espace Famille', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
+            Text(
+              'Espace Famille',
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 8),
-            Text('Bienvenue...', style: TextStyle(color: Colors.white70, fontStyle: FontStyle.italic)),
+            Text('Bienvenue...',
+                style: TextStyle(
+                    color: Colors.white70, fontStyle: FontStyle.italic)),
           ],
         ),
       ),

@@ -1,10 +1,9 @@
-import 'package:espace_famille/espace_famille/model_annonce.dart';
+import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/utils/form_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../generated/l10n.dart';
-import '../app_services/widget_service.dart';
+import '../widgets/widget_service.dart';
 
 WidgetService _designService = WidgetService();
 String testmessage =
@@ -12,15 +11,15 @@ String testmessage =
 
 bool isloading = false;
 
-class CommentairesAnnonce extends StatefulWidget {
+class PostCommentsScreen extends StatefulWidget {
   final Annonce annonce;
-  const CommentairesAnnonce({super.key, required this.annonce});
+  const PostCommentsScreen({super.key, required this.annonce});
 
   @override
-  State<CommentairesAnnonce> createState() => _CommentairesAnnonceState();
+  State<PostCommentsScreen> createState() => _PostCommentsScreenState();
 }
 
-class _CommentairesAnnonceState extends State<CommentairesAnnonce> {
+class _PostCommentsScreenState extends State<PostCommentsScreen> {
   @override
   void initState() {
     super.initState();

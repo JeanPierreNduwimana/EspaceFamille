@@ -1,18 +1,18 @@
-import 'package:espace_famille/app_services/app_service.dart';
+import 'package:espace_famille/utils/app_service.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
-import '../app_services/widget_service.dart';
+import '../widgets/widget_service.dart';
 
-class EditProfilePage extends StatefulWidget {
-
-  const EditProfilePage({super.key});
+class MemberProfileEditScreen extends StatefulWidget {
+  const MemberProfileEditScreen({super.key});
 
   @override
-  State<EditProfilePage> createState() => _EditProfilePageState();
+  State<MemberProfileEditScreen> createState() =>
+      _MemberProfileEditScreenState();
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
+class _MemberProfileEditScreenState extends State<MemberProfileEditScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final WidgetService _designService = WidgetService();
@@ -23,35 +23,36 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _usernameController.text = 'Jean Pierre';
     _descriptionController.text = 'ceci est la descruption de mon profil';
     return Scaffold(
-      appBar: _designService.appBar(context, S.of(context).appOptionEditProfile, true,Colors.cyan),
+      appBar: _designService.appBar(
+          context, S.of(context).appOptionEditProfile, true, Colors.cyan),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             children: [
-              Row( // rangé contenant l'image
+              Row(
+                // rangé contenant l'image
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                              onTap: (){
-                                Navigator.pop(context);
-                              },
-                              child: const Icon(Icons.arrow_back_ios_new)
-                          )
-                        ],
-                      )),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(Icons.arrow_back_ios_new))
+                    ],
+                  )),
                   GestureDetector(
-                    onTap: () async{
+                    onTap: () async {
                       //_showChangePhotoDialog();
 
                       var result = await AppService().getImage();
-                      if(result != null){
-                        setState((){
+                      if (result != null) {
+                        setState(() {
                           uploadedImage = Image.file(result, fit: BoxFit.cover);
                         });
                       }
@@ -63,16 +64,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           width: 120,
                           margin: const EdgeInsets.only(top: 20),
                           child: ClipOval(
-                            child: uploadedImage == null ? Image.asset(
-                              'assets/images/cat_profile_img.jpg',
-                              semanticLabel: 'Image du profil',
-                              fit: BoxFit.cover,) : uploadedImage!,
+                            child: uploadedImage == null
+                                ? Image.asset(
+                                    'assets/images/cat_profile_img.jpg',
+                                    semanticLabel: 'Image du profil',
+                                    fit: BoxFit.cover,
+                                  )
+                                : uploadedImage!,
                           ),
                         ),
                         Positioned(
                             bottom: 8,
                             right: 8,
-                            child: Icon(Icons.camera_alt, color: Colors.cyan.shade800,))
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.cyan.shade800,
+                            ))
                       ],
                     ),
                   ),
@@ -87,17 +94,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     controller: _usernameController,
                     cursorColor: Colors.cyan,
                     decoration: InputDecoration(
-                      labelText: S.of(context).labelUsername,
-                      labelStyle: const TextStyle(
-                        color: Colors.grey
-                      ),
-                      focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(
-                    color: Colors.cyan, // Change border color here
-                      width: 2.0, // Border width
-                    )
-                  )
-                    ),
+                        labelText: S.of(context).labelUsername,
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                          color: Colors.cyan, // Change border color here
+                          width: 2.0, // Border width
+                        ))),
                   ),
                   const SizedBox(height: 16),
                   // Description du profil
@@ -106,18 +109,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     cursorColor: Colors.cyan,
                     maxLines: 3,
                     decoration: InputDecoration(
-                      labelText: S.of(context).labelDescription,
-                        labelStyle: const TextStyle(
-                            color: Colors.grey
-                        ),
-                      focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.cyan, // Change border color here
-                            width: 2.0, // Border width
-                          )
-                      )
-
-                    ),
+                        labelText: S.of(context).labelDescription,
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                          color: Colors.cyan, // Change border color here
+                          width: 2.0, // Border width
+                        ))),
                   ),
                   const SizedBox(height: 32),
                   // Bouton Enregistrer
@@ -125,16 +123,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyan,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 32),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 32),
                     ),
                     onPressed: () {
                       _saveProfile();
                     },
-                    child: Text(S.of(context).buttonSave, style: const TextStyle(fontSize: 18)),
+                    child: Text(S.of(context).buttonSave,
+                        style: const TextStyle(fontSize: 18)),
                   ),
                 ],
               )
-
             ],
           ),
         ),
@@ -142,7 +141,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
     );
   }
-
 
   void _saveProfile() {
     final String username = _usernameController.text;

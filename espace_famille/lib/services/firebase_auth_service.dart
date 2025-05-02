@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:espace_famille/authentification/connexion.dart';
+import 'package:espace_famille/screens/login_screen.dart';
 import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/utils/form_controllers.dart';
 import 'package:espace_famille/utils/shared_helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../app_management/accueil.dart';
+import '../screens/home_page_screen.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -80,7 +80,7 @@ class FirebaseAuthService {
       //4: Navigation vers la page d'accueil
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => Accueil()),
+        MaterialPageRoute(builder: (context) => HomePageScreen()),
         (Route<dynamic> route) => false,
       );
     } on FirebaseAuthException catch (e) {
@@ -116,7 +116,8 @@ class FirebaseAuthService {
     bool isSignedIn = await FirebaseAuthService().isUserSignedIn();
 
     //2: Déterminer la destination en fonction de l'état de connexion
-    Widget destination = isSignedIn ? const Accueil() : const Connection();
+    Widget destination =
+        isSignedIn ? const HomePageScreen() : const LoginScreen();
 
     //3: Redirection vers la page de destination
     Future.delayed(const Duration(seconds: 2), () {

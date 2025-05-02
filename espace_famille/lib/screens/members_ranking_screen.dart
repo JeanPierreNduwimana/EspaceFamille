@@ -1,15 +1,15 @@
+import 'package:espace_famille/models/transfer_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../widgets/widget_service.dart';
 
-import '../app_services/widget_service.dart';
-import 'model_profile.dart';
-
-class ClassementProfiles extends StatefulWidget {
-  const ClassementProfiles({super.key});
+class MembersRankingScreen extends StatefulWidget {
+  const MembersRankingScreen({super.key});
 
   @override
-  State<ClassementProfiles> createState() => _ClassementProfilesState();
+  State<MembersRankingScreen> createState() => _MembersRankingScreenState();
 }
+
 WidgetService _designService = WidgetService();
 
 List<Profile> profiles = [
@@ -23,8 +23,7 @@ List<Profile> profiles = [
   Profile("Bruno", '28-04-2003', 4),
 ];
 
-class _ClassementProfilesState extends State<ClassementProfiles> {
-
+class _MembersRankingScreenState extends State<MembersRankingScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -37,7 +36,8 @@ class _ClassementProfilesState extends State<ClassementProfiles> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(context,'Meilleurs membres', false, Colors.yellow.shade800),
+      appBar: _designService.appBar(
+          context, 'Meilleurs membres', false, Colors.yellow.shade800),
       body: buildBody(),
       backgroundColor: Colors.white,
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),
@@ -45,16 +45,16 @@ class _ClassementProfilesState extends State<ClassementProfiles> {
   }
 }
 
-Widget buildBody(){
-  Future<void> _onRefresh() async {
-  }
+Widget buildBody() {
+  Future<void> _onRefresh() async {}
   return RefreshIndicator(
     onRefresh: _onRefresh,
     color: Colors.cyan,
     child: ListView.builder(
         itemCount: profiles.length,
         itemBuilder: (BuildContext context, int index) {
-          if(index == 0){ // À l'index 0, on affiche le podium
+          if (index == 0) {
+            // À l'index 0, on affiche le podium
             return Container(
               margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
               padding: const EdgeInsets.all(16),
@@ -190,21 +190,20 @@ Widget buildBody(){
                 ],
               ),
             );
-
           }
           return Container(
             margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                  color: Colors.grey.shade300, width: 1),
+              border: Border.all(color: Colors.grey.shade300, width: 1),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.1),
                   spreadRadius: 2,
                   blurRadius: 3,
-                  offset: const Offset(1, 1), // Décalage horizontal et vertical de l'ombre
+                  offset: const Offset(
+                      1, 1), // Décalage horizontal et vertical de l'ombre
                 ),
               ],
             ),
@@ -217,7 +216,14 @@ Widget buildBody(){
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: index == 1 ? Colors.yellow.shade700 : (index == 2) ? Colors.grey.shade400 : (index == 3) ? Colors.brown.shade400 : Colors.cyan.shade200, shape: BoxShape.circle,
+                    color: index == 1
+                        ? Colors.yellow.shade700
+                        : (index == 2)
+                            ? Colors.grey.shade400
+                            : (index == 3)
+                                ? Colors.brown.shade400
+                                : Colors.cyan.shade200,
+                    shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -265,14 +271,14 @@ Widget buildBody(){
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _designService.getRatingStars(profiles[index].nbEtoiles, false),
+                      _designService.getRatingStars(
+                          profiles[index].nbEtoiles, false),
                     ],
                   ),
                 ),
               ],
             ),
           );
-
         }),
   );
 }

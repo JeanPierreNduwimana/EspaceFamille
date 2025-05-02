@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../generated/l10n.dart';
-import '../utils/shared_helpers.dart';
-import 'grocery_list_widgets.dart';
+import 'groceries_widgets.dart';
 
-PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading) {
+PreferredSizeWidget groceriesAppBar(BuildContext context, bool isloading) {
   return AppBar(
     leading: null,
     automaticallyImplyLeading: false,
@@ -25,7 +24,7 @@ PreferredSizeWidget groceryListAppBar(BuildContext context, bool isloading) {
             GestureDetector(
               onTap: () {
                 if (!isloading) {
-                  GroceryListWidgets().dialogAjoutAliment(context);
+                  GroceriesWidgets().dialogAjoutAliment(context);
                 }
               },
               child: Container(

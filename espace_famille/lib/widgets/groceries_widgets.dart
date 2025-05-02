@@ -1,15 +1,15 @@
 import 'dart:io';
-import 'package:espace_famille/app_services/app_service.dart';
-import 'package:espace_famille/app_services/error_handling_service.dart';
-import 'package:espace_famille/grocery/firebase_food_service.dart';
+import 'package:espace_famille/utils/app_service.dart';
+import 'package:espace_famille/utils/error_handling_service.dart';
+import 'package:espace_famille/services/groceries_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
 import '../models/transfer_models.dart';
 import '../utils/form_controllers.dart';
 
-class GroceryListWidgets {
-  GroceryListWidgets();
+class GroceriesWidgets {
+  GroceriesWidgets();
 
   File? imageToUpload;
   Image? uploadedImage;
@@ -500,7 +500,7 @@ class GroceryListWidgets {
             FormController.nom_aliment_controller.text,
             int.parse(FormController.quantite_aliment_controller.text));
         if (uploadedImage != null) {
-          await FirebaseFoodService()
+          await GroceriesService()
               .addFoodToGrocery(food, imageToUpload!, member, context);
         }
       } finally {

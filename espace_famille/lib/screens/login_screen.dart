@@ -1,23 +1,23 @@
 import 'package:espace_famille/models/transfer_models.dart';
-import 'package:espace_famille/authentification/firebase_auth_service.dart';
+import 'package:espace_famille/services/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
-import '../app_services/error_handling_service.dart';
-import '../app_services/widget_service.dart';
+import '../utils/error_handling_service.dart';
+import '../widgets/widget_service.dart';
 import '../utils/form_controllers.dart';
 
-class Connection extends StatefulWidget {
-  const Connection({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<Connection> createState() => _ConnectionState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 WidgetService _designService = WidgetService();
 bool isLoading = false;
 
-class _ConnectionState extends State<Connection> {
+class _LoginScreenState extends State<LoginScreen> {
   final _connexionFormKey = GlobalKey<FormState>();
 
   @override

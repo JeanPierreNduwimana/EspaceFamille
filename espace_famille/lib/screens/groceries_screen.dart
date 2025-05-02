@@ -1,17 +1,17 @@
-import 'package:espace_famille/grocery/widget_grocery_app_bar.dart';
+import 'package:espace_famille/widgets/groceries_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
-import '../app_services/widget_service.dart';
+import '../widgets/widget_service.dart';
 import '../models/transfer_models.dart';
-import 'firebase_food_service.dart';
-import 'grocery_list_widgets.dart';
+import '../services/groceries_service.dart';
+import '../widgets/groceries_widgets.dart';
 
-class GroceryList extends StatefulWidget {
-  const GroceryList({super.key});
+class GroceriesScreen extends StatefulWidget {
+  const GroceriesScreen({super.key});
 
   @override
-  State<GroceryList> createState() => _GroceryListState();
+  State<GroceriesScreen> createState() => _GroceriesScreenState();
 }
 
 WidgetService _designService = WidgetService();
@@ -21,7 +21,7 @@ Member member =
     Member(DateTime.now(), 5, 'A1AU6adC6H9d3777lIO1', '', '', '', '');
 List<Food> groceryList = [];
 
-class _GroceryListState extends State<GroceryList> {
+class _GroceriesScreenState extends State<GroceriesScreen> {
   Food foodforindex0 = Food('blabla', DateTime.now(), 'genericimage',
       'biuwebiwv', '', false, 'Mais souffé', 8);
 
@@ -30,7 +30,7 @@ class _GroceryListState extends State<GroceryList> {
       isloading = true;
     });
     try {
-      var result = await FirebaseFoodService().getGroceryList(member, context);
+      var result = await GroceriesService().getGroceryList(member, context);
       groceryList = [];
       groceryList.add(foodforindex0);
       groceryList.insertAll(1, result);
@@ -54,7 +54,7 @@ class _GroceryListState extends State<GroceryList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: groceryListAppBar(context, isloading),
+      appBar: groceriesAppBar(context, isloading),
       body: isloading ? _designService.shimmerEpiceire(context) : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 1, setState),
     );
@@ -116,7 +116,7 @@ class _GroceryListState extends State<GroceryList> {
                   confirmDismiss: (direction) async {
                     if (direction == DismissDirection.startToEnd) {
                       // Item glissé vers la droite : Validation d'achat
-                      Food? food = await FirebaseFoodService().setPurchasedFood(
+                      Food? food = await GroceriesService().setPurchasedFood(
                           groceryList[index], member, context);
                       if (food != null) {
                         setState(() {
@@ -141,13 +141,13 @@ class _GroceryListState extends State<GroceryList> {
                     return null;
                   },
                   onDismissed: (direction) async {
-                    await FirebaseFoodService().deleteFoodFromGrocery(
+                    await GroceriesService().deleteFoodFromGrocery(
                         groceryList[index], member, context);
                     loadGroceries();
                   },
                   child: GestureDetector(
                     onTap: () {
-                      GroceryListWidgets().dialogDetailAliment(context);
+                      GroceriesWidgets().dialogDetailAliment(context);
                     },
                     child: Card(
                       margin: const EdgeInsets.symmetric(
