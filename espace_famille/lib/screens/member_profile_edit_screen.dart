@@ -26,7 +26,7 @@ class _MemberProfileEditScreenState extends State<MemberProfileEditScreen> {
     return Scaffold(
       appBar: SharedAppBar(
           title: S.of(context).appOptionEditProfile,
-          onProfilePage: true,
+          showProfileAction: false,
           titleColor: Colors.cyan),
       body: SingleChildScrollView(
         child: Padding(

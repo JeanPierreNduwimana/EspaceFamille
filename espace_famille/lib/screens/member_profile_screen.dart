@@ -67,7 +67,7 @@ class _MemberProfileScreenState extends State<MemberProfileScreen> {
     return Scaffold(
         appBar: SharedAppBar(
             title: S.of(context).appBarProfileTitle,
-            onProfilePage: true,
+            showProfileAction: false,
             titleColor: Colors.cyan),
         resizeToAvoidBottomInset:
             true, // Permet d'éviter que le clavier cache le contenu

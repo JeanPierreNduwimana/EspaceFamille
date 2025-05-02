@@ -28,7 +28,7 @@ class _LogOutScreenState extends State<LogOutScreen> {
     return Scaffold(
       appBar: SharedAppBar(
           title: S.of(context).labelRegisterPageTitle,
-          onProfilePage: true,
+          showProfileAction: false,
           titleColor: Colors.cyan),
       body: buildBody(),
     );

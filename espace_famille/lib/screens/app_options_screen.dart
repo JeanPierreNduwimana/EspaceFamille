@@ -25,7 +25,7 @@ class _AppOptionsScreenState extends State<AppOptionsScreen> {
 
     return Scaffold(
       appBar: SharedAppBar(
-          title: 'Profile', onProfilePage: true, titleColor: Colors.cyan),
+          title: 'Profile', showProfileAction: false, titleColor: Colors.cyan),
       body: ListView(
         children: [
           _buildListTile(

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final bool onProfilePage;
+  final bool showProfileAction;
   final Color titleColor;
   const SharedAppBar(
       {super.key,
       required this.title,
-      this.onProfilePage = false,
+      this.showProfileAction = true,
       required this.titleColor});
 
   @override
@@ -31,9 +31,8 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               children: [
                 const Expanded(child: SizedBox()),
-                onProfilePage
-                    ? const SizedBox()
-                    : GestureDetector(
+                showProfileAction
+                    ? GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, '/app_options');
                         },
@@ -49,6 +48,7 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
                       )
+                    : const SizedBox.shrink()
               ],
             ),
           )

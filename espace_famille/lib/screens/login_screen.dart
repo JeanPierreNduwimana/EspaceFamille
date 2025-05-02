@@ -22,7 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SharedAppBar(
-          title: S.of(context).buttonConnexion, titleColor: Colors.cyan),
+          title: S.of(context).buttonConnexion,
+          showProfileAction: false,
+          titleColor: Colors.cyan),
       body: buildBody(),
     );
   }
