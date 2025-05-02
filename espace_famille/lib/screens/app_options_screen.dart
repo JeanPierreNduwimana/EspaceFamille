@@ -4,7 +4,7 @@ import 'package:espace_famille/services/firebase_auth_service.dart';
 import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widget_service.dart';
-import '../screens/login_screen.dart';
+import '../screens/signin_screen.dart';
 import '../generated/l10n.dart';
 import 'notification_screen.dart';
 
@@ -194,7 +194,7 @@ class _AppOptionsScreenState extends State<AppOptionsScreen> {
                 await FirebaseAuthService().signOut();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  MaterialPageRoute(builder: (context) => SignInScreen()),
                   (Route<dynamic> route) => false,
                 );
               },

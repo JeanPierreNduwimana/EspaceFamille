@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:espace_famille/screens/login_screen.dart';
+import 'package:espace_famille/screens/signin_screen.dart';
 import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/utils/form_controllers.dart';
 import 'package:espace_famille/utils/shared_helpers.dart';
@@ -117,7 +117,7 @@ class FirebaseAuthService {
 
     //2: Déterminer la destination en fonction de l'état de connexion
     Widget destination =
-        isSignedIn ? const HomePageScreen() : const LoginScreen();
+        isSignedIn ? const HomePageScreen() : const SignInScreen();
 
     //3: Redirection vers la page de destination
     Future.delayed(const Duration(seconds: 2), () {

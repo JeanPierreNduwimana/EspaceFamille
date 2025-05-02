@@ -1,4 +1,4 @@
-import 'package:espace_famille/screens/login_screen.dart';
+import 'package:espace_famille/screens/signin_screen.dart';
 import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/utils/app_service.dart';
 import 'package:espace_famille/utils/error_handling_service.dart';
@@ -10,18 +10,18 @@ import 'package:flutter/material.dart';
 import '../generated/l10n.dart';
 import '../widgets/widget_service.dart';
 
-class LogOutScreen extends StatefulWidget {
-  const LogOutScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LogOutScreen> createState() => _LogOutScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 WidgetService _designService = WidgetService();
 AppService _appService = AppService();
 bool isLoading = false;
 
-class _LogOutScreenState extends State<LogOutScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -191,7 +191,7 @@ class _LogOutScreenState extends State<LogOutScreen> {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
+                          builder: (context) => const SignInScreen()),
                       (Route<dynamic> route) => false,
                     );
                   },

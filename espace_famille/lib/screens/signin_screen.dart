@@ -6,16 +6,16 @@ import '../generated/l10n.dart';
 import '../utils/error_handling_service.dart';
 import '../utils/form_controllers.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
 bool isLoading = false;
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   final _connexionFormKey = GlobalKey<FormState>();
 
   @override

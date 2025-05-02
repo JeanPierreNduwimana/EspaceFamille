@@ -1,12 +1,12 @@
 import 'package:espace_famille/screens/app_options_screen.dart';
 import 'package:espace_famille/screens/events_screen.dart';
 import 'package:espace_famille/screens/home_page_screen.dart';
-import 'package:espace_famille/screens/login_screen.dart';
+import 'package:espace_famille/screens/signin_screen.dart';
 import 'package:espace_famille/screens/event_details_screen.dart';
 import 'package:espace_famille/screens/member_tasks_ratings_screen.dart';
 import 'package:espace_famille/screens/members_ranking_screen.dart';
 import 'package:espace_famille/screens/events_schedule_screen.dart';
-import 'package:espace_famille/screens/logout_screen.dart';
+import 'package:espace_famille/screens/signup_screen.dart';
 import 'package:espace_famille/screens/member_profile_edit_screen.dart';
 import 'package:espace_famille/screens/member_profile_screen.dart';
 import 'package:espace_famille/screens/notification_screen.dart';
@@ -58,8 +58,8 @@ class MyApp extends StatelessWidget {
         '/classement': (context) => const MembersRankingScreen(),
         '/horaire': (context) => const EventsScheduleScreen(),
         '/liste_epicerie': (context) => const GroceriesScreen(),
-        '/connexion': (context) => const LoginScreen(),
-        '/inscription': (context) => const LogOutScreen(),
+        '/connexion': (context) => const SignInScreen(),
+        '/inscription': (context) => const SignUpScreen(),
         '/acceuil': (context) => const HomePageScreen(),
         '/app_options': (context) => const AppOptionsScreen(),
         '/edit_profile': (context) => const MemberProfileEditScreen(),
