@@ -1,3 +1,4 @@
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
@@ -137,11 +138,9 @@ class _MemberTasksRatingsScreenState extends State<MemberTasksRatingsScreen> {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: _designService.appBar(
-          context,
-          S.of(context).evaluationProfilePageTitle('JeanPierre'),
-          false,
-          Colors.cyan),
+      appBar: SharedAppBar(
+          title: S.of(context).evaluationProfilePageTitle('JeanPierre'),
+          titleColor: Colors.cyan),
       body: isloading
           ? _designService.shimmerListeEvaluation(context)
           : buildBody(),
@@ -154,7 +153,7 @@ class _MemberTasksRatingsScreenState extends State<MemberTasksRatingsScreen> {
                 : Colors.cyan,
         foregroundColor: Colors.white,
         onPressed: () {
-          // TODO: Ajouter un dialog qui permet de faire un commentaire instanté à un profil
+          // TODO: Ajouter un dialog qui permet de faire un commentaire instantané à un profil
           if (!isloading) {
             _showFeedbackDialog();
           }

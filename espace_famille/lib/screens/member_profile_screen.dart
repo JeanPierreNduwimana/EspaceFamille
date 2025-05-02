@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:espace_famille/utils/app_service.dart';
 import 'package:espace_famille/models/transfer_models.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
@@ -64,8 +65,10 @@ class _MemberProfileScreenState extends State<MemberProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: _designService.appBar(
-            context, S.of(context).appBarProfileTitle, true, Colors.cyan),
+        appBar: SharedAppBar(
+            title: S.of(context).appBarProfileTitle,
+            onProfilePage: true,
+            titleColor: Colors.cyan),
         resizeToAvoidBottomInset:
             true, // Permet d'éviter que le clavier cache le contenu
         bottomNavigationBar: _designService.navigationBar(context, 0, setState),

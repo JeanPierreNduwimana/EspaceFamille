@@ -1,3 +1,4 @@
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widget_service.dart';
 
@@ -58,8 +59,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          _designService.appBar(context, 'Notifications', false, Colors.cyan),
+      appBar: SharedAppBar(title: 'Notification', titleColor: Colors.cyan),
       bottomNavigationBar: _designService.navigationBar(context, 0, setState),
       body: notifications.isEmpty
           ? const Center(

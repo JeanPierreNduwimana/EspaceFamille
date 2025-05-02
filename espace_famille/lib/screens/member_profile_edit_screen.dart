@@ -1,4 +1,5 @@
 import 'package:espace_famille/utils/app_service.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
@@ -23,8 +24,10 @@ class _MemberProfileEditScreenState extends State<MemberProfileEditScreen> {
     _usernameController.text = 'Jean Pierre';
     _descriptionController.text = 'ceci est la descruption de mon profil';
     return Scaffold(
-      appBar: _designService.appBar(
-          context, S.of(context).appOptionEditProfile, true, Colors.cyan),
+      appBar: SharedAppBar(
+          title: S.of(context).appOptionEditProfile,
+          onProfilePage: true,
+          titleColor: Colors.cyan),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

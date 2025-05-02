@@ -1,5 +1,6 @@
 import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/screens/post_comments_screen.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../widgets/widget_service.dart';
@@ -102,8 +103,10 @@ class _PostsScreenState extends State<PostsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(
-          context, S.of(context).appBarHomePageTitle, false, Colors.cyan),
+      // appBar: _designService.appBar(
+      //     context, S.of(context).appBarHomePageTitle, false, Colors.cyan),
+      appBar: SharedAppBar(
+          title: S.of(context).appBarHomePageTitle, titleColor: Colors.cyan),
       body: isloading
           ? _designService.shimmerEspaceFamille(context)
           : buildBody(),

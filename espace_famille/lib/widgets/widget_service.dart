@@ -17,55 +17,6 @@ class WidgetService {
   int currentPage = -1;
   bool orgExist = true;
 
-  // region AppBar utilisé dans plusieurs page de l'application
-  AppBar appBar(BuildContext context, String title, bool onProfilePage,
-      Color titleColor) {
-    return AppBar(
-      leading: null,
-      automaticallyImplyLeading: false,
-      elevation: 0,
-      title: Row(
-        children: [
-          const Expanded(child: SizedBox()),
-          Text(
-            title,
-            style: TextStyle(
-              color: titleColor,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                const Expanded(child: SizedBox()),
-                onProfilePage
-                    ? const SizedBox()
-                    : GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/app_options');
-                        },
-                        child: SizedBox(
-                          height: 32,
-                          width: 32,
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/cat_profile_img.jpg',
-                              semanticLabel: 'Image du profil',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-  // endregion
-
   //region Widget utilisé pour la navigation en bas de l'écran
   BottomNavigationBar navigationBar(
       BuildContext context, int _selectedIndex, StateSetter setState) {

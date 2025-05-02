@@ -4,6 +4,7 @@ import 'package:espace_famille/utils/app_service.dart';
 import 'package:espace_famille/utils/error_handling_service.dart';
 import 'package:espace_famille/services/firebase_auth_service.dart';
 import 'package:espace_famille/utils/form_controllers.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
@@ -25,8 +26,10 @@ class _LogOutScreenState extends State<LogOutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(
-          context, S.of(context).labelRegisterPageTitle, true, Colors.cyan),
+      appBar: SharedAppBar(
+          title: S.of(context).labelRegisterPageTitle,
+          onProfilePage: true,
+          titleColor: Colors.cyan),
       body: buildBody(),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:espace_famille/screens/about_us_screen.dart';
 import 'package:espace_famille/screens/member_profile_screen.dart';
 import 'package:espace_famille/services/firebase_auth_service.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widget_service.dart';
 import '../screens/login_screen.dart';
@@ -23,7 +24,8 @@ class _AppOptionsScreenState extends State<AppOptionsScreen> {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: _designService.appBar(context, 'Profile', true, Colors.cyan),
+      appBar: SharedAppBar(
+          title: 'Profile', onProfilePage: true, titleColor: Colors.cyan),
       body: ListView(
         children: [
           _buildListTile(

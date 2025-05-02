@@ -1,3 +1,4 @@
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/widget_service.dart';
@@ -70,8 +71,8 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     }
 
     return Scaffold(
-      appBar: _designService.appBar(
-          context, S.of(context).appBaraboutUsPageTitle, false, Colors.cyan),
+      appBar: SharedAppBar(
+          title: S.of(context).appBaraboutUsPageTitle, titleColor: Colors.cyan),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

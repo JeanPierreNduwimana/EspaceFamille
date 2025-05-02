@@ -1,10 +1,9 @@
 import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/services/firebase_auth_service.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
-
 import '../generated/l10n.dart';
 import '../utils/error_handling_service.dart';
-import '../widgets/widget_service.dart';
 import '../utils/form_controllers.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,7 +13,6 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-WidgetService _designService = WidgetService();
 bool isLoading = false;
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -23,8 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(
-          context, S.of(context).buttonConnexion, true, Colors.cyan),
+      appBar: SharedAppBar(
+          title: S.of(context).buttonConnexion, titleColor: Colors.cyan),
       body: buildBody(),
     );
   }

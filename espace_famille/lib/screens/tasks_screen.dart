@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:espace_famille/models/transfer_models.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
@@ -63,8 +64,8 @@ class _ListeTachesState extends State<ListeTaches> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(
-          context, S.of(context).appBarTaskPageTitle, false, Colors.green),
+      appBar: SharedAppBar(
+          title: S.of(context).appBarTaskPageTitle, titleColor: Colors.green),
       body: isloading ? _designService.shimmerTaches(context) : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),
       floatingActionButton: FloatingActionButton(

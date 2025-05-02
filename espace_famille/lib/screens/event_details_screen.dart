@@ -1,3 +1,4 @@
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
@@ -164,8 +165,10 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     }
 
     return Scaffold(
-      appBar: _widgetService.appBar(
-          context, S.of(context).homePageTitleEvents, false, Colors.purple),
+      // appBar: _widgetService.appBar(
+      //     context, S.of(context).homePageTitleEvents, false, Colors.purple),
+      appBar: SharedAppBar(
+          title: S.of(context).homePageTitleEvents, titleColor: Colors.purple),
       body: buildBody(),
       bottomNavigationBar: _widgetService.navigationBar(context, 4, setState),
     );

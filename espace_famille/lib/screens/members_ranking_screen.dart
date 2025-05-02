@@ -1,4 +1,5 @@
 import 'package:espace_famille/models/transfer_models.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../widgets/widget_service.dart';
@@ -36,8 +37,8 @@ class _MembersRankingScreenState extends State<MembersRankingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(
-          context, 'Meilleurs membres', false, Colors.yellow.shade800),
+      appBar: SharedAppBar(
+          title: 'Meilleurs membres', titleColor: Colors.yellow.shade800),
       body: buildBody(),
       backgroundColor: Colors.white,
       bottomNavigationBar: _designService.navigationBar(context, 3, setState),

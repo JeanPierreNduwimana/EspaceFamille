@@ -1,5 +1,6 @@
 import 'package:espace_famille/models/transfer_models.dart';
 import 'package:espace_famille/utils/form_controllers.dart';
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
@@ -50,8 +51,7 @@ class _PostCommentsScreenState extends State<PostCommentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          _designService.appBar(context, 'Commentaires', false, Colors.cyan),
+      appBar: SharedAppBar(title: 'Commentaires', titleColor: Colors.cyan),
       body: isloading
           ? _designService.shimmerCommentairesAnnonce(context)
           : buildBody(),

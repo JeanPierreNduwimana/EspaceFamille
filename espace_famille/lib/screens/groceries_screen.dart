@@ -1,4 +1,4 @@
-import 'package:espace_famille/widgets/groceries_app_bar.dart';
+import 'package:espace_famille/widgets/groceries_custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
@@ -54,7 +54,7 @@ class _GroceriesScreenState extends State<GroceriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: groceriesAppBar(context, isloading),
+      appBar: GroceriesCustomAppBar(isloading: isloading),
       body: isloading ? _designService.shimmerEpiceire(context) : buildBody(),
       bottomNavigationBar: _designService.navigationBar(context, 1, setState),
     );

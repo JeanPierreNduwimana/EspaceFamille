@@ -1,3 +1,4 @@
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../widgets/widget_service.dart';
@@ -58,8 +59,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _designService.appBar(
-          context, S.of(context).appBarHomePageTitle, false, Colors.cyan),
+      appBar: SharedAppBar(
+          title: S.of(context).appBarHomePageTitle, titleColor: Colors.cyan),
       body: RefreshIndicator(
         onRefresh: pageRefresh,
         color: Colors.cyan,

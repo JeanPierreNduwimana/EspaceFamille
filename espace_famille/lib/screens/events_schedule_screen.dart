@@ -1,3 +1,4 @@
+import 'package:espace_famille/widgets/shared_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,7 +38,7 @@ class _EventsScheduleScreenState extends State<EventsScheduleScreen> {
     return Scaffold(
       appBar: zoom
           ? null
-          : _designService.appBar(context, 'Horaire', false, Colors.purple),
+          : SharedAppBar(title: 'Horaire', titleColor: Colors.purple),
       body: buildBody(),
       bottomNavigationBar:
           zoom ? null : _designService.navigationBar(context, 4, setState),
